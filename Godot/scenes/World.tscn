@@ -1,0 +1,15 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/Dungeon.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/Bag.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/World.gd" type="Script" id=3]
+
+[node name="World" type="Node2D"]
+pause_mode = 2
+script = ExtResource( 3 )
+
+[node name="Dungeon" parent="." instance=ExtResource( 1 )]
+pause_mode = 1
+
+[node name="Bag" parent="." instance=ExtResource( 2 )]
+visible = false

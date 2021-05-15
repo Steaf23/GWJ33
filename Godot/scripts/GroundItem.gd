@@ -1,7 +1,5 @@
 extends Area2D
 
-signal item_clicked(item)
-
 var id = "generic_item"
 var show_hover = false
 

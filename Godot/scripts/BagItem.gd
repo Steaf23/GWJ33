@@ -27,4 +27,3 @@ func _on_input_event(viewport, event, shape_idx):
 func drop():
 	if self.get_overlapping_areas().size() != 0:
 		position = old_pos
-	print("dropped!")

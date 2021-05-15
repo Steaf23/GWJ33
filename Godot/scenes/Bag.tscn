@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=2]
 
-[ext_resource path="res://Tile.png" type="Texture" id=1]
-[ext_resource path="res://BagItem.tscn" type="PackedScene" id=2]
-[ext_resource path="res://Bag.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/Tile.png" type="Texture" id=1]
+[ext_resource path="res://scenes/BagItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scripts/Bag.gd" type="Script" id=3]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tile.png 0"
@@ -28,9 +28,11 @@ tile_data = PoolIntArray( 0, 0, 0, 1, 0, 0, 2, 0, 0, 3, 0, 0, 4, 0, 0, 5, 0, 0, 
 script = ExtResource( 3 )
 
 [node name="Border" type="Area2D" parent="."]
+collision_layer = 2
+collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
 polygon = PoolVector2Array( 320, 64, 320, 320, 480, 320, 480, 0, 0, 0, 0, 320, 320, 320, 320, 224, 160, 224, 160, 64 )
 
-[node name="ItemBlock" parent="." instance=ExtResource( 2 )]
+[node name="BagItem" parent="." instance=ExtResource( 2 )]
 position = Vector2( 224, 128 )

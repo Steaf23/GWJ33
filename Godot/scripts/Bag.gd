@@ -7,7 +7,7 @@ var held_item
 
 func _process(delta):
 	if held_item == null:
-		pass	
+		pass
 		
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -28,5 +28,4 @@ func _input(event):
 					held_item.rotation_degrees += 90
 		
 func _on_ItemBlock_clicked_on(item):
-	print("picked up %s" % [item.name])
 	held_item = item
