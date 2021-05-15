@@ -1,0 +1,19 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://ItemBlock.gd" type="Script" id=2]
+
+[node name="ItemBlock" type="Area2D"]
+script = ExtResource( 2 )
+
+[node name="CollisionShape2D2" type="CollisionPolygon2D" parent="."]
+polygon = PoolVector2Array( 1, 1, 15, 1, 15, 15, 1, 15 )
+
+[node name="CollisionShape2D3" type="CollisionPolygon2D" parent="."]
+position = Vector2( 16, 0 )
+polygon = PoolVector2Array( 1, 1, 15, 1, 15, 15, 1, 15 )
+
+[node name="CollisionShape2D" type="CollisionPolygon2D" parent="."]
+position = Vector2( 0, 16 )
+polygon = PoolVector2Array( 1, 1, 15, 1, 15, 15, 1, 15 )
+
+[connection signal="input_event" from="." to="." method="_on_input_event"]
