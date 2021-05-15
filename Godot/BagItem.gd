@@ -17,14 +17,12 @@ func _on_dropped():
 
 func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
-		if event.is_pressed():
-			mouse_offset = get_local_mouse_position()
-			picked_up = true
-			old_pos = position
-			emit_signal("clicked_on", self)
-		else:
-			print("dropped")
-			picked_up = false
+		if event.button_index == 1:
+			if event.is_pressed():
+				mouse_offset = get_local_mouse_position()
+				picked_up = true
+				old_pos = position
+				emit_signal("clicked_on", self)
 
 func drop():
 	if self.get_overlapping_areas().size() != 0:
