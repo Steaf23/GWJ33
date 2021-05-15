@@ -1,0 +1,3 @@
+No correct rotation origin on bagItems
+
+Add blinking shader

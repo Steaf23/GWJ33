@@ -1,52 +1,50 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/GroundItem.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/Bag_Potion.png" type="Texture" id=2]
+[ext_resource path="res://scenes/BagItem.tscn" type="PackedScene" id=3]
+[ext_resource path="res://resources/PixelOutline.shader" type="Shader" id=4]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 16, 16 )
 
-[sub_resource type="Shader" id=2]
-code = "shader_type canvas_item;
-
-uniform bool enabled;
-uniform vec4 outline_color: hint_color;
-
-void fragment()
-{
-	vec4 sprite_color = texture(TEXTURE, UV);
-	if (enabled)
-	{
-		float size = 1.0 * TEXTURE_PIXEL_SIZE.x;
-	
-		float alpha = -4.0 * sprite_color.a;
-		alpha += texture(TEXTURE, UV + vec2(size, 0.0)).a;
-		alpha += texture(TEXTURE, UV + vec2(-size, 0.0)).a;
-		alpha += texture(TEXTURE, UV + vec2(0.0, size)).a;
-		alpha += texture(TEXTURE, UV + vec2(0.0, -size)).a;
-		
-		vec4 final_color = mix(sprite_color, outline_color, clamp(alpha, 0.0, 1.0));
-		COLOR = vec4(final_color.rgb, clamp(abs(alpha) + sprite_color.a, 0.0, 1.0));
-	}
-	else{
-		COLOR = sprite_color
-	}
-}"
-
-[sub_resource type="ShaderMaterial" id=3]
-shader = SubResource( 2 )
-shader_param/enabled = false
+[sub_resource type="ShaderMaterial" id=2]
+resource_local_to_scene = true
+shader = ExtResource( 4 )
+shader_param/outline_enabled = null
+shader_param/blink = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
+
+[sub_resource type="Animation" id=3]
+resource_name = "Blink"
+length = 0.2
+step = 0.05
+tracks/0/type = "value"
+tracks/0/path = NodePath("Sprite:material:shader_param/blink")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 0.1 ),
+"transitions": PoolRealArray( 1, 1 ),
+"update": 1,
+"values": [ true, false ]
+}
 
 [node name="GroundItem" type="Area2D"]
 script = ExtResource( 1 )
+bag_item = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Sprite" type="Sprite" parent="."]
-material = SubResource( 3 )
+material = SubResource( 2 )
 texture = ExtResource( 2 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+anims/Blink = SubResource( 3 )
 
 [connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
 [connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

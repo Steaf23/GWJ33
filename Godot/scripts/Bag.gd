@@ -2,7 +2,6 @@ extends TileMap
 
 const GRID_SIZE = 32
 
-var bag_items
 var held_item
 
 func _process(delta):

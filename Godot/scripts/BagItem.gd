@@ -1,5 +1,7 @@
 extends Area2D
 
+export(PackedScene) var ground_item
+
 var picked_up
 var mouse_offset = Vector2.ZERO
 var old_pos
@@ -27,3 +29,6 @@ func _on_input_event(viewport, event, shape_idx):
 func drop():
 	if self.get_overlapping_areas().size() != 0:
 		position = old_pos
+
+func get_ground_item():
+	return ground_item.instance()

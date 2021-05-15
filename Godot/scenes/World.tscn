@@ -13,3 +13,10 @@ pause_mode = 1
 
 [node name="Bag" parent="." instance=ExtResource( 2 )]
 visible = false
+
+[node name="LootTimer" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]
+[connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]
