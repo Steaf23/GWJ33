@@ -8,6 +8,9 @@ var old_pos
 
 signal clicked_on(item)
 
+onready var sprite = $Sprite
+onready var collision = $Collision
+
 func _ready():
 	connect("clicked_on", get_parent(), "_on_ItemBlock_clicked_on")
 
@@ -25,6 +28,10 @@ func _on_input_event(viewport, event, shape_idx):
 				picked_up = true
 				old_pos = position
 				emit_signal("clicked_on", self)
+
+func rotateCW():
+	sprite.rotation_degrees += 90
+	collision.rotation_degrees += 90
 
 func drop():
 	if self.get_overlapping_areas().size() != 0:

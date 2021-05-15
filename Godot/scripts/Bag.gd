@@ -24,7 +24,7 @@ func _input(event):
 		elif event.button_index == 2:
 			if !event.is_pressed():
 				if held_item != null:
-					held_item.rotation_degrees += 90
+					held_item.rotateCW()
 		
 func _on_ItemBlock_clicked_on(item):
 	held_item = item
