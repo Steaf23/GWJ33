@@ -31,4 +31,9 @@ script = ExtResource( 3 )
 position = Vector2( 112, 64 )
 
 [node name="ItemBlock2" parent="." instance=ExtResource( 2 )]
-position = Vector2( 64, 96 )
+position = Vector2( 32, 64 )
+
+[node name="Border" type="Area2D" parent="."]
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
+polygon = PoolVector2Array( 160, 48, 160, 160, 240, 160, 240, 0, 0, 0, 0, 160, 160, 160, 160, 128, 80, 128, 80, 48 )
