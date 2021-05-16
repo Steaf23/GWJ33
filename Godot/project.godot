@@ -16,7 +16,8 @@ config/icon="res://assets/sprites/icon.png"
 
 [autoload]
 
-ItemConverter="*res://scenes/ItemConverter.tscn"
+ItemLookup="*res://scripts/ItemLookup.gd"
+ItemConverter="*res://scripts/ItemConverter.gd"
 
 [debug]
 
