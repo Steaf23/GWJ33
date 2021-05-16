@@ -1,17 +1,17 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scripts/GroundItem.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/Bag_Potion.png" type="Texture" id=2]
-[ext_resource path="res://scenes/BagItem.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/GroundPotion.png" type="Texture" id=2]
+[ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/PixelOutline.shader" type="Shader" id=4]
 
-[sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 16, 16 )
+[sub_resource type="CircleShape2D" id=4]
+radius = 14.0
 
 [sub_resource type="ShaderMaterial" id=2]
 resource_local_to_scene = true
 shader = ExtResource( 4 )
-shader_param/outline_enabled = null
+shader_param/outline_enabled = false
 shader_param/blink = false
 shader_param/outline_color = Color( 1, 1, 1, 1 )
 
@@ -37,7 +37,7 @@ script = ExtResource( 1 )
 bag_item = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 4 )
 
 [node name="Sprite" type="Sprite" parent="."]
 material = SubResource( 2 )
@@ -45,6 +45,3 @@ texture = ExtResource( 2 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Blink = SubResource( 3 )
-
-[connection signal="mouse_entered" from="." to="." method="_on_mouse_entered"]
-[connection signal="mouse_exited" from="." to="." method="_on_mouse_exited"]

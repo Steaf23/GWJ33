@@ -4,6 +4,10 @@ const GRID_SIZE = 32
 
 var held_item
 
+onready var spawn_top = $Top.position
+onready var spawn_left = $Left.position
+onready var spawn_right = $Right.position
+
 func _process(delta):
 	if held_item == null:
 		pass

@@ -1,6 +1,7 @@
 extends Area2D
 
 export(PackedScene) var bag_item
+export var id = ""
 
 var show_hover = false
 
@@ -12,12 +13,6 @@ func _process(delta):
 	if get_player() != null:
 		show_hover = true
 	set_hover_shader(show_hover)
-
-func _on_mouse_entered():
-	show_hover = true
-
-func _on_mouse_exited():
-	show_hover = false
 	
 func set_hover_shader(enabled):
 	sprite.get_material().set_shader_param("outline_enabled", enabled)
