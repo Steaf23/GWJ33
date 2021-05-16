@@ -9,7 +9,7 @@ resource_local_to_scene = true
 shader = ExtResource( 3 )
 shader_param/enabled = false
 
-[node name="BagItem" instance=ExtResource( 2 )]
+[node name="SwordBagItem" instance=ExtResource( 2 )]
 id = "Sword"
 
 [node name="Collision" parent="." index="0"]

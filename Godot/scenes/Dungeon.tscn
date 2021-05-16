@@ -10,7 +10,7 @@
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 202, 153 )
+position = Vector2( 235, 155 )
 
 [node name="RoomManager" type="Node2D" parent="."]
 script = ExtResource( 5 )
@@ -18,13 +18,13 @@ script = ExtResource( 5 )
 [node name="Room" parent="RoomManager" instance=ExtResource( 4 )]
 
 [node name="GroundItem" parent="RoomManager/Room" instance=ExtResource( 2 )]
-position = Vector2( 197, 88 )
+position = Vector2( 127, 107 )
 
 [node name="GroundItem2" parent="RoomManager/Room" instance=ExtResource( 2 )]
-position = Vector2( 241, 182 )
+position = Vector2( 194, 181 )
 
 [node name="GroundItem3" parent="RoomManager/Room" instance=ExtResource( 2 )]
-position = Vector2( 255, 117 )
+position = Vector2( 226, 97 )
 id = "Sword"
 
 [editable path="RoomManager/Room"]

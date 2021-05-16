@@ -22,11 +22,20 @@ func on_player_request_pickup():
 func drop_item_from_player(ground_item):
 	if time_up:
 		ground_item.queue_free()
-	else:	
+	else: 	
 		var radius = 20
 		var angle = deg2rad(randi() % 360)
-		var pos = Vector2(radius*sin(angle), radius*cos(angle))
-		ground_item.position = player.position + pos
+		var pos = Vector2(radius*sin(angle), radius*cos(angle)) + player.position
+		# get valid item position
+		var i = 0
+		while !roomManager.is_valid_item_position(pos):
+			angle = deg2rad(randi() % 360)
+			pos = Vector2(radius*sin(angle), radius*cos(angle)) + player.position
+			i +=  1
+			if i >= 360:
+				radius += 10
+				
+		ground_item.position = pos
 		roomManager.spawn_item(ground_item)
 
 func _on_loot_timeout():
@@ -38,3 +47,7 @@ func blink_items():
 	for item in roomManager.get_all_items():
 		item.blink()
 
+# called when the player moves into a new room
+func start_next_room():
+	roomManager.add_room()
+	roomManager.fill_room(1)

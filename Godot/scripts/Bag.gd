@@ -35,10 +35,10 @@ func _on_ItemBlock_clicked_on(item):
 
 
 func spawn(bag_item):
-	bag_item.position += get_random_spawn()
+	bag_item.position += get_random_spawnpoint()
 	add_child(bag_item)
 
-func get_random_spawn():
+func get_random_spawnpoint():
 	return spawns[randi() % 3]
 	
 func on_bag_close():

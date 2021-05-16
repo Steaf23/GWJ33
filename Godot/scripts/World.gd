@@ -6,8 +6,10 @@ onready var dungeon = $Dungeon
 onready var bag = $Bag
 onready var lootTimer = $LootTimer
 
-func _ready():
+func _enter_tree():
 	randomize()
+	
+func _ready():
 	lootTimer.start()
 
 func _unhandled_input(event):
