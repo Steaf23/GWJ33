@@ -1,14 +1,23 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://assets/sprites/Bag_Claymore.png" type="Texture" id=1]
 [ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=2]
+[ext_resource path="res://resources/RedOverlay.shader" type="Shader" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 3 )
+shader_param/enabled = false
 
 [node name="BagItem" instance=ExtResource( 2 )]
 id = "Sword"
 
 [node name="Collision" parent="." index="0"]
+position = Vector2( 16, -16 )
 polygon = PoolVector2Array( -15, -47, 15, -47, 15, 79, -15, 79 )
 
 [node name="Sprite" parent="." index="1"]
+material = SubResource( 1 )
+position = Vector2( 16, -16 )
 texture = ExtResource( 1 )
 offset = Vector2( 0, 16 )

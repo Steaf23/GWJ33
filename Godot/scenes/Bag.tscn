@@ -31,7 +31,7 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
-polygon = PoolVector2Array( 320, 128, 320, 320, 480, 320, 480, 0, 0, 0, 0, 320, 320, 320, 320, 288, 160, 288, 160, 128 )
+polygon = PoolVector2Array( 320, 128, 320, 1024, 1280, 1024, 1280, -512, -768, -512, -768, 1024, 320, 1024, 320, 288, 160, 288, 160, 128 )
 
 [node name="Top" type="Position2D" parent="."]
 position = Vector2( 224, 64 )

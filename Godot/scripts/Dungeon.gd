@@ -2,6 +2,8 @@ extends Node2D
 
 signal request_item_pickup(item)
 
+var time_up = false
+
 onready var room = $Room
 onready var player = $Player
 
@@ -25,6 +27,7 @@ func get_next_room():
 	return "res://scenes/rooms/room_" + str(randi() % 20).pad_zeros(3) + ".tscn"
 
 func _on_loot_timeout():
+	time_up = true
 	for child in room.get_children():
 		child.queue_free()
 
@@ -33,6 +36,12 @@ func blink_items():
 		child.blink()
 		
 func drop_item_from_player(ground_item):
-	ground_item.position = player.position
-	room.add_child(ground_item)
+	if time_up:
+		ground_item.queue_free()
+	else:	
+		var radius = 20
+		var angle = deg2rad(randi() % 360)
+		var pos = Vector2(radius*sin(angle), radius*cos(angle))
+		ground_item.position = player.position + pos
+		room.add_child(ground_item)
 	
