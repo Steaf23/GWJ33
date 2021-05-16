@@ -31,3 +31,8 @@ func _on_loot_timeout():
 func blink_items():
 	for child in room.get_children():
 		child.blink()
+		
+func drop_item_from_player(ground_item):
+	ground_item.position = player.position
+	room.add_child(ground_item)
+	

@@ -4,9 +4,7 @@ const GRID_SIZE = 32
 
 var held_item
 
-onready var spawn_top = $Top.position
-onready var spawn_left = $Left.position
-onready var spawn_right = $Right.position
+onready var spawns = [$Left.position, $Right.position, $Top.position]
 
 func _process(delta):
 	if held_item == null:
@@ -32,3 +30,21 @@ func _input(event):
 		
 func _on_ItemBlock_clicked_on(item):
 	held_item = item
+
+
+func spawn(bag_item):
+	bag_item.position += get_random_spawn()
+	add_child(bag_item)
+
+func get_random_spawn():
+	return spawns[randi() % 3]
+	
+func on_bag_close():
+	var item_list = []
+	for item in get_children():
+		if item is Area2D && item.name != "Border":
+			if item.get_overlapping_areas().size() > 0:
+				item_list.append(ItemConverter.to_ground(item))
+				item.queue_free()
+	return item_list
+			

@@ -14,6 +14,10 @@ config/name="Godot"
 run/main_scene="res://scenes/World.tscn"
 config/icon="res://assets/sprites/icon.png"
 
+[autoload]
+
+ItemConverter="*res://scenes/ItemConverter.tscn"
+
 [debug]
 
 gdscript/warnings/unused_variable=false

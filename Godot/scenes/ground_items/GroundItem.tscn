@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/GroundItem.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/GroundPotion.png" type="Texture" id=2]
-[ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=3]
 [ext_resource path="res://resources/PixelOutline.shader" type="Shader" id=4]
 
 [sub_resource type="CircleShape2D" id=4]
@@ -34,7 +33,6 @@ tracks/0/keys = {
 
 [node name="GroundItem" type="Area2D"]
 script = ExtResource( 1 )
-bag_item = ExtResource( 3 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]
 shape = SubResource( 4 )

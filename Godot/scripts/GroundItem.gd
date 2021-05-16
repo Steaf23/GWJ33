@@ -1,12 +1,16 @@
 extends Area2D
 
-export(PackedScene) var bag_item
 export var id = ""
 
 var show_hover = false
 
 onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
+
+func _ready():
+	var texture = load("res://assets/sprites/Ground" + id + ".png")
+	if texture != null:
+		sprite.texture = texture
 
 func _process(delta):
 	show_hover = false
@@ -22,9 +26,6 @@ func get_player():
 		if body.name == "Player":
 			return body
 	return null
-
-func get_bag_item():
-	return bag_item.instance()
 
 func blink():
 	animationPlayer.play("Blink")

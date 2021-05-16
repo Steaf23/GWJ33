@@ -5,9 +5,9 @@ var show_bag = false
 onready var dungeon = $Dungeon
 onready var bag = $Bag
 onready var lootTimer = $LootTimer
-onready var converter = $ItemConverter
 
 func _ready():
+	randomize()
 	lootTimer.start()
 
 func _unhandled_input(event):
@@ -26,12 +26,14 @@ func toggle_bag(should_load):
 		
 	dungeon.visible = !should_load
 	bag.visible = should_load
+	if !should_load:
+		for item in bag.on_bag_close():
+			dungeon.drop_item_from_player(item)
 	
 func on_dungeon_request_item_pickup(item):
 	show_bag = true
-	var bag_item = converter.to_bag(item)
-	bag_item.position += Vector2(96, 128)
-	bag.add_child(bag_item)
+	var bag_item = ItemConverter.to_bag(item)
+	bag.spawn(bag_item)
 	item.queue_free()
 	toggle_bag(show_bag)
 
