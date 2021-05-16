@@ -26,6 +26,8 @@ func toggle_bag(should_load):
 		
 	dungeon.visible = !should_load
 	bag.visible = should_load
+	bag.camera.current = should_load
+	dungeon.player.camera.current = !should_load
 	if !should_load:
 		for item in bag.on_bag_close():
 			dungeon.drop_item_from_player(item)

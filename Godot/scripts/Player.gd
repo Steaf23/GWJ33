@@ -1,8 +1,10 @@
 extends KinematicBody2D
 
-export var speed = 200
+export var speed = 10000
 
 signal request_pickup()
+
+onready var camera = $Camera2D
 
 func _ready():
 	connect("request_pickup", get_parent(), "on_player_request_pickup")
@@ -19,7 +21,7 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		new_movedir += Vector2.DOWN
 	
-	move_and_collide(new_movedir * speed * delta)
+	move_and_slide(new_movedir * speed * delta)
 
 func _unhandled_key_input(event):
 	if event.is_action_pressed("pickup_item"):

@@ -5,6 +5,7 @@ const GRID_SIZE = 32
 var held_item
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
+onready var camera = $Camera
 
 func _process(delta):
 	if held_item == null:

@@ -15,7 +15,7 @@ pause_mode = 1
 visible = false
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 60.0
 one_shot = true
 
 [connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]

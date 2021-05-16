@@ -1,26 +1,30 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/ground_items/GroundItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Dungeon.gd" type="Script" id=3]
 [ext_resource path="res://scenes/rooms/Room.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scripts/RoomManager.gd" type="Script" id=5]
 
 [node name="Dungeon" type="Node2D"]
 script = ExtResource( 3 )
 
 [node name="Player" parent="." instance=ExtResource( 1 )]
-position = Vector2( 154, 152 )
+position = Vector2( 202, 153 )
 
-[node name="Room" parent="." instance=ExtResource( 4 )]
+[node name="RoomManager" type="Node2D" parent="."]
+script = ExtResource( 5 )
 
-[node name="GroundItem" parent="Room" instance=ExtResource( 2 )]
-position = Vector2( 168, 96 )
+[node name="Room" parent="RoomManager" instance=ExtResource( 4 )]
 
-[node name="GroundItem2" parent="Room" instance=ExtResource( 2 )]
-position = Vector2( 247, 189 )
+[node name="GroundItem" parent="RoomManager/Room" instance=ExtResource( 2 )]
+position = Vector2( 197, 88 )
 
-[node name="GroundItem3" parent="Room" instance=ExtResource( 2 )]
-position = Vector2( 232, 126 )
+[node name="GroundItem2" parent="RoomManager/Room" instance=ExtResource( 2 )]
+position = Vector2( 241, 182 )
+
+[node name="GroundItem3" parent="RoomManager/Room" instance=ExtResource( 2 )]
+position = Vector2( 255, 117 )
 id = "Sword"
 
-[editable path="Room"]
+[editable path="RoomManager/Room"]
