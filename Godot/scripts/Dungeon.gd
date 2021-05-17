@@ -1,7 +1,6 @@
 extends Node2D
 
 signal request_item_pickup(item)
-signal request_pickup()
 
 var time_up = false
 var current_room
@@ -25,6 +24,10 @@ func on_player_request_pickup():
 	if get_colliding_items().size() > 0:
 		var item = get_colliding_items()[0]
 		emit_signal("request_item_pickup", item)
+		return
+		
+	if hero.get_player() != null:
+		force_next_room()
 
 func drop_item_from_player(ground_item):
 	if time_up:
@@ -54,17 +57,17 @@ func blink_items():
 	for item in get_items():
 		item.blink()
 
+func force_next_room():
+	var tween = player.move_to(Vector2(240, player.position.y), .5)
+	yield(tween, "tween_completed")
+	player.move_to(Vector2(240, -16), 1)
+	pass
+
 # called when the player moves into a new room
 func start_next_room():
 #	roomManager.add_room()
 #	roomManager.fill_room(1)
 	pass
-
-func get_rooms():
-	return get_tree().get_nodes_in_group("rooms")
-
-func get_items():
-	return get_tree().get_nodes_in_group("items")
 	
 # check if there is a wall at the position
 func is_valid_item_position(global_item_pos):
@@ -94,3 +97,9 @@ func generate_items(amount):
 		# set the position to offset of 16 , 16, to be in the middle of the tile
 		item.position = pos + Vector2(16, 16)
 		objectHolder.add_child(item)
+
+func get_rooms():
+	return get_tree().get_nodes_in_group("rooms")
+
+func get_items():
+	return get_tree().get_nodes_in_group("items")

@@ -11,10 +11,10 @@ script = ExtResource( 3 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Hero" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 241, 52 )
+position = Vector2( 240, 48 )
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 240, 163 )
+position = Vector2( 240, 112 )
 
 [node name="Room" parent="YSort" instance=ExtResource( 4 )]
 
