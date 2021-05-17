@@ -1,0 +1,1 @@
+random ground item location generation works, but the subsequent new rooms generate items in wrong positions

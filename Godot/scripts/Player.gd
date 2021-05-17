@@ -5,9 +5,11 @@ export var speed = 10000
 signal request_pickup()
 
 onready var camera = $Camera2D
+onready var animationTree = $AnimationTree
+onready var animationState = animationTree.get("parameters/playback")
 
 func _ready():
-	connect("request_pickup", get_parent(), "on_player_request_pickup")
+	animationTree.active = true
 
 func _process(delta):
 	
@@ -21,6 +23,14 @@ func _process(delta):
 	if Input.is_action_pressed("ui_down"):
 		new_movedir += Vector2.DOWN
 	
+	animationTree.set("parameters/Idle/blend_position", new_movedir)
+	animationTree.set("parameters/Move/blend_position", new_movedir)
+	
+	if new_movedir != Vector2.ZERO:
+		animationState.travel("Move")
+	else:
+		animationState.travel("Idle")
+		
 	move_and_slide(new_movedir * speed * delta)
 
 func _unhandled_key_input(event):

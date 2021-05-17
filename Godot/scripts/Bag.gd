@@ -39,7 +39,7 @@ func spawn(bag_item):
 	add_child(bag_item)
 
 func get_random_spawnpoint():
-	return spawns[randi() % 3]
+	return spawns[2]
 	
 func on_bag_close():
 	var item_list = []

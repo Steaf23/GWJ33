@@ -31,7 +31,7 @@ window/size/width=480
 window/size/height=320
 window/size/test_width=960
 window/size/test_height=640
-window/stretch/mode="2d"
+window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 
 [importer_defaults]
@@ -113,4 +113,6 @@ common/enable_pause_aware_picking=true
 [rendering]
 
 quality/driver/driver_name="GLES2"
+2d/snapping/use_gpu_pixel_snap=true
 environment/default_environment="res://resources/default_env.tres"
+quality/dynamic_fonts/use_oversampling=false

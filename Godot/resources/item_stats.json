@@ -14,5 +14,11 @@
 		"spirit": 10,
 		"demon": 30,
 		"ogre": 40
+	},
+	"Dagger": {
+		"default": 0
+	},
+	"LifePotion": {
+		"default": 0
 	}
 }
