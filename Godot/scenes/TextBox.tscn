@@ -17,7 +17,6 @@ margin_right = 464.0
 margin_bottom = 39.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "hgfghgfhfhf"
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -29,7 +28,7 @@ margin_right = 463.0
 margin_bottom = 56.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
-text = "hghgf"
+autowrap = true
 __meta__ = {
 "_edit_use_anchors_": false
 }

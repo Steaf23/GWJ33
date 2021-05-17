@@ -1,7 +1,8 @@
 [
 	[
 	"Knight:",
-	"Squire! To me!"
+	"Squire! To me!",
+	2
 	],
 	[
 	"Squire:",
@@ -9,11 +10,20 @@
 	],
 	[
 	"Knight:",
-	"Time to be a hero! Do I have everything I need?"
+	"Time to be a hero! Do I have everything I need?",
+	1
 	],
 	[
 	"Squire:",
-	"Yes sir! By the looks of this sign, there's a small pack of Goblins ahead. A claymore is great for taking out groups of enemies. I would say your chances of success are 100%"
+	"Yes sir! By the looks of this sign, there's a small pack of Goblins ahead."
+	],
+	[
+	"Squire:",
+	"A claymore is great for taking out groups of enemies."
+	],
+	[
+	"Squire:",
+	"I would say your chances of success are 100%"
 	],
 	[
 	"Knight:",
