@@ -9,12 +9,14 @@ var old_pos = Position2D.new()
 var revalidate_collision = false
 
 signal clicked_on(item)
+signal equip(item)
 
 onready var sprite = $Sprite
 onready var collision = $Collision
 
 func _ready():
 	connect("clicked_on", get_parent(), "_on_ItemBlock_clicked_on")
+	connect("equip", get_parent(), "on_item_equip")
 
 func _physics_process(delta):
 	if revalidate_collision:
@@ -52,6 +54,9 @@ func drop():
 		if areas.size() == 1:
 			if areas[0].name == "Border":
 				return
+		for area in areas:
+			if area.name == "SlotBox":
+				emit_signal("equip", self.id)
 		position = old_pos.position
 		set_rot(old_pos.rotation_degrees)
 		revalidate_collision = true

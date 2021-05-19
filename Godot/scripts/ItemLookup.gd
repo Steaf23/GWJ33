@@ -14,8 +14,11 @@ func load_items(file_name="res://resources/item_stats.json"):
 		return content
 	return {}
 	
-func get_stat(item_id, enemy_id):
-	return item_data[item_id][enemy_id]	
+func get_success_rate(item_id, enemy_id):
+	return item_data[item_id]["success"][enemy_id]	
+
+func get_type(item_id):
+	return item_data[item_id]["type"]
 
 func get_random_item_name():
 	return item_data.keys()[randi() % item_data.keys().size()]

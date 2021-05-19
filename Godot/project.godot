@@ -29,8 +29,8 @@ gdscript/warnings/return_value_discarded=false
 
 window/size/width=480
 window/size/height=320
-window/size/test_width=1440
-window/size/test_height=960
+window/size/test_width=960
+window/size/test_height=640
 window/stretch/mode="viewport"
 window/stretch/aspect="keep"
 

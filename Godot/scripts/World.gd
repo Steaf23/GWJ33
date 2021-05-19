@@ -1,6 +1,7 @@
 extends Node2D
 
 var show_bag = false
+var finished_transition = true
 
 onready var dungeon = $Dungeon
 onready var bag = $Bag
@@ -23,6 +24,7 @@ func _unhandled_input(event):
 			get_tree().set_input_as_handled()
 	
 func toggle_bag(should_load):
+	finished_transition = false
 	get_tree().paused = should_load
 	Physics2DServer.set_active(true)
 		
@@ -31,8 +33,13 @@ func toggle_bag(should_load):
 	bag.camera.current = should_load
 	dungeon.player.camera.current = !should_load
 	if !should_load:
+		var tween = dungeon.player.camera.zoom_out()
+		dungeon.player.in_bag = false
 		for item in bag.on_bag_close():
 			dungeon.drop_item_from_player(item)
+	else:
+		dungeon.player.in_bag = true
+	finished_transition = true
 	
 func on_dungeon_request_item_pickup(item):
 	show_bag = true

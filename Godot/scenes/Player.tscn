@@ -1,7 +1,8 @@
-[gd_scene load_steps=32 format=2]
+[gd_scene load_steps=33 format=2]
 
 [ext_resource path="res://scripts/Player.gd" type="Script" id=1]
 [ext_resource path="res://assets/sprites/SquireSpritesheet.png" type="Texture" id=2]
+[ext_resource path="res://scripts/Camera2D.gd" type="Script" id=3]
 
 [sub_resource type="CircleShape2D" id=1]
 radius = 12.0
@@ -223,7 +224,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 28, 29, 30, 31 ]
+"values": [ 30, 29, 28, 31 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:flip_h")
@@ -339,7 +340,7 @@ tracks/0/keys = {
 "times": PoolRealArray( 0, 0.2, 0.4, 0.6 ),
 "transitions": PoolRealArray( 1, 1, 1, 1 ),
 "update": 1,
-"values": [ 24, 25, 26, 27 ]
+"values": [ 26, 25, 24, 27 ]
 }
 tracks/1/type = "value"
 tracks/1/path = NodePath("Sprite:flip_h")
@@ -436,13 +437,16 @@ position = Vector2( 0, -23 )
 texture = ExtResource( 2 )
 hframes = 8
 vframes = 4
-frame = 12
+frame = 4
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
+offset = Vector2( 0, -21 )
 current = true
+script = ExtResource( 3 )
+zoom_duration = 0.3
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle_b = SubResource( 2 )

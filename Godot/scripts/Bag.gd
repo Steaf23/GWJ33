@@ -6,6 +6,7 @@ var held_item
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
 onready var camera = $Camera
+onready var heroEquipment = $HeroEquipment
 
 func _process(delta):
 	if held_item == null:
@@ -49,4 +50,6 @@ func on_bag_close():
 				item_list.append(ItemConverter.to_ground(item))
 				item.queue_free()
 	return item_list
-			
+
+func on_item_equip(item):
+	heroEquipment.equip(item)

@@ -1,15 +1,34 @@
 random ground item location generation works, but the subsequent new rooms generate items in wrong positions
 
-when items drop, make them drop in a nice arc (or at least with an animation)
+when items drop, make them drop in a nice arc (or at least with an animation) POLISH
 
 when talking to hero, open bag + equip slots
 
-after exiting hero equip bag, generate && force player to next room  (start at local room coord Pos 240, 80)
+after exiting hero equip bag, generate && force player to next room  (start at local room coord Pos 240, 80) 
 
-remember movedir when stopped for right idle direction
-
-player is moving the wrong legs when walking with a flipped sprite
-
-add snap animations to ground_items when timer runs out
+add thanos snap animations to ground_items when timer runs out
 
 fix dialogue system
+
+make intro sequence STUCK ON DIALOGUE SYSTEM
+
+make rooms
+
+add warning signs
+
+calculate win chance based on hero equipment
+
+save door locations for each room
+
+shuffle room playlist (no repeat, until every room has appeared)
+
+add random offset to item generation within tile
+
+add despawn timer to ground item when 60 seconds are up (for like 5 seconds)
+
+add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING))
+
+change equipment system to allow for dual wielding (aka add like 6 slots seperately) 
+
+add coin slot to inventory
+

@@ -3,15 +3,20 @@ extends Node2D
 signal request_item_pickup(item)
 
 var time_up = false
-var current_room
+#var current_room
+var room_counter = 0
 
 onready var player = $YSort/Player
 onready var hero = $YSort/Hero
 onready var objectHolder = $YSort
+onready var riskHandler = $RiskHandler
 
 func _ready():
 	player.connect("request_pickup", self, "on_player_request_pickup")
 	generate_items(10)
+
+func _process(delta):
+	get_rooms()[0].apply_slope_transform(player, player.velocity)
 
 func get_colliding_items():
 	var colliding_items = []
@@ -23,6 +28,9 @@ func get_colliding_items():
 func on_player_request_pickup():
 	if get_colliding_items().size() > 0:
 		var item = get_colliding_items()[0]
+		player.in_bag = true
+		var tween = player.camera.zoom_in()
+		yield(tween, "tween_completed")
 		emit_signal("request_item_pickup", item)
 		return
 		
@@ -58,9 +66,18 @@ func blink_items():
 		item.blink()
 
 func force_next_room():
+	var current_room = get_rooms()[0]
+	start_next_room()
 	var tween = player.move_to(Vector2(240, player.position.y), .5)
 	yield(tween, "tween_completed")
-	player.move_to(Vector2(240, -16), 1)
+	tween = player.move_to(player.position, 2)
+	# ADD BATTLE MUSIC STUFF HERE
+	yield(tween, "tween_completed")
+	current_room.open_door()
+	tween = player.move_to(Vector2(240, -16), 1)
+	yield(tween, "tween_completed")
+	current_room.close_door()
+	room_counter += 1
 	pass
 
 # called when the player moves into a new room

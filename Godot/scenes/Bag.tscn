@@ -1,9 +1,11 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/sprites/Tile.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/Bag_Inside.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Bag.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/Bag_Outside.png" type="Texture" id=4]
+[ext_resource path="res://scripts/HeroEquipment.gd" type="Script" id=5]
+[ext_resource path="res://assets/sprites/GroundAxe.png" type="Texture" id=6]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tile.png 0"
@@ -34,13 +36,16 @@ animations = [ {
 "speed": 5.0
 } ]
 
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 16, 16 )
+
 [node name="Bag" type="TileMap"]
 z_index = -1
 tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 262149, 0, 0, 262150, 0, 0, 262151, 0, 0, 262152, 0, 0, 262153, 0, 0, 327685, 0, 0, 327686, 0, 0, 327687, 0, 0, 327688, 0, 0, 327689, 0, 0, 393221, 0, 0, 393222, 0, 0, 393223, 0, 0, 393224, 0, 0, 393225, 0, 0, 458757, 0, 0, 458758, 0, 0, 458759, 0, 0, 458760, 0, 0, 458761, 0, 0, 524293, 0, 0, 524294, 0, 0, 524295, 0, 0, 524296, 0, 0, 524297, 0, 0 )
+tile_data = PoolIntArray( 65543, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -49,6 +54,7 @@ z_index = -2
 frames = SubResource( 2 )
 
 [node name="Border" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -66,3 +72,42 @@ position = Vector2( 64, 160 )
 
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 240, 160 )
+
+[node name="HeroEquipment" type="Node2D" parent="."]
+script = ExtResource( 5 )
+
+[node name="SlotBox" type="Area2D" parent="HeroEquipment"]
+position = Vector2( 224, 32 )
+collision_layer = 2
+collision_mask = 2
+
+[node name="boxSprite" type="Sprite" parent="HeroEquipment/SlotBox"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeroEquipment/SlotBox"]
+position = Vector2( 16, 16 )
+shape = SubResource( 3 )
+
+[node name="Boots" type="Sprite" parent="HeroEquipment/SlotBox"]
+position = Vector2( 128, 0 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Body" type="Sprite" parent="HeroEquipment/SlotBox"]
+position = Vector2( 64, 0 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Weapon" type="Sprite" parent="HeroEquipment/SlotBox"]
+position = Vector2( -64, 32 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Necklace" type="Sprite" parent="HeroEquipment/SlotBox"]
+position = Vector2( -64, -32 )
+texture = ExtResource( 6 )
+centered = false
+
+[node name="Head" type="Sprite" parent="HeroEquipment/SlotBox"]
+position = Vector2( -128, 0 )
+texture = ExtResource( 6 )
+centered = false

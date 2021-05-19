@@ -8,7 +8,7 @@ onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
 
 func _ready():
-	var texture = load("res://assets/sprites/Ground" + id + ".png")
+	var texture = get_texture()
 	if texture != null:
 		sprite.texture = texture
 
@@ -29,3 +29,6 @@ func get_player():
 
 func blink():
 	animationPlayer.play("Blink")
+	
+func get_texture():
+	return load("res://assets/sprites/Ground" + id + ".png")

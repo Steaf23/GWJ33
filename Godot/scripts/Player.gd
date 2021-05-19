@@ -10,13 +10,16 @@ onready var animationState = animationTree.get("parameters/playback")
 
 var automoving = false
 var old_movedir = Vector2.ZERO
+var velocity = Vector2.ZERO
+var on_stair = 0
+var in_bag = 0
+var stair_multiplier = 1
 
 func _ready():
 	animationTree.active = true
 
 func _process(delta):
-	
-	if !automoving:
+	if !automoving && !in_bag:
 		var new_movedir = Vector2.ZERO
 		if Input.is_action_pressed("ui_left"):
 			new_movedir += Vector2.LEFT
@@ -26,16 +29,6 @@ func _process(delta):
 			new_movedir += Vector2.UP
 		if Input.is_action_pressed("ui_down"):
 			new_movedir += Vector2.DOWN
-		
-#		var old_movedir = Vector2.ZERO
-#		if Input.is_action_just_released("ui_left"):
-#			old_movedir += Vector2.LEFT
-#		if Input.is_action_just_released("ui_right"):
-#			old_movedir += Vector2.RIGHT
-#		if Input.is_action_just_released("ui_up"):
-#			old_movedir += Vector2.UP
-#		if Input.is_action_just_released("ui_down"):
-#			old_movedir += Vector2.DOWN
 			
 		animationTree.set("parameters/Idle/blend_position", new_movedir)
 		animationTree.set("parameters/Move/blend_position", new_movedir)
@@ -46,24 +39,42 @@ func _process(delta):
 			animationState.travel("Move")
 		else:
 			set_animation(old_movedir, "Idle")
-			
-		move_and_slide(new_movedir * speed * delta)
+		
+		match on_stair:
+			0:
+				velocity = new_movedir * speed * delta
+			1:
+				new_movedir = Vector2(new_movedir.x, new_movedir.y + (new_movedir.x * stair_multiplier)) * .5
+			2:
+				new_movedir = Vector2(new_movedir.x, new_movedir.y - (new_movedir.x * stair_multiplier)) * .5
+			3:
+				new_movedir.y = new_movedir.y * .5
+				velocity = new_movedir * speed * delta
+		velocity = new_movedir * speed * delta
+		velocity = move_and_slide(velocity)
+	elif in_bag:
+		set_animation(Vector2.UP, "Idle")
 			
 
 func _unhandled_key_input(event):
 	if event.is_action_pressed("pickup_item"):
 		emit_signal("request_pickup")
+		
 
 func set_animation(facing: Vector2, animation: String):
 	animationTree.set("parameters/" + animation + "/blend_position", facing)
 	animationState.travel(animation)
 
-func move_to(pos, speed):
+func move_to(pos, duration):
 	automoving = true
-	set_animation((pos - position).normalized(), "Move")
+	if pos == position:
+		set_animation(Vector2.UP, "Idle")
+	else:
+		set_animation((pos - position).normalized(), "Move")
+	
 	var tween = Tween.new()
 	tween.interpolate_property(self, "position",
-		position, pos, speed,
+		position, pos, duration,
 		Tween.TRANS_LINEAR)
 	add_child(tween)
 	tween.start()
