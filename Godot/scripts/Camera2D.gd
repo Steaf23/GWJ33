@@ -2,6 +2,10 @@ extends Camera2D
 
 export(float, 0.0, 10.0) var zoom_duration = 1.0
 
+var limit_smoothie = 1
+var target
+var prev_limits
+
 func zoom_in(player_pos):
 	var tween = Tween.new()
 	tween.interpolate_property(self, "zoom",
@@ -34,8 +38,30 @@ func zoom_out():
 	return tween
 
 func set_new_limits(limits):
+#	set_limits([Vector2(-1000, -1000), Vector2(1000, 1000)])
+#	prev_limits = get_limits()
+#	target = limits
+#	var tween = Tween.new()
+#	tween.interpolate_method(self, "smooth_limits",
+#	1, 0, 1)
+#	add_child(tween)
+#	tween.start()
+#	yield(tween, "tween_completed")
 	pass
-#	limit_left = limits[0].x
-#	limit_top = limits[0].y
-#	limit_right = limits[1].x
-#	limit_bottom = limits[1].y
+#	set_limits(limits)
+
+func smooth_limits(val):
+	print(limit_left, target[0].x, prev_limits[0].x)
+	limit_left = target[0].x + (prev_limits[0].x - target[0].x) * val
+	limit_top = target[0].y + (prev_limits[0].y - target[0].y) * val
+	limit_right = target[1].x + (prev_limits[1].x - target[1].x) * val
+	limit_bottom = target[1].y + (prev_limits[1].y - target[1].y) * val
+
+func get_limits():
+	return [Vector2(limit_left, limit_top), Vector2(limit_right, limit_bottom)]
+
+func set_limits(limits):
+	limit_left = limits[0].x
+	limit_top = limits[0].y
+	limit_right = limits[1].x
+	limit_bottom = limits[1].y

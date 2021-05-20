@@ -28,7 +28,7 @@
 		}
 	},
 	"LifePotion": {
-		"type":"special",
+		"type":"potion",
 		"success": {
 			"default": 0
 		}

@@ -6,7 +6,7 @@ onready var bottomRight = $BottomRight
 onready var tl_label = $TopLeft/Label
 onready var br_label = $BottomRight/Label 
 
-func get_global_limits():
+func get_limits():
 	return [topLeft.position, bottomRight.position]
 
 func set_room_extents(ground_layer, wall_layer):

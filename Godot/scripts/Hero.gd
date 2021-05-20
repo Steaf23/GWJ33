@@ -1,7 +1,5 @@
 extends Area2D
 
-export var HP = 100
-
 var show_hover = false
 
 onready var sprite = $Sprite

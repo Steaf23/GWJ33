@@ -1,13 +1,14 @@
 extends Node2D
 
-const SLOT_TYPES = ["head", "weapon", "weapon", "necklace", "body", "boots"]
+const SLOT_TYPES = ["head", "weapon", "weapon", "potion", "necklace", "body", "boots"]
 
 onready var slots
 
 func _ready():
-	slots = [$Head, $Weapon, $Weapon2, $Necklace, $Body, $Boots]
+	slots = [$Head, $Weapon, $Weapon2, $Potion, $Necklace, $Body, $Boots]
 	for slot in slots:
 		slot.connect("unequip_item", get_parent(), "on_unequip_item")
+	slots[3].connect("use_potion", get_parent(), "on_use_potion")
 
 func evaluate_equipment(enemy_id="default"):
 	var total = 0

@@ -42,7 +42,7 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 5, 0, 0, 65539, 0, 0, 65543, 0, 0, 65545, 0, 0, 65547, 0, 0, 131077, 0, 0 )
+tile_data = PoolIntArray( 5, 0, 0, 9, 0, 0, 65539, 0, 0, 65543, 0, 0, 65547, 0, 0, 131077, 0, 0, 131081, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -51,6 +51,7 @@ z_index = -2
 frames = SubResource( 2 )
 
 [node name="Border" type="Area2D" parent="."]
+visible = false
 collision_layer = 2
 collision_mask = 2
 
@@ -85,13 +86,17 @@ position = Vector2( 160, 64 )
 type = "weapon"
 
 [node name="Necklace" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 224, 32 )
+position = Vector2( 288, 64 )
 type = "necklace"
 
 [node name="Body" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 288, 32 )
+position = Vector2( 288, 0 )
 type = "body"
 
 [node name="Boots" parent="HeroEquipment" instance=ExtResource( 7 )]
 position = Vector2( 352, 32 )
 type = "boots"
+
+[node name="Potion" parent="HeroEquipment" instance=ExtResource( 7 )]
+position = Vector2( 224, 32 )
+type = "potion"

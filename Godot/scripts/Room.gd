@@ -48,6 +48,7 @@ func get_ground_tile_at(pos):
 	return groundLayer.get_cellv(get_ground_cellv(pos))
 
 func get_ground_cellv(pos):
+	print(groundLayer.world_to_map(pos))
 	return groundLayer.world_to_map(pos)
 
 func set_room_extents():

@@ -1,7 +1,10 @@
 extends Node2D
 
-enum state {LOOT, BAG, PREPARE, HERO, EVAL, BATTLE}
+enum state {LOOT, BAG, PREPARE, HERO, EVAL, BATTLE, DIALOGUE}
 
+onready var textBox = preload("res://scenes/TextBox.tscn")
+
+var previous_state
 var current_state = state.BATTLE
 var show_bag = false
 var finished_transition = true
@@ -14,7 +17,10 @@ func _enter_tree():
 	randomize()
 	
 func _ready():
-	current_state = state.BATTLE
+	bag.connect("hero_died", self, "on_hero_died")
+	dungeon.connect("new_room", self, "start_loot")
+	current_state = state.DIALOGUE
+	var textText = textBox.instance()
 	start_loot()
 
 func _process(delta):
@@ -30,6 +36,8 @@ func _process(delta):
 		state.EVAL:
 			pass
 		state.BATTLE:
+			pass
+		state.DIALOGUE:
 			pass
 	
 	if lootTimer.time_left < 2:
@@ -83,6 +91,10 @@ func on_dungeon_request_item_pickup(item):
 			toggle_bag(show_bag)
 		return
 
+func on_hero_died():
+	toggle_bag(false)
+	print("THE HERO DIED, AND SO DID YOU >:D")
+	get_tree().reload_current_scene()
 
 #func _unhandled_input(event):
 #	if event.is_action_pressed("open_bag"):

@@ -1,8 +1,12 @@
 extends TileMap
 
 const GRID_SIZE = 32
+const MAX_HP = 3
+var current_hp = 1
 
 var held_item
+
+signal hero_died()
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
 onready var camera = $Camera
@@ -11,6 +15,8 @@ onready var heroEquipment = $HeroEquipment
 func _process(delta):
 	if held_item == null:
 		pass
+	if current_hp <= 0:
+		emit_signal("hero_died")
 		
 func _input(event):
 	if event is InputEventMouseMotion:
@@ -58,3 +64,10 @@ func on_item_equip(bag_item, slot):
 
 func on_unequip_item(item):
 	spawn(item)
+
+func on_use_potion(potion):
+	if current_hp < MAX_HP:
+		current_hp += 1
+	else:
+		spawn(ItemConverter.to_bag(potion))
+	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])

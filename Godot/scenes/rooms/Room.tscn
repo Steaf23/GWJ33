@@ -16,7 +16,6 @@ format = 1
 tile_set = ExtResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_y_sort = true
-show_collision = true
 format = 1
 
 [node name="Limits" type="Node" parent="."]

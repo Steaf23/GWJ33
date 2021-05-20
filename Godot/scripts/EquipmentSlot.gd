@@ -6,12 +6,16 @@ var item_id: String = ""
 var has_mouse = false
 
 signal unequip_item(item)
+signal use_potion(potion)
 
 onready var icon = $Icon
 
 # 3 states, equip successful, equip successful + remainder, equip unsuccessful
 func equip(item):
 	if ItemLookup.item_data[item.id]['type'] == type:
+		if type == "potion":
+			emit_signal("use_potion", item)
+			return ""
 		var old_item = item_id
 		item_id = item.id
 		icon.texture = item.get_texture()

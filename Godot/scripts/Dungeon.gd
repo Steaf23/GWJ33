@@ -2,8 +2,10 @@ extends Node2D
 
 const FLOOR_TILE = 6
 const UNIQUE_ROOM_COUNT = 2
+const ROOM_DISTANCE = 0
 
 signal request_item_pickup(item)
+signal new_room()
 
 var time_up = false
 var room_counter = 0
@@ -20,56 +22,6 @@ func _ready():
 	fill_room_list()
 	setup_room(instance_random_room())
 	player.position = current_room.door_connection.position + Vector2(16, -16)
-#	generate_items(50)
-
-func generate_items(amount):
-	for i in range(amount):
-		var item = ItemConverter.create_ground_item(ItemLookup.get_random_item_name())
-		# get a random tile position
-		# convert it to global world position
-		var tl_cell = current_room.groundLayer.world_to_map(get_layer_extents(current_room.groundLayer)[0])
-		var br_cell = current_room.groundLayer.world_to_map(get_layer_extents(current_room.groundLayer)[1])
-		var extension = Vector2(abs(abs(tl_cell.x) - abs(br_cell.x)), 
-								abs(abs(tl_cell.y) - abs(br_cell.y)))
-					
-		var rand_x = randi() % int(extension.x) + tl_cell.x
-		var	rand_y = randi() % int(extension.y) + tl_cell.y
-		var	pos = current_room.groundLayer.to_global(current_room.groundLayer.map_to_world(Vector2(rand_x, rand_y)))
-		
-		while !is_valid_item_position(pos):
-			rand_x = randi() % int(extension.x) + tl_cell.x
-			rand_y = randi() % int(extension.y) + tl_cell.y
-			pos = current_room.groundLayer.to_global(current_room.groundLayer.map_to_world(Vector2(rand_x, rand_y)))
-		# set the position to offset of 16 , 16, to be in the middle of the tile
-		item.position = pos + Vector2(16, 16)
-		objectList.add_child(item)
-		print("generated %d items" % [i + 1])
-
-func get_layer_extents(layer):
-	var top_left = Vector2.ZERO
-	var bottom_right = Vector2.ZERO
-	for pos in layer.get_used_cells():
-		if pos.x < top_left.x:
-			top_left.x = int(pos.x)
-		elif pos.x > bottom_right.x:
-			bottom_right.x = int(pos.x)
-		if pos.y < top_left.y:
-			top_left.y = int(pos.y)
-		elif pos.y > bottom_right.y:
-			bottom_right.y = int(pos.y)
-	return [layer.map_to_world(top_left), 
-			layer.map_to_world(bottom_right)]
-
-# check if there is a wall at the position
-func is_valid_item_position(global_item_pos):
-	if current_room.get_ground_tile_at(global_item_pos) == FLOOR_TILE:
-		var occupied = false
-		for item in get_items():
-			if current_room.get_ground_cellv(global_item_pos) == current_room.get_ground_cellv(item.position):
-				occupied = true
-		return !occupied
-	else:
-		return false
 
 func fill_room_list():
 	for i in range(UNIQUE_ROOM_COUNT):
@@ -101,14 +53,40 @@ func on_player_request_pickup():
 
 	if hero.get_player() != null:
 		force_next_room()
-
+		
+func generate_items(amount):
+	var gen = RandomNumberGenerator.new()
+	gen.randomize()
+	var groundLayer = current_room.groundLayer
+	var limits = current_room.limits.get_limits()
+	limits[1] -= Vector2(32, 32)
+	var tl_cell = groundLayer.world_to_map(limits[0])
+	var br_cell = groundLayer.world_to_map(limits[1])
+	
+	for i in range(amount):
+		var item = ItemConverter.create_ground_item(ItemLookup.get_random_item_name())
+		# get a random tile position
+		# convert it to global world position
+		
+		var rand_x = gen.randi_range(tl_cell.x, br_cell.x)
+		var rand_y = gen.randi_range(tl_cell.y, br_cell.y)
+		var	pos = groundLayer.map_to_world(Vector2(rand_x, rand_y))
+		
+		while !is_valid_item_position(current_room.to_local(pos)):
+			rand_x = gen.randi_range(tl_cell.x, br_cell.x)
+			rand_y = gen.randi_range(tl_cell.y, br_cell.y)
+			pos = groundLayer.map_to_world(Vector2(rand_x, rand_y))
+		# set the position to offset of 16 , 16, to be in the middle of the tile
+		item.position = pos + Vector2(16, 16)
+		objectList.add_child(item)
+		
 func drop_item_from_player(ground_item):
 	var radius = 20
 	var angle
 	var pos = player.position + Vector2(0, radius)
 	# get valid item position
 	var i = 0
-	while !is_valid_item_position(pos):
+	while !is_valid_item_position(current_room.to_local(pos)):
 		angle = deg2rad(randi() % 360)
 		pos = get_random_circle_point(radius, player.position)
 		i +=  1
@@ -118,7 +96,20 @@ func drop_item_from_player(ground_item):
 	ground_item.position = pos
 	ground_item.connect("despawn", self, "on_item_despawn")
 	objectList.add_child(ground_item)
-	
+
+# check if there is a wall at the position
+func is_valid_item_position(local_item_pos):
+	var cell = current_room.get_ground_tile_at(local_item_pos)
+	print(cell)
+	if cell == FLOOR_TILE:
+		var occupied = false
+		for item in get_items():
+			if current_room.get_ground_cellv(current_room.to_global(local_item_pos)) == current_room.get_ground_cellv(item.position):
+				occupied = true
+		return !occupied
+	else:
+		return false
+
 func get_random_circle_point(radius, origin):
 	var angle = deg2rad(randi() % 360)
 	return Vector2(radius*sin(angle), radius*cos(angle)) + origin
@@ -134,22 +125,25 @@ func blink_items():
 
 func force_next_room():
 #	emit_signal("request_item_pickup", null)
-#	var old_hero_pos = hero.position
 #	setup_room(instance_random_room())
-#	var tween = player.move_to(Vector2(old_hero_pos.x, old_hero_pos.y), .5)
-#	yield(tween, "tween_completed")
-#	tween = player.move_to(player.position, 2)
-#	# ADD BATTLE MUSIC STUFF HERE
-#	yield(tween, "tween_completed")
-#	current_room.open_door()
-#	tween = player.move_to(Vector2(old_hero_pos.x, old_hero_pos.y - 64), 1)
-#	yield(tween, "tween_completed")
-#	current_room.close_door()
+
 	# prevent the same room to be generated twice in a row
 	var new_room = instance_random_room()
 	while new_room.id == current_room.id:
 		new_room = instance_random_room()
+	
+	var tween = player.move_to(Vector2(current_room.to_global(current_room.door_pos.position).x + 16, player.position.y), .5)
+	yield(tween, "tween_completed")
+	# duration should be 10 for battle sequence
+	tween = player.move_to(player.position, 2)
+	# ADD BATTLE MUSIC STUFF HERE
+	yield(tween, "tween_completed")
 	setup_room(new_room)
+	current_room.open_door()
+	tween = player.move_to(Vector2(player.position.x, player.position.y - 112), 1)
+	yield(tween, "tween_completed")
+	current_room.close_door()
+	emit_signal("new_room")
 	room_counter += 1
 	print("total rooms: %d" % room_counter)
 	pass
@@ -160,11 +154,13 @@ func setup_room(new_room):
 		new_room.position = Vector2(0,0)
 	else:
 		new_room.position = current_room.get_global_door() - new_room.to_global(new_room.door_connection.position)
+		new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
 #		current_room.queue_free()
 	new_room.set_room_extents()
-	player.camera.set_new_limits(new_room.limits.get_global_limits())
+	player.camera.set_new_limits(new_room.limits.get_limits())
 	current_room = new_room
 	hero.position = current_room.get_global_door() + Vector2(16, 48)
+	generate_items(10)
 	return new_room
 
 func get_items():

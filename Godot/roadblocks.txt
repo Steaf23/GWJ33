@@ -1,24 +1,12 @@
-shuffle room playlist (no repeat, until every room has appeared) POLISH
-
-fix item generation (items don't all generate at the right spots)
-
-fix camera limits
-
-improve removal overlap on item generation
-
-add warning signs to each rooms
-
-add hero life system
-
-fix dialogue system
+add warning signs to each rooms STUCK ON MEETING 
 
 --------------------------------------------------------------------------------
-GETTIG FREAKY ON A FRIDAY NIGHT? restructue game state (sequence of events)
+GETTIG FREAKY ON A FRIDAY NIGHT? 
 --------------------------------------------------------------------------------
+
+CK Reality Restructuring Event: restructure game state handling (sequence of events)
 
 make intro sequence STUCK ON DIALOGUE SYSTEM
-
-fix despawn timer in ground item (for like 5 seconds)
 
 only when talking to hero, open bag & equip slots
 
@@ -28,16 +16,33 @@ fill in item_stats.json
 
 make rooms
 
+add wildcards physically in the game
+
 --------------------------------------------------------------------------------
 STRETCH GOALS
 --------------------------------------------------------------------------------
 
-add random offset to item generation within tile POLISH
+smooth camera limits
 
-add thanos snap animations to ground_items when timer runs out POLISH
+add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING))
 
-add coin slot to inventory POLISH
+shuffle room playlist (no repeat, until every room has appeared)
 
-when items drop, make them drop in a nice arc (or at least with an animation) POLISH
+add random offset to item generation within tile
 
-add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) POLISH
+add thanos snap animations to ground_items when timer runs out 
+
+add coin slot to inventory
+
+when items drop, make them drop in a nice arc (or at least with an animation)
+
+--------------------------------------------------------------------------------
+MEETING
+--------------------------------------------------------------------------------
+
+misread GUI wildcard
+
+where to put the warning signs?
+
+sounds?
+
