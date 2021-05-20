@@ -14,8 +14,10 @@ func load_items(file_name="res://resources/item_stats.json"):
 		return content
 	return {}
 	
-func get_success_rate(item_id, enemy_id):
-	return item_data[item_id]["success"][enemy_id]	
+func get_success_rate(item_id="", enemy_id="default"):
+	if item_id == "":
+		return 0
+	return item_data[item_id]['success'][enemy_id]	
 
 func get_type(item_id):
 	return item_data[item_id]["type"]

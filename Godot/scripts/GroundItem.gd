@@ -4,13 +4,17 @@ export var id = ""
 
 var show_hover = false
 
+signal despawn(item)
+
 onready var sprite = $Sprite
 onready var animationPlayer = $AnimationPlayer
+onready var despawnTimer = $DespawnTimer
 
 func _ready():
 	var texture = get_texture()
 	if texture != null:
 		sprite.texture = texture
+	despawnTimer.start()
 
 func _process(delta):
 	show_hover = false
@@ -32,3 +36,6 @@ func blink():
 	
 func get_texture():
 	return load("res://assets/sprites/Ground" + id + ".png")
+
+func _on_despawnTimer_timeout():
+	emit_signal("despawn", self)

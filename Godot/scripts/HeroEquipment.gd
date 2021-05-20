@@ -1,46 +1,39 @@
 extends Node2D
 
-var slot_types = {"head":0, 
-				  "necklace":1, 
-				  "weapon":2, 
-				  "body":3, 
-				  "boots":4,
-				  "special":-1}
-var slots = ["", "", "", "", ""]
+const SLOT_TYPES = ["head", "weapon", "weapon", "necklace", "body", "boots"]
 
-onready var slotBox = $SlotBox
-onready var bootsSprite = $SlotBox/Boots
-onready var bodySprite = $SlotBox/Boots
-onready var weaponSprite = $SlotBox/Weapon
-onready var necklaceSprite = $SlotBox/Necklace
-onready var headSprite = $SlotBox/Head
+onready var slots
 
-func evaluate_equipment(enemy_id):
+func _ready():
+	slots = [$Head, $Weapon, $Weapon2, $Necklace, $Body, $Boots]
+	for slot in slots:
+		slot.connect("unequip_item", get_parent(), "on_unequip_item")
+
+func evaluate_equipment(enemy_id="default"):
 	var total = 0
 	for slot in slots:
-		if slot != "":
-			print(slot)
-			total += slot[enemy_id]
-	print(total)
+		total += ItemLookup.get_success_rate(slot.item_id, enemy_id)
+	print("SCORE: %d" % total)
 	return total
 
-func set_slot(idx, item_id):
-	slots[idx] = item_id
-
-func equip(item_id):
-	var slot_i = slot_types[ItemLookup.get_type(item_id)]
-	match slots[slot_i]:
-		"special", "":
-			pass
+func equip(bag_item, slot):
+	# get the slot clicked on
+	var remainder = slots[slots.find(slot)].equip(ItemConverter.to_ground(bag_item))
+	
+	match remainder:
+		# if successful without remainder
+		"":
+			bag_item.queue_free()
+			evaluate_equipment()
+		# if not sucessful
+		"fail":
+			pass	
 		_:
-			slots[slot_i] = item_id
-			
-	update_equipment()
-	evaluate_equipment("vampire")
-
-func update_equipment():
-	headSprite.texture = ItemConverter.create_ground_item(slots[0]).get_texture()
-	necklaceSprite.texture = ItemConverter.create_ground_item(slots[1]).get_texture()
-	weaponSprite.texture = ItemConverter.create_ground_item(slots[2]).get_texture()
-	bodySprite.texture = ItemConverter.create_ground_item(slots[3]).get_texture()
-	bootsSprite.texture = ItemConverter.create_ground_item(slots[4]).get_texture()
+			remainder = ItemConverter.create_bag_item(remainder)
+			bag_item.queue_free()
+			evaluate_equipment()
+	
+	if !(remainder is String):
+		return remainder
+	return null
+	

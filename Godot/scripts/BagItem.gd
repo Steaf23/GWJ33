@@ -9,7 +9,7 @@ var old_pos = Position2D.new()
 var revalidate_collision = false
 
 signal clicked_on(item)
-signal equip(item)
+signal equip(item, slot)
 
 onready var sprite = $Sprite
 onready var collision = $Collision
@@ -54,9 +54,12 @@ func drop():
 		if areas.size() == 1:
 			if areas[0].name == "Border":
 				return
-		for area in areas:
-			if area.name == "SlotBox":
-				emit_signal("equip", self.id)
+		elif areas.size() > 1:
+			for area in areas:
+				if area.get_parent().name == "HeroEquipment":
+					if area.has_mouse:
+						emit_signal("equip", self, area)
+						
 		position = old_pos.position
 		set_rot(old_pos.rotation_degrees)
 		revalidate_collision = true

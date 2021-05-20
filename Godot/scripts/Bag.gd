@@ -36,11 +36,11 @@ func _on_ItemBlock_clicked_on(item):
 
 
 func spawn(bag_item):
-	bag_item.position += get_random_spawnpoint()
+	bag_item.position = get_random_spawnpoint()
 	add_child(bag_item)
 
 func get_random_spawnpoint():
-	return spawns[2]
+	return spawns[0]
 	
 func on_bag_close():
 	var item_list = []
@@ -51,5 +51,10 @@ func on_bag_close():
 				item.queue_free()
 	return item_list
 
-func on_item_equip(item):
-	heroEquipment.equip(item)
+func on_item_equip(bag_item, slot):
+	var remainder = heroEquipment.equip(bag_item, slot)
+	if remainder != null:
+		spawn(remainder)
+
+func on_unequip_item(item):
+	spawn(item)

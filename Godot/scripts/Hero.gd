@@ -12,9 +12,6 @@ func _process(delta):
 		show_hover = true
 	set_hover_shader(show_hover)
 
-func show_equipment():
-	print("EQUIP ME")
-
 func set_hover_shader(enabled):
 	sprite.get_material().set_shader_param("outline_enabled", enabled)
 

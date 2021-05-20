@@ -13,11 +13,10 @@ shader_param/enabled = false
 id = "Axe"
 
 [node name="Collision" parent="." index="0"]
-position = Vector2( 16, -16 )
-polygon = PoolVector2Array( -47, -47, 15, -47, 15, 15, -17, 15, -17, 79, -47, 79 )
+position = Vector2( 0, 0 )
+polygon = PoolVector2Array( -31, -63, 31, -63, 31, -1, -1, -1, -1, 63, -31, 63 )
 
 [node name="Sprite" parent="." index="1"]
 material = SubResource( 1 )
-position = Vector2( 16, -16 )
+position = Vector2( 0, 0 )
 texture = ExtResource( 2 )
-offset = Vector2( -16, 16 )

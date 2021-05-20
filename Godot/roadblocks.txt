@@ -1,10 +1,14 @@
+fix item generation (items don't all generate at the right spots)
+
+save door locations for each room
+
+add camera limits for each room (create custom camera)
+
 random ground item location generation works, but the subsequent new rooms generate items in wrong positions
 
 when items drop, make them drop in a nice arc (or at least with an animation) POLISH
 
-when talking to hero, open bag + equip slots
-
-after exiting hero equip bag, generate && force player to next room  (start at local room coord Pos 240, 80) 
+after exiting hero equip bag, generate next room
 
 add thanos snap animations to ground_items when timer runs out
 
@@ -14,21 +18,20 @@ make intro sequence STUCK ON DIALOGUE SYSTEM
 
 make rooms
 
-add warning signs
-
-calculate win chance based on hero equipment
-
-save door locations for each room
+add warning signs to each room
 
 shuffle room playlist (no repeat, until every room has appeared)
 
-add random offset to item generation within tile
+add random offset to item generation within tile POLISH
+
+remove overlap on item generation
 
 add despawn timer to ground item when 60 seconds are up (for like 5 seconds)
 
-add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING))
+add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) POLISH
 
-change equipment system to allow for dual wielding (aka add like 6 slots seperately) 
+when talking to hero, open bag & equip slots
 
-add coin slot to inventory
+add coin slot to inventory POLISH
 
+add hero life system

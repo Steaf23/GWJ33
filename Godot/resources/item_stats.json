@@ -4,8 +4,8 @@
 		"success": {
 			"default": 0,
 			"vampire": 30,
-			"elemental": -15,
-			"spirit": -20,
+			"elemental": 15,
+			"spirit": 20,
 			"demon": 10,
 			"ogre": 0
 		}
@@ -14,15 +14,15 @@
 		"type":"weapon",
 		"success": {
 			"default": 10,
-			"vampire": -5,
-			"elemental": -20,
+			"vampire": 5,
+			"elemental": 20,
 			"spirit": 10,
 			"demon": 30,
 			"ogre": 40
 		}
 	},
 	"Dagger": {
-		"type":"weapon",
+		"type":"head",
 		"success": {
 			"default": 0
 		}
