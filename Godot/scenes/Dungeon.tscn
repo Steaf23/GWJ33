@@ -1,10 +1,8 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Player.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/RiskHandler.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/Dungeon.gd" type="Script" id=3]
-[ext_resource path="res://scenes/rooms/Room.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/GroundItem.tscn" type="PackedScene" id=5]
 [ext_resource path="res://scenes/Hero.tscn" type="PackedScene" id=6]
 
 [node name="Dungeon" type="Node2D"]
@@ -19,15 +17,5 @@ z_index = 100
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
 position = Vector2( 240, 176 )
 z_index = 100
-
-[node name="Room" parent="YSort" instance=ExtResource( 4 )]
-
-[node name="GroundItem" parent="YSort/Room" instance=ExtResource( 5 )]
-position = Vector2( 320, 176 )
-id = "Axe"
-
-[node name="GroundItem2" parent="YSort/Room" instance=ExtResource( 5 )]
-position = Vector2( 288, 192 )
-id = "Sword"
 
 [node name="RiskHandler" parent="." instance=ExtResource( 2 )]

@@ -1,37 +1,43 @@
+shuffle room playlist (no repeat, until every room has appeared) POLISH
+
 fix item generation (items don't all generate at the right spots)
 
-save door locations for each room
+fix camera limits
 
-add camera limits for each room (create custom camera)
+improve removal overlap on item generation
 
-random ground item location generation works, but the subsequent new rooms generate items in wrong positions
+add warning signs to each rooms
 
-when items drop, make them drop in a nice arc (or at least with an animation) POLISH
-
-after exiting hero equip bag, generate next room
-
-add thanos snap animations to ground_items when timer runs out
+add hero life system
 
 fix dialogue system
 
+--------------------------------------------------------------------------------
+GETTIG FREAKY ON A FRIDAY NIGHT? restructue game state (sequence of events)
+--------------------------------------------------------------------------------
+
 make intro sequence STUCK ON DIALOGUE SYSTEM
+
+fix despawn timer in ground item (for like 5 seconds)
+
+only when talking to hero, open bag & equip slots
+
+implement sounds + music
+
+fill in item_stats.json
 
 make rooms
 
-add warning signs to each room
-
-shuffle room playlist (no repeat, until every room has appeared)
+--------------------------------------------------------------------------------
+STRETCH GOALS
+--------------------------------------------------------------------------------
 
 add random offset to item generation within tile POLISH
 
-remove overlap on item generation
-
-add despawn timer to ground item when 60 seconds are up (for like 5 seconds)
-
-add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) POLISH
-
-when talking to hero, open bag & equip slots
+add thanos snap animations to ground_items when timer runs out POLISH
 
 add coin slot to inventory POLISH
 
-add hero life system
+when items drop, make them drop in a nice arc (or at least with an animation) POLISH
+
+add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) POLISH

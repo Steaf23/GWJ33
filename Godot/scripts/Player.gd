@@ -7,6 +7,7 @@ signal request_pickup()
 onready var camera = $Camera2D
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
+onready var label = $Label
 
 var automoving = false
 var old_movedir = Vector2.ZERO
@@ -54,6 +55,8 @@ func _process(delta):
 		velocity = move_and_slide(velocity)
 	elif in_bag:
 		set_animation(Vector2.UP, "Idle")
+	
+	label.text = "(%d, %d) \n (%d, %d)" % [position.x, position.y, position.x / 32, position.y / 32]
 			
 
 func _unhandled_key_input(event):

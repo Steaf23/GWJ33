@@ -9,7 +9,6 @@ var finished_transition = true
 onready var dungeon = $Dungeon
 onready var bag = $Bag
 onready var lootTimer = $LootTimer
-onready var controller = $Controller
 
 func _enter_tree():
 	randomize()
@@ -60,7 +59,7 @@ func toggle_bag(should_load, show_hero=false):
 	bag.camera.current = should_load
 	dungeon.player.camera.current = !should_load
 	if !should_load:
-		var tween = dungeon.player.camera.zoom_out()
+#		var tween = dungeon.player.camera.zoom_out()
 		dungeon.player.in_bag = false
 		for item in bag.on_bag_close():
 			dungeon.drop_item_from_player(item)
