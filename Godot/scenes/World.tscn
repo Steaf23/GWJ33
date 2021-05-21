@@ -18,5 +18,9 @@ visible = false
 wait_time = 60.0
 one_shot = true
 
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 240, 160 )
+zoom = Vector2( 4, 4 )
+
 [connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]
 [connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]

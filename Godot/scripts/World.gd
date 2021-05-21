@@ -19,9 +19,9 @@ func _enter_tree():
 func _ready():
 	bag.connect("hero_died", self, "on_hero_died")
 	dungeon.connect("new_room", self, "start_loot")
-	set_state(State.DIALOGUE)
-	var test_text = textBox.instance()
-	add_child(test_text)
+#	set_state(State.DIALOGUE)
+#	var test_text = textBox.instance()
+#	add_child(test_text)
 	start_loot()
 
 func _process(delta):
@@ -65,27 +65,34 @@ func _unhandled_input(event):
 				close_bag()
 			State.LOOT, State.PREPARE:
 				open_bag()
+			State.HERO:
+				close_bag()
+				set_state(State.EVAL)
 
 	if event.is_action_pressed("pickup_item"):
 		match current_state:
 			State.BAG:
 				close_bag()
 				get_tree().set_input_as_handled()
+			State.HERO:
+				close_bag()
+				set_state(State.EVAL)
+				get_tree().set_input_as_handled()
 
-func toggle_bag(should_load, show_hero=false):
-	get_tree().paused = should_load
-	Physics2DServer.set_active(true)
-
-	dungeon.visible = !should_load
-	bag.visible = should_load
-	bag.camera.current = should_load
-	dungeon.player.camera.current = !should_load
-	if !should_load:
-#		var tween = dungeon.player.camera.zoom_out()
-		dungeon.player.show_bag = false
-		dungeon.drop_items_from_player(bag.on_bag_close())
-	else:
-		dungeon.player.show_bag = true
+#func toggle_bag(should_load, show_hero=false):
+#	get_tree().paused = should_load
+#	Physics2DServer.set_active(true)
+#
+#	dungeon.visible = !should_load
+#	bag.visible = should_load
+#	bag.camera.current = should_load
+#	dungeon.player.camera.current = !should_load
+#	if !should_load:
+##		var tween = dungeon.player.camera.zoom_out()
+#		dungeon.player.show_bag = false
+#		dungeon.drop_items_from_player(bag.on_bag_close())
+#	else:
+#		dungeon.player.show_bag = true
 
 func open_bag(show_hero=false):
 	if show_hero:
@@ -98,7 +105,7 @@ func open_bag(show_hero=false):
 	player.camera.current = false
 	bag.camera.current = true
 	player.show_bag = true
-	set_state(State.BAG if show_hero == false else State.HERO)
+	set_state(State.BAG if !show_hero else State.HERO)
 	
 func close_bag():
 	bag.hide_equipment()
@@ -119,13 +126,13 @@ func on_dungeon_request_item_pickup(item):
 		var bag_item = ItemConverter.to_bag(item)
 		bag.spawn(bag_item)
 		item.queue_free()
-		toggle_bag(show_bag)
+		open_bag()
 	else:
-		toggle_bag(show_bag, true)
+		open_bag(true)
 	return
 
 func on_hero_died():
-	toggle_bag(false)
+	close_bag()
 	print("THE HERO DIED, AND SO DID YOU >:D")
 	get_tree().reload_current_scene()
 

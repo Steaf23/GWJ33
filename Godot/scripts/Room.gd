@@ -6,9 +6,9 @@ var id = -1
 
 onready var groundLayer = $Ground
 onready var wallLayer = $Wall
-onready var limits = $Limits
-onready var door_pos = $Door/New
-onready var door_connection = $Door/Old
+onready var limits = $Limits setget ,get_limits
+onready var door_entrance = $Door/New setget ,get_global_entrance
+onready var door_exit = $Door/Old setget ,get_global_exit
 onready var layers = [groundLayer, wallLayer]
 
 func _ready():
@@ -17,9 +17,9 @@ func _ready():
 func find_doors():
 	for cell in wallLayer.get_used_cells():
 		if wallLayer.get_cellv(cell) == CLOSED_DOOR:
-			door_pos.position = wallLayer.map_to_world(cell)
+			door_entrance.position = wallLayer.map_to_world(cell)
 		elif wallLayer.get_cellv(cell) == OPEN_DOOR:
-			door_connection.position = wallLayer.map_to_world(cell)
+			door_exit.position = wallLayer.map_to_world(cell)
 
 func close_door():
 	for cell in wallLayer.get_used_cells_by_id(OPEN_DOOR):
@@ -41,9 +41,6 @@ func apply_slope_transform(player):
 		_:
 			player.on_stair = 0
 
-func get_global_door():
-	return to_global(door_pos.position)
-
 func get_ground_tile_at(pos):
 	return groundLayer.get_cellv(get_ground_cellv(pos))
 
@@ -56,3 +53,15 @@ func set_room_extents():
 func get_max_amount_items(spawning_tile_id, percentage):
 	var tiles = groundLayer.get_used_cells_by_id(spawning_tile_id)
 	return tiles.size() * percentage / 100
+
+func get_global_entrance():
+	return to_global(door_entrance.position) + Vector2(16, 16)
+
+func get_global_exit():
+	return to_global(door_exit.position) + Vector2(16, -16)
+
+func ground_map_to_world(cell):
+	return groundLayer.map_to_world(cell)
+	
+func get_limits():
+	return limits.get_limits()

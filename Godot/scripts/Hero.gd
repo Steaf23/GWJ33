@@ -3,6 +3,7 @@ extends Area2D
 var show_hover = false
 
 onready var sprite = $Sprite
+onready var collision = $Collision
 
 func _process(delta):
 	show_hover = false

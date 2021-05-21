@@ -1,9 +1,9 @@
 {
 	"Sword": {
 		"type":"weapon",
-		"rarity":23,
+		"rarity":10,
 		"success": {
-			"default": 0,
+			"default": 20,
 			"vampire": 30,
 			"elemental": 15,
 			"spirit": 20,
@@ -14,8 +14,9 @@
 	},
 	"Axe": {
 		"type":"weapon",
+		"rarity":3,
 		"success": {
-			"default": 10,
+			"default": 30,
 			"vampire": 5,
 			"elemental": 20,
 			"spirit": 10,
@@ -27,7 +28,7 @@
 	"Dagger": {
 		"type":"head",
 		"success": {
-			"default": 0
+			"default": 10
 		}
 	},
 	"LifePotion": {

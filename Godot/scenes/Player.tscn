@@ -445,7 +445,6 @@ shape = SubResource( 1 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-limit_smoothed = true
 script = ExtResource( 3 )
 zoom_duration = 0.3
 

@@ -1,5 +1,3 @@
-add multiple warning signs to each rooms
-
 --------------------------------------------------------------------------------
 GETTIG FREAKY ON A FRIDAY NIGHT? 
 --------------------------------------------------------------------------------
@@ -8,25 +6,34 @@ CK- Reality Restructuring Event: restructure game state handling (sequence of ev
 
 - create new camera
 
-- bag shouldn't care about what layer the ground is (just get the tiles from the room , room figures out which tiles those are)
+- dungeons shouldn't care about what layer the ground is (just get the tiles from the room , room figures out which tiles those are)
+	(create room#to_dungeon_space() method??)
 
 determine amount of items by using rooms tiles add item rarity to generation 
 (rewrite generate_items() again to use number of max items/ ground tiles instead of of looping till it fits)
 add random offset to item generation within tile
 
+only when talking to hero, open bag & equip slots
+
 add difficulty buffer (start with better items) (depends on roomcount) starts at 10, drops with 2 for every subsequent room
+
+fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
 
 add start room
 
 make intro sequence
 
-only when talking to hero, open bag & equip slots
+add multiple warning signs to each rooms
 
 implement sounds + music
 
-fill in item_stats.json
+PARALELL:
 
-make rooms
+	- fix web build!
+	
+	- fill in item_stats.json
+
+	- make rooms
 
 add wildcards physically in the game
 
@@ -47,3 +54,14 @@ add coin slot to inventory
 
 when items drop, make them drop in a nice arc (or at least with an animation)
 
+make door an object instead of a tile?
+
+remove rooms when you're past them
+
+--------------------------------------------------------------------------------
+MEETING
+--------------------------------------------------------------------------------
+
+give me stuff as soon as its sorta done, you can always update it later if you want
+
+font for dialogue? / other things like a box?
