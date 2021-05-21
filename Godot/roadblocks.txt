@@ -1,17 +1,12 @@
---------------------------------------------------------------------------------
-GETTIG FREAKY ON A FRIDAY NIGHT? 
---------------------------------------------------------------------------------
-
 CK- Reality Restructuring Event: restructure game state handling (sequence of events)
 
-- create new camera
-
-- dungeons shouldn't care about what layer the ground is (just get the tiles from the room , room figures out which tiles those are)
-	(create room#to_dungeon_space() method??)
+- create new camera (for what though? xD)
 
 determine amount of items by using rooms tiles add item rarity to generation 
 (rewrite generate_items() again to use number of max items/ ground tiles instead of of looping till it fits)
 add random offset to item generation within tile
+
+rewrite room so it doesn't matter what layer you use ('layers' array)
 
 only when talking to hero, open bag & equip slots
 
@@ -65,3 +60,7 @@ MEETING
 give me stuff as soon as its sorta done, you can always update it later if you want
 
 font for dialogue? / other things like a box?
+
+item rarity is relative to other items (item w r:1 is 13x as rare compared to item r:13)
+
+futuristic signs/ scoreboard spread around rooms to let you know the score of teh game (to avoid actual menus ofcourse)

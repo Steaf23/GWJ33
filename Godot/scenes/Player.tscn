@@ -443,11 +443,6 @@ frame = 4
 rotation = 1.5708
 shape = SubResource( 1 )
 
-[node name="Camera2D" type="Camera2D" parent="."]
-current = true
-script = ExtResource( 3 )
-zoom_duration = 0.3
-
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Idle_b = SubResource( 2 )
 anims/Idle_bl = SubResource( 3 )
@@ -476,3 +471,8 @@ align = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Camera" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 2, 2 )
+script = ExtResource( 3 )

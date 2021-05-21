@@ -27,11 +27,13 @@
 	},
 	"Dagger": {
 		"type":"head",
+		"rarity":15,
 		"success": {
 			"default": 10
 		}
 	},
 	"LifePotion": {
+		"rarity":1,
 		"type":"potion",
 		"success": {
 			"default": 0

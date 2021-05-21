@@ -4,10 +4,10 @@ export var speed = 10000
 
 signal request_pickup()
 
-onready var camera = $Camera2D
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var label = $Label
+onready var camera = $Camera
 
 var automoving = false
 var old_movedir = Vector2.ZERO

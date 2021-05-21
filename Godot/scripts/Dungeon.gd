@@ -23,6 +23,9 @@ func _ready():
 	setup_room(instance_random_room())
 	player.position = current_room.door_exit
 
+func _process(delta):
+	current_room.apply_slope_transform(player)
+
 func fill_room_list():
 	for i in range(UNIQUE_ROOM_COUNT):
 		preload_rooms.append(load("res://scenes/rooms/Room" + str(i) + ".tscn"))
@@ -34,8 +37,45 @@ func instance_random_room():
 	new_room.id = room_id
 	return new_room
 
-func _process(delta):
-	current_room.apply_slope_transform(player)
+func force_next_room():
+	emit_signal("request_item_pickup", null)
+
+	# prevent the same room to be generated twice in a row
+	var new_room = instance_random_room()
+	while new_room.id == current_room.id:
+		new_room = instance_random_room()
+	
+	var tween = player.move_to(Vector2(current_room.door_entrance.x, player.position.y), .5)
+	yield(tween, "tween_completed")
+	# duration should be 10 for battle sequence
+	tween = player.move_to(player.position, 2)
+	# ADD BATTLE MUSIC STUFF HERE
+	yield(tween, "tween_completed")
+	setup_room(new_room)
+	current_room.open_door()
+	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
+	yield(tween, "tween_completed")
+	current_room.close_door()
+	emit_signal("new_room")
+	room_counter += 1
+	print("total rooms: %d" % room_counter)
+	pass
+
+func setup_room(new_room):
+	objectList.add_child(new_room)
+	if current_room == null:
+		new_room.position = Vector2(0,0)
+	else:
+		new_room.position = current_room.door_entrance - new_room.door_exit - Vector2(0, 32)
+		new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
+#		current_room.queue_free()
+	new_room.set_room_extents()
+#	player.camera.set_new_limits(new_room.limits)
+	hero.position = new_room.door_entrance + Vector2(0, 32)
+	hero.collision.disabled = false
+	current_room = new_room
+	generate_items(10)
+	return new_room
 
 func get_colliding_items():
 	var colliding_items = []
@@ -45,10 +85,11 @@ func get_colliding_items():
 	return colliding_items
 
 func on_player_request_pickup():
-	if get_colliding_items().size() > 0:
+	var items = get_colliding_items()
+	if items.size() > 0:
 		var item = get_colliding_items()[0] #pass by value
 		player.show_bag = true
-		emit_signal("request_item_pickup", item) # pass by value, which might be deleted at that point
+		emit_signal("request_item_pickup", item) # pass by value, which might be deleted at that point (if zooming is enabled)
 		return
 
 	if hero.get_player() != null:
@@ -59,30 +100,19 @@ func generate_items(percentage):
 	if percentage >= 100:
 		percentage = 99
 	var amount = current_room.get_max_amount_items(FLOOR_TILE, percentage)
-	print("Generating %d items" % amount)
-	var gen = RandomNumberGenerator.new()
-	gen.randomize()
-#	var groundLayer = current_room.groundLayer
-	var limits = current_room.limits
-	limits[1] -= Vector2(32, 32)
-	var tl_cell = current_room.get_ground_cellv(limits[0])
-	var br_cell = current_room.get_ground_cellv(limits[1])
+	var ground_tiles = current_room.get_all_room_tiles_by_id(FLOOR_TILE)
 	
-	for i in range(amount):
+	for tile in ground_tiles:
+		if current_room.to_global(tile) == current_room.get_ground_cellv(hero.position):
+			ground_tiles.erase(tile)
+	
+	ground_tiles.shuffle()
+	var selected_tiles = ground_tiles.slice(0, amount)
+	
+	print("Generating %d items" % selected_tiles.size())
+	for tile in selected_tiles:
 		var item = ItemConverter.create_ground_item(ItemLookup.get_random_item_name())
-		# get a random tile position
-		# convert it to global world position
-		
-		var rand_x = gen.randi_range(tl_cell.x, br_cell.x)
-		var rand_y = gen.randi_range(tl_cell.y, br_cell.y)
-		var	pos = current_room.ground_map_to_world(Vector2(rand_x, rand_y))
-		
-		while !is_valid_item_position(current_room.to_local(pos)):
-			rand_x = gen.randi_range(tl_cell.x, br_cell.x)
-			rand_y = gen.randi_range(tl_cell.y, br_cell.y)
-			pos = current_room.ground_map_to_world(Vector2(rand_x, rand_y))
-		# set the position to offset of 16 , 16, to be in the middle of the tile
-		item.position = pos + Vector2(16, 16)
+		item.position = current_room.ground_map_to_world(tile) + Vector2(16, 16)
 		objectList.add_child(item)
 
 func drop_items_from_player(items):
@@ -134,46 +164,6 @@ func _on_loot_timeout():
 func blink_items():
 	for item in get_items():
 		item.blink()
-
-func force_next_room():
-#	emit_signal("request_item_pickup", null)
-
-	# prevent the same room to be generated twice in a row
-	var new_room = instance_random_room()
-	while new_room.id == current_room.id:
-		new_room = instance_random_room()
-	
-	var tween = player.move_to(Vector2(current_room.door_entrance.x, player.position.y), .5)
-	yield(tween, "tween_completed")
-	# duration should be 10 for battle sequence
-	tween = player.move_to(player.position, 2)
-	# ADD BATTLE MUSIC STUFF HERE
-	yield(tween, "tween_completed")
-	setup_room(new_room)
-	current_room.open_door()
-	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
-	yield(tween, "tween_completed")
-	current_room.close_door()
-	emit_signal("new_room")
-	room_counter += 1
-	print("total rooms: %d" % room_counter)
-	pass
-
-func setup_room(new_room):
-	objectList.add_child(new_room)
-	if current_room == null:
-		new_room.position = Vector2(0,0)
-	else:
-		new_room.position = current_room.door_entrance - new_room.door_exit - Vector2(0, 32)
-		new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
-#		current_room.queue_free()
-	new_room.set_room_extents()
-	player.camera.set_new_limits(new_room.limits)
-	hero.position = new_room.door_entrance + Vector2(0, 32)
-	hero.collision.disabled = false
-	current_room = new_room
-	generate_items(10)
-	return new_room
 
 func get_items():
 	return get_tree().get_nodes_in_group("items")

@@ -25,5 +25,15 @@ func get_type(item_id):
 func get_rarity(item_id):
 	return item_data[item_id]["rarity"]
 
+func get_item_by_index(idx):
+	return item_data.keys()[idx]
+
 func get_random_item_name():
-	return item_data.keys()[randi() % item_data.keys().size()]
+	var pool = []
+	for i in range(item_data.keys().size()):
+		for j in range(item_data[get_item_by_index(i)]["rarity"]):
+			pool.append(i)
+	pool.shuffle()
+	return get_item_by_index(pool[0])
+#	var chance = randi() % get_rarity("sword") 
+#	return item_data.keys()[randi() % item_data.keys().size()]

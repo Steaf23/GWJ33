@@ -54,6 +54,9 @@ func get_max_amount_items(spawning_tile_id, percentage):
 	var tiles = groundLayer.get_used_cells_by_id(spawning_tile_id)
 	return tiles.size() * percentage / 100
 
+func get_all_room_tiles_by_id(tile_id):
+	return groundLayer.get_used_cells_by_id(tile_id)
+
 func get_global_entrance():
 	return to_global(door_entrance.position) + Vector2(16, 16)
 
@@ -61,7 +64,7 @@ func get_global_exit():
 	return to_global(door_exit.position) + Vector2(16, -16)
 
 func ground_map_to_world(cell):
-	return groundLayer.map_to_world(cell)
+	return to_global(groundLayer.map_to_world(cell))
 	
 func get_limits():
 	return limits.get_limits()

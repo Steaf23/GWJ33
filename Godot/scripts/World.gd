@@ -79,21 +79,6 @@ func _unhandled_input(event):
 				set_state(State.EVAL)
 				get_tree().set_input_as_handled()
 
-#func toggle_bag(should_load, show_hero=false):
-#	get_tree().paused = should_load
-#	Physics2DServer.set_active(true)
-#
-#	dungeon.visible = !should_load
-#	bag.visible = should_load
-#	bag.camera.current = should_load
-#	dungeon.player.camera.current = !should_load
-#	if !should_load:
-##		var tween = dungeon.player.camera.zoom_out()
-#		dungeon.player.show_bag = false
-#		dungeon.drop_items_from_player(bag.on_bag_close())
-#	else:
-#		dungeon.player.show_bag = true
-
 func open_bag(show_hero=false):
 	if show_hero:
 		bag.show_equipment()
