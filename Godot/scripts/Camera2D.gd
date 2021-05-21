@@ -47,8 +47,8 @@ func set_new_limits(limits):
 #	add_child(tween)
 #	tween.start()
 #	yield(tween, "tween_completed")
-	pass
 #	set_limits(limits)
+	pass
 
 func smooth_limits(val):
 	print(limit_left, target[0].x, prev_limits[0].x)

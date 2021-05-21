@@ -48,8 +48,11 @@ func get_ground_tile_at(pos):
 	return groundLayer.get_cellv(get_ground_cellv(pos))
 
 func get_ground_cellv(pos):
-	print(groundLayer.world_to_map(pos))
 	return groundLayer.world_to_map(pos)
 
 func set_room_extents():
 	limits.set_room_extents(groundLayer, wallLayer)
+
+func get_max_amount_items(spawning_tile_id, percentage):
+	var tiles = groundLayer.get_used_cells_by_id(spawning_tile_id)
+	return tiles.size() * percentage / 100

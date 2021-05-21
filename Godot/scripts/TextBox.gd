@@ -25,7 +25,7 @@ func load_json():
 	return content
 
 func _input(event):
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("open_bag"):
 		name_field.text = ""
 		text_field.text = ""
 		cont = true

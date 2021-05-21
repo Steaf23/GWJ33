@@ -12,15 +12,15 @@ onready var label = $Label
 var automoving = false
 var old_movedir = Vector2.ZERO
 var velocity = Vector2.ZERO
-var on_stair = 0
-var in_bag = 0
+var on_stair = false
+var show_bag = false
 var stair_multiplier = .75
 
 func _ready():
 	animationTree.active = true
 
 func _process(delta):
-	if !automoving && !in_bag:
+	if !automoving && !show_bag:
 		var new_movedir = Vector2.ZERO
 		if Input.is_action_pressed("ui_left"):
 			new_movedir += Vector2.LEFT
@@ -53,7 +53,7 @@ func _process(delta):
 				velocity = new_movedir * speed * delta
 		velocity = new_movedir * speed * delta
 		velocity = move_and_slide(velocity)
-	elif in_bag:
+	elif show_bag:
 		set_animation(Vector2.UP, "Idle")
 	
 	label.text = "(%d, %d) \n (%d, %d)" % [position.x, position.y, position.x / 32, position.y / 32]

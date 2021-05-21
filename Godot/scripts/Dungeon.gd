@@ -29,7 +29,7 @@ func fill_room_list():
 
 func instance_random_room():
 	var room_id = randi() % UNIQUE_ROOM_COUNT
-	print("picking Room%d as next room" % [room_id])
+	print("Picking Room%d as next room" % [room_id])
 	var new_room = preload_rooms[room_id].instance()
 	new_room.id = room_id
 	return new_room
@@ -47,14 +47,16 @@ func get_colliding_items():
 func on_player_request_pickup():
 	if get_colliding_items().size() > 0:
 		var item = get_colliding_items()[0] #pass by value
-		player.in_bag = true
+		player.show_bag = true
 		emit_signal("request_item_pickup", item) # pass by value, which might be deleted at that point
 		return
 
 	if hero.get_player() != null:
 		force_next_room()
 		
-func generate_items(amount):
+func generate_items(percentage):
+	var amount = current_room.get_max_amount_items(FLOOR_TILE, 10)
+	print("Generating %d items" % amount)
 	var gen = RandomNumberGenerator.new()
 	gen.randomize()
 	var groundLayer = current_room.groundLayer
@@ -79,7 +81,11 @@ func generate_items(amount):
 		# set the position to offset of 16 , 16, to be in the middle of the tile
 		item.position = pos + Vector2(16, 16)
 		objectList.add_child(item)
-		
+
+func drop_items_from_player(items):
+	for item in items:
+		drop_item_from_player(item)		
+
 func drop_item_from_player(ground_item):
 	var radius = 20
 	var angle
@@ -100,7 +106,6 @@ func drop_item_from_player(ground_item):
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
 	var cell = current_room.get_ground_tile_at(local_item_pos)
-	print(cell)
 	if cell == FLOOR_TILE:
 		var occupied = false
 		for item in get_items():
@@ -124,8 +129,7 @@ func blink_items():
 		item.blink()
 
 func force_next_room():
-#	emit_signal("request_item_pickup", null)
-#	setup_room(instance_random_room())
+	emit_signal("request_item_pickup", null)
 
 	# prevent the same room to be generated twice in a row
 	var new_room = instance_random_room()
@@ -160,7 +164,7 @@ func setup_room(new_room):
 	player.camera.set_new_limits(new_room.limits.get_limits())
 	current_room = new_room
 	hero.position = current_room.get_global_door() + Vector2(16, 48)
-	generate_items(10)
+	generate_items(50)
 	return new_room
 
 func get_items():

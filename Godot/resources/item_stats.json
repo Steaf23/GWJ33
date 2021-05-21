@@ -1,13 +1,15 @@
 {
 	"Sword": {
 		"type":"weapon",
+		"rarity":23,
 		"success": {
 			"default": 0,
 			"vampire": 30,
 			"elemental": 15,
 			"spirit": 20,
 			"demon": 10,
-			"ogre": 0
+			"ogre": 0,
+			"ent": 0
 		}
 	},
 	"Axe": {
@@ -18,7 +20,8 @@
 			"elemental": 20,
 			"spirit": 10,
 			"demon": 30,
-			"ogre": 40
+			"ogre": 2,
+			"ent": 40
 		}
 	},
 	"Dagger": {

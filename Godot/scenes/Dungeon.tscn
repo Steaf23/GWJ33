@@ -11,11 +11,11 @@ script = ExtResource( 3 )
 [node name="YSort" type="YSort" parent="."]
 
 [node name="Hero" parent="YSort" instance=ExtResource( 6 )]
-position = Vector2( 240, 48 )
+position = Vector2( 240, 64 )
 z_index = 100
 
 [node name="Player" parent="YSort" instance=ExtResource( 1 )]
-position = Vector2( 240, 176 )
+position = Vector2( 240, 160 )
 z_index = 100
 
 [node name="RiskHandler" parent="." instance=ExtResource( 2 )]

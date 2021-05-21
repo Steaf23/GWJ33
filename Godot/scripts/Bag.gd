@@ -48,7 +48,7 @@ func spawn(bag_item):
 func get_random_spawnpoint():
 	return spawns[0]
 	
-func on_bag_close():
+func close():
 	var item_list = []
 	for item in get_children():
 		if item is Area2D && item.name != "Border":
@@ -71,3 +71,9 @@ func on_use_potion(potion):
 	else:
 		spawn(ItemConverter.to_bag(potion))
 	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
+
+func show_equipment():
+	pass
+	
+func hide_equipment():
+	pass
