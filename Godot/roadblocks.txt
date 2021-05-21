@@ -1,12 +1,20 @@
-add warning signs to each rooms STUCK ON MEETING 
+add multiple warning signs to each rooms STUCK ON MEETING 
 
 --------------------------------------------------------------------------------
 GETTIG FREAKY ON A FRIDAY NIGHT? 
 --------------------------------------------------------------------------------
 
-CK Reality Restructuring Event: restructure game state handling (sequence of events)
+CK- Reality Restructuring Event: restructure game state handling (sequence of events)
 
-make intro sequence STUCK ON DIALOGUE SYSTEM
+determine amount of items by using rooms tiles add item rarity to generation 
+(rewrite generate_items() again to use number of max items/ ground tiles instead of of looping till it fits)
+add random offset to item generation within tile
+
+add difficulty buffer (start with better items) (depends on roomcount) starts at 10, drops with 2 for every subsequent room
+
+add start room
+
+make intro sequence
 
 only when talking to hero, open bag & equip slots
 
@@ -24,25 +32,14 @@ STRETCH GOALS
 
 smooth camera limits
 
-add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING))
+add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) 
+add gaussian blur to bag zoom background
 
 shuffle room playlist (no repeat, until every room has appeared)
-
-add random offset to item generation within tile
 
 add thanos snap animations to ground_items when timer runs out 
 
 add coin slot to inventory
 
 when items drop, make them drop in a nice arc (or at least with an animation)
-
---------------------------------------------------------------------------------
-MEETING
---------------------------------------------------------------------------------
-
-misread GUI wildcard
-
-where to put the warning signs?
-
-sounds?
 

@@ -29,7 +29,7 @@ func fill_room_list():
 
 func instance_random_room():
 	var room_id = randi() % UNIQUE_ROOM_COUNT
-	print("picking Room%d as next room" % [room_id])
+	print("Picking Room%d as next room" % [room_id])
 	var new_room = preload_rooms[room_id].instance()
 	new_room.id = room_id
 	return new_room
@@ -54,7 +54,9 @@ func on_player_request_pickup():
 	if hero.get_player() != null:
 		force_next_room()
 		
-func generate_items(amount):
+func generate_items(percentage):
+	var amount = current_room.get_max_amount_items(FLOOR_TILE, 10)
+	print("Generating %d items" % amount)
 	var gen = RandomNumberGenerator.new()
 	gen.randomize()
 	var groundLayer = current_room.groundLayer
@@ -100,7 +102,6 @@ func drop_item_from_player(ground_item):
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
 	var cell = current_room.get_ground_tile_at(local_item_pos)
-	print(cell)
 	if cell == FLOOR_TILE:
 		var occupied = false
 		for item in get_items():
@@ -124,8 +125,7 @@ func blink_items():
 		item.blink()
 
 func force_next_room():
-#	emit_signal("request_item_pickup", null)
-#	setup_room(instance_random_room())
+	emit_signal("request_item_pickup", null)
 
 	# prevent the same room to be generated twice in a row
 	var new_room = instance_random_room()
@@ -160,7 +160,7 @@ func setup_room(new_room):
 	player.camera.set_new_limits(new_room.limits.get_limits())
 	current_room = new_room
 	hero.position = current_room.get_global_door() + Vector2(16, 48)
-	generate_items(10)
+	generate_items(50)
 	return new_room
 
 func get_items():

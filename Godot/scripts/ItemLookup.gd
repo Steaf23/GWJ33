@@ -21,6 +21,9 @@ func get_success_rate(item_id="", enemy_id="default"):
 
 func get_type(item_id):
 	return item_data[item_id]["type"]
+	
+func get_rarity(item_id):
+	return item_data[item_id]["rarity"]
 
 func get_random_item_name():
 	return item_data.keys()[randi() % item_data.keys().size()]

@@ -75,20 +75,28 @@ func toggle_bag(should_load, show_hero=false):
 		dungeon.player.in_bag = true
 	finished_transition = true
 
-func open_bag():
+func open_bag(show_hero=false):
+	if show_hero:
+		bag.show_equipment()
+	get_tree().paused = true
+	Physics2DServer.set_active(true)
 	pass
 	
 func close_bag():
+	bag.hide_equipment()
+	get_tree().paused = false
 	pass
 	
 func on_dungeon_request_item_pickup(item):
 	if finished_transition:
+		show_bag = true
 		if item != null:
-			show_bag = true
 			var bag_item = ItemConverter.to_bag(item)
 			bag.spawn(bag_item)
 			item.queue_free()
 			toggle_bag(show_bag)
+		else:
+			toggle_bag(show_bag, true)
 		return
 
 func on_hero_died():
