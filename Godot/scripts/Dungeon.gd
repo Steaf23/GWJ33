@@ -47,7 +47,7 @@ func get_colliding_items():
 func on_player_request_pickup():
 	if get_colliding_items().size() > 0:
 		var item = get_colliding_items()[0] #pass by value
-		player.in_bag = true
+		player.show_bag = true
 		emit_signal("request_item_pickup", item) # pass by value, which might be deleted at that point
 		return
 
@@ -81,7 +81,11 @@ func generate_items(percentage):
 		# set the position to offset of 16 , 16, to be in the middle of the tile
 		item.position = pos + Vector2(16, 16)
 		objectList.add_child(item)
-		
+
+func drop_items_from_player(items):
+	for item in items:
+		drop_item_from_player(item)		
+
 func drop_item_from_player(ground_item):
 	var radius = 20
 	var angle
