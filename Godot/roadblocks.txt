@@ -2,12 +2,7 @@
 SATURDAY NIGHT CRUNCHIN'
 -------------------------------------------------------------------------------
 
-weird state thingies
-
 you cant drag items in the startroom?
-
-state set wrongly upon talking with hero
-
 
 implement sounds + music
 

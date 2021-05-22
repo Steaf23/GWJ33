@@ -29,7 +29,7 @@ func _on_pickup():
 func _on_dropped():
 	picked_up = false
 
-func _unhandled_input(event):
+func _on_input_event(viewport, event, shape_idx):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.is_pressed():

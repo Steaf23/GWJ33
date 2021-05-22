@@ -91,7 +91,7 @@ func open_bag(show_hero=false):
 	bag.visible = true
 	
 	player.show_bag = true
-	set_state(State.BAG if !show_hero else State.HERO)
+	set_state(State.BAG)
 	
 func close_bag():
 	bag.hide_equipment()
@@ -129,7 +129,7 @@ func on_dungeon_start_battle():
 		yield(start_dialogue("premature_exit"), "completed")
 		return
 	lootTimer.stop()
-	dungeon.force_next_room()
+	yield(dungeon.force_next_room(), "completed")
 	start_loot()
 
 func start_loot():

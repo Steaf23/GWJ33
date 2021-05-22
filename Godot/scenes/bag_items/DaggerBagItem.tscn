@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/sprites/BagDagger.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/bag_items/BagDagger.png" type="Texture" id=2]
 [ext_resource path="res://resources/RedOverlay.shader" type="Shader" id=3]
 
 [sub_resource type="ShaderMaterial" id=1]

@@ -85,7 +85,7 @@ func setup_room(new_room):
 	hero.position = new_room.door_entrance + Vector2(0, 32)
 	hero.collision.disabled = false
 	current_room = new_room
-	generate_items(10)
+#	generate_items(10)
 	return new_room
 
 func get_colliding_items():
