@@ -464,14 +464,6 @@ parameters/playback = SubResource( 29 )
 parameters/Idle/blend_position = Vector2( 0, -0.957055 )
 parameters/Move/blend_position = Vector2( 0, 0 )
 
-[node name="Label" type="Label" parent="."]
-anchor_right = 1.0
-anchor_bottom = 1.0
-align = 1
-__meta__ = {
-"_edit_use_anchors_": false
-}
-
 [node name="Camera" type="Camera2D" parent="."]
 current = true
 script = ExtResource( 3 )

@@ -12,7 +12,6 @@ var time_up = false
 onready var player = $YSort/Player
 onready var hero = $YSort/Hero
 onready var objectList = $YSort
-onready var riskHandler = $RiskHandler
 onready var preload_rooms = []
 onready var current_room
 
@@ -42,9 +41,6 @@ func force_next_room():
 	hero.collision.disabled = true
 	emit_signal("request_item_pickup", null)
 	# prevent the same room to be generated twice in a row
-	var new_room = instance_random_room()
-	while new_room.id == current_room.id:
-		new_room = instance_random_room()
 	
 	var tween = player.move_to(Vector2(current_room.door_entrance.x, player.position.y), .5)
 	yield(tween, "tween_completed")
@@ -52,6 +48,11 @@ func force_next_room():
 	tween = player.move_to(player.position, 2)
 	# ADD BATTLE MUSIC STUFF HERE
 	yield(tween, "tween_completed")
+	
+	current_room.open_door()
+	var new_room = instance_random_room()
+	while new_room.id == current_room.id:
+		new_room = instance_random_room()
 	setup_room(new_room)
 	current_room.open_door()
 	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
@@ -63,12 +64,13 @@ func force_next_room():
 func setup_start_room():
 	var starting_room = load("res://scenes/rooms/RoomStart.tscn").instance()
 	objectList.add_child(starting_room)
+	
 	starting_room.position = Vector2(0, 0)
 	starting_room.set_room_extents()
 	
+	player.camera.set_new_limits(starting_room.limits)
 	hero.position = starting_room.door_entrance + Vector2(0, 32)
 	current_room = starting_room
-	
 	return starting_room
 
 func setup_room(new_room):
@@ -78,6 +80,7 @@ func setup_room(new_room):
 	new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
 #		current_room.queue_free()
 	new_room.set_room_extents()
+	
 	player.camera.set_new_limits(new_room.limits)
 	hero.position = new_room.door_entrance + Vector2(0, 32)
 	hero.collision.disabled = false

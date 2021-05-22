@@ -15,7 +15,7 @@ onready var sprite = $Sprite
 onready var collision = $Collision
 
 func _ready():
-	connect("clicked_on", get_parent(), "_on_ItemBlock_clicked_on")
+	connect("clicked_on", get_parent(), "on_bagItem_clicked")
 	connect("equip", get_parent(), "on_item_equip")
 
 func _physics_process(delta):
@@ -29,7 +29,7 @@ func _on_pickup():
 func _on_dropped():
 	picked_up = false
 
-func _on_input_event(viewport, event, shape_idx):
+func _unhandled_input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
 			if event.is_pressed():

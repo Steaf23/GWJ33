@@ -9,12 +9,9 @@ var held_item
 signal hero_died()
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
-onready var camera = $Camera
 onready var heroEquipment = $HeroEquipment
 
 func _process(delta):
-	if held_item == null:
-		pass
 	if current_hp <= 0:
 		emit_signal("hero_died")
 		
@@ -37,7 +34,7 @@ func _input(event):
 				if held_item != null:
 					held_item.rotateCW()
 		
-func _on_ItemBlock_clicked_on(item):
+func on_bagItem_clicked(item):
 	held_item = item
 
 

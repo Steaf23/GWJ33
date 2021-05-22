@@ -24,7 +24,7 @@ func equip(item):
 	return "fail"
 	
 func unequip():
-	icon.texture = load("res://assets/sprites/Ground.png")
+	icon.texture = null
 	var bag_item = ItemConverter.create_bag_item(item_id)
 	item_id = ""
 	return bag_item

@@ -10,6 +10,7 @@ shader = ExtResource( 2 )
 shader_param/enabled = false
 
 [node name="BagItem" type="Area2D"]
+z_index = 900
 collision_layer = 2
 collision_mask = 2
 script = ExtResource( 1 )

@@ -5,15 +5,16 @@ enum State {LOOT, BAG, PREPARE, HERO, EVAL, BATTLE, DIALOGUE}
 onready var textBox = preload("res://scenes/TextBox.tscn")
 
 var previous_state
-var current_state = State.BATTLE setget set_state
+var current_state = State.LOOT setget set_state
 var show_bag = false
 
 var first_time = true
 
 onready var dungeon = $Dungeon
 onready var player = $Dungeon/YSort/Player
-onready var bag = $Bag
+onready var bag = $BagLayer/Bag
 onready var lootTimer = $LootTimer
+onready var dialogueLayer = $DialogueLayer
 
 func _enter_tree():
 	randomize()
@@ -87,10 +88,8 @@ func open_bag(show_hero=false):
 	get_tree().paused = true
 	Physics2DServer.set_active(true)
 	
-	dungeon.visible = false
 	bag.visible = true
-	player.camera.current = false
-	bag.camera.current = true
+	
 	player.show_bag = true
 	set_state(State.BAG if !show_hero else State.HERO)
 	
@@ -98,10 +97,7 @@ func close_bag():
 	bag.hide_equipment()
 	get_tree().paused = false
 	
-	dungeon.visible = true
 	bag.visible = false
-	bag.camera.current = false
-	player.camera.current = true
 	
 	player.show_bag = false
 	dungeon.drop_items_from_player(bag.close())
@@ -124,14 +120,13 @@ func on_hero_died():
 	get_tree().reload_current_scene()
 
 func on_dungeon_start_battle():
+	set_state(State.HERO)
 	if first_time:
 		first_time = false
 		yield(start_dialogue("start"), "completed")
-		dungeon.force_next_room()
-		start_loot()
-		return
 	if lootTimer.time_left > 0:
 		# confirmation dialogue since time isnt up yet yield answer from player?
+		yield(start_dialogue("premature_exit"), "completed")
 		return
 	lootTimer.stop()
 	dungeon.force_next_room()
@@ -146,9 +141,10 @@ func start_dialogue(dialogue_name):
 	player.freeze = true
 	var test_text = textBox.instance()
 	test_text.dialogue = "res://resources/dialogue_" + dialogue_name + ".json"
-	add_child(test_text)
+	dialogueLayer.add_child(test_text)
 	yield(test_text, "dialogue_completed")
 	player.freeze = false
+	set_state(previous_state)
 	
 func set_state(new_state):
 	previous_state = current_state

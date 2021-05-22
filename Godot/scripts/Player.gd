@@ -6,7 +6,6 @@ signal request_pickup()
 
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
-onready var label = $Label
 onready var camera = $Camera
 
 var automoving = false
@@ -55,10 +54,7 @@ func _process(delta):
 		velocity = new_movedir * speed * delta
 		velocity = move_and_slide(velocity)
 	elif show_bag:
-		set_animation(Vector2.UP, "Idle")
-	
-	label.text = "(%d, %d) \n (%d, %d)" % [position.x, position.y, position.x / 32, position.y / 32]
-			
+		set_animation(Vector2.UP, "Idle")			
 
 func _unhandled_key_input(event):
 	if event.is_action_pressed("pickup_item"):
