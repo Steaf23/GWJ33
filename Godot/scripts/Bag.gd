@@ -73,7 +73,11 @@ func on_use_potion(potion):
 	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
 
 func show_equipment():
-	pass
+	heroEquipment.visible = true
+	for slot in heroEquipment.slots:
+		slot.collision.disabled = false
 	
 func hide_equipment():
-	pass
+	heroEquipment.visible = false
+	for slot in heroEquipment.slots:
+		slot.collision.disabled = true

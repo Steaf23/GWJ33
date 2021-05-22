@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/sprites/Tile.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/BagInside.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Bag.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/Bag_Outside.png" type="Texture" id=4]
-[ext_resource path="res://scripts/HeroEquipment.gd" type="Script" id=5]
-[ext_resource path="res://scenes/EquipmentSlot.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/HeroEquipment.tscn" type="PackedScene" id=5]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tile.png 0"
@@ -42,7 +41,6 @@ tile_set = SubResource( 1 )
 cell_size = Vector2( 32, 32 )
 cell_tile_origin = 1
 format = 1
-tile_data = PoolIntArray( 5, 0, 0, 9, 0, 0, 65539, 0, 0, 65543, 0, 0, 65547, 0, 0, 131077, 0, 0, 131081, 0, 0 )
 script = ExtResource( 3 )
 
 [node name="Sprite" type="AnimatedSprite" parent="."]
@@ -70,33 +68,4 @@ position = Vector2( 64, 160 )
 [node name="Camera" type="Camera2D" parent="."]
 position = Vector2( 240, 160 )
 
-[node name="HeroEquipment" type="Node2D" parent="."]
-script = ExtResource( 5 )
-
-[node name="Head" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 96, 32 )
-type = "head"
-
-[node name="Weapon" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 160, 0 )
-type = "weapon"
-
-[node name="Weapon2" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 160, 64 )
-type = "weapon"
-
-[node name="Necklace" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 288, 64 )
-type = "necklace"
-
-[node name="Body" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 288, 0 )
-type = "body"
-
-[node name="Boots" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 352, 32 )
-type = "boots"
-
-[node name="Potion" parent="HeroEquipment" instance=ExtResource( 7 )]
-position = Vector2( 224, 32 )
-type = "potion"
+[node name="HeroEquipment" parent="." instance=ExtResource( 5 )]

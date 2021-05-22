@@ -2,8 +2,6 @@ CK- Reality Restructuring Event: restructure game state handling (sequence of ev
 
 - create new camera (for what though? xD)
 
-only when talking to hero, open bag & equip slots
-
 add difficulty buffer (start with better items) (depends on roomcount) starts at 10, drops with 2 for every subsequent room
 
 fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
@@ -11,6 +9,8 @@ fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
 -------------------------------------------------------------------------------
 SATURDAY NIGHT CRUNCHIN'
 -------------------------------------------------------------------------------
+
+timer is weirdly ordered (items can still dissapear right after they generation between room transitions)
 
 add start room
 

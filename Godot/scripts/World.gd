@@ -19,6 +19,7 @@ func _enter_tree():
 func _ready():
 	bag.connect("hero_died", self, "on_hero_died")
 	dungeon.connect("new_room", self, "start_loot")
+	bag.hide_equipment()
 #	set_state(State.DIALOGUE)
 #	var test_text = textBox.instance()
 #	add_child(test_text)

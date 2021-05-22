@@ -9,6 +9,7 @@ signal unequip_item(item)
 signal use_potion(potion)
 
 onready var icon = $Icon
+onready var collision = $Collision
 
 # 3 states, equip successful, equip successful + remainder, equip unsuccessful
 func equip(item):

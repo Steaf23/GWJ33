@@ -1,0 +1,35 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scripts/HeroEquipment.gd" type="Script" id=2]
+[ext_resource path="res://scenes/EquipmentSlot.tscn" type="PackedScene" id=3]
+
+[node name="HeroEquipment" type="Node2D"]
+script = ExtResource( 2 )
+
+[node name="Head" parent="." instance=ExtResource( 3 )]
+position = Vector2( 96, 32 )
+type = "head"
+
+[node name="Weapon" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 0 )
+type = "weapon"
+
+[node name="Weapon2" parent="." instance=ExtResource( 3 )]
+position = Vector2( 160, 64 )
+type = "weapon"
+
+[node name="Necklace" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 64 )
+type = "necklace"
+
+[node name="Body" parent="." instance=ExtResource( 3 )]
+position = Vector2( 288, 0 )
+type = "body"
+
+[node name="Boots" parent="." instance=ExtResource( 3 )]
+position = Vector2( 352, 32 )
+type = "boots"
+
+[node name="Potion" parent="." instance=ExtResource( 3 )]
+position = Vector2( 224, 32 )
+type = "potion"
