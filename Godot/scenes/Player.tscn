@@ -474,5 +474,4 @@ __meta__ = {
 
 [node name="Camera" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 2, 2 )
 script = ExtResource( 3 )

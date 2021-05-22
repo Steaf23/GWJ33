@@ -1,5 +1,13 @@
 extends Node
 
+const WARNING_TYPES = ["goblin", 
+					   "vampire", 
+					   "elemental", 
+					   "spirit", 
+					   "demon", 
+					   "ogre", 
+					   "ent"]
+
 onready var item_data
 
 func _ready():

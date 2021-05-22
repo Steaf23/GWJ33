@@ -9,13 +9,17 @@ onready var br_label = $BottomRight/Label
 func get_limits():
 	return [topLeft.position, bottomRight.position]
 
-func set_room_extents(ground_layer, wall_layer):
-	var g_ex = get_layer_extents(ground_layer)
-	var w_ex = get_layer_extents(wall_layer)
-	var extents = [Vector2(min(g_ex[0].x, w_ex[0].x), min(g_ex[0].y, w_ex[0].y)), 
-				   Vector2(max(g_ex[1].x, w_ex[1].x), max(g_ex[1].y, w_ex[1].y))]
-	topLeft.position = extents[0]
-	bottomRight.position = extents[1] + Vector2(32, 32)
+func set_room_extents(layers):
+	var extents = []
+	for layer in layers:
+		extents.append(get_layer_extents(layer))
+	
+	var total = [Vector2(0, 0), Vector2(0, 0)]
+	for extent in extents:
+		total = [Vector2(min(extent[0].x, total[0].x), min(extent[0].y, total[0].y)), 
+				 Vector2(max(extent[1].x, total[1].x), max(extent[1].y, total[1].y))]
+	topLeft.position = total[0]
+	bottomRight.position = total[1] + Vector2(32, 32)
 	
 	tl_label.text = "(%d, %d) \n (%d, %d)" % [topLeft.position.x, 
 											  topLeft.position.y, 

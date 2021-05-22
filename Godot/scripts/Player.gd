@@ -12,8 +12,8 @@ onready var camera = $Camera
 var automoving = false
 var old_movedir = Vector2.ZERO
 var velocity = Vector2.ZERO
-var on_stair = false
 var show_bag = false
+var on_stair = 0
 var stair_multiplier = .75
 
 func _ready():

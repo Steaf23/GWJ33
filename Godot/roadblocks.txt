@@ -2,17 +2,15 @@ CK- Reality Restructuring Event: restructure game state handling (sequence of ev
 
 - create new camera (for what though? xD)
 
-determine amount of items by using rooms tiles add item rarity to generation 
-(rewrite generate_items() again to use number of max items/ ground tiles instead of of looping till it fits)
-add random offset to item generation within tile
-
-rewrite room so it doesn't matter what layer you use ('layers' array)
-
 only when talking to hero, open bag & equip slots
 
 add difficulty buffer (start with better items) (depends on roomcount) starts at 10, drops with 2 for every subsequent room
 
 fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
+
+-------------------------------------------------------------------------------
+SATURDAY NIGHT CRUNCHIN'
+-------------------------------------------------------------------------------
 
 add start room
 
@@ -36,10 +34,12 @@ add wildcards physically in the game
 STRETCH GOALS
 --------------------------------------------------------------------------------
 
+add score signs in addition to warning signs , so the player can see their progress without the need of a direct GUI
+
 smooth camera limits
 
 add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) 
-add gaussian blur to bag zoom background
+add gaussian blur to bag zoom background a.k.a. NESTING VIEWPORTS OMG WTF >:(
 
 shuffle room playlist (no repeat, until every room has appeared)
 
@@ -62,5 +62,3 @@ give me stuff as soon as its sorta done, you can always update it later if you w
 font for dialogue? / other things like a box?
 
 item rarity is relative to other items (item w r:1 is 13x as rare compared to item r:13)
-
-futuristic signs/ scoreboard spread around rooms to let you know the score of teh game (to avoid actual menus ofcourse)

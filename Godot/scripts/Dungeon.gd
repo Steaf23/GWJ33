@@ -32,9 +32,11 @@ func fill_room_list():
 
 func instance_random_room():
 	var room_id = randi() % UNIQUE_ROOM_COUNT
-	print("Picking Room%d as next room" % [room_id])
+	var warning = ItemLookup.WARNING_TYPES[randi() % ItemLookup.WARNING_TYPES.size()]
+	print("Picking Room %d as next room, with as warning %s" % [room_id, warning])
 	var new_room = preload_rooms[room_id].instance()
 	new_room.id = room_id
+	new_room.warning = warning
 	return new_room
 
 func force_next_room():
@@ -103,7 +105,7 @@ func generate_items(percentage):
 	var ground_tiles = current_room.get_all_room_tiles_by_id(FLOOR_TILE)
 	
 	for tile in ground_tiles:
-		if current_room.to_global(tile) == current_room.get_ground_cellv(hero.position):
+		if current_room.to_global(tile) == current_room.room_world_to_map(hero.position):
 			ground_tiles.erase(tile)
 	
 	ground_tiles.shuffle()
@@ -112,7 +114,9 @@ func generate_items(percentage):
 	print("Generating %d items" % selected_tiles.size())
 	for tile in selected_tiles:
 		var item = ItemConverter.create_ground_item(ItemLookup.get_random_item_name())
-		item.position = current_room.ground_map_to_world(tile) + Vector2(16, 16)
+		var offset = Vector2(randi() % 16 + 8, randi() % 16  + 8)
+		
+		item.position = current_room.room_map_to_world(tile) + offset
 		objectList.add_child(item)
 
 func drop_items_from_player(items):
@@ -138,15 +142,15 @@ func drop_item_from_player(ground_item):
 
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
-	var cell = current_room.get_ground_tile_at(local_item_pos)
+	var cell = current_room.get_first_tile_at(local_item_pos)
 	if cell == FLOOR_TILE:
 		var occupied = false
 		# check if there already is an item at that spot
 		for item in get_items():
-			if current_room.get_ground_cellv(current_room.to_global(local_item_pos)) == current_room.get_ground_cellv(item.position):
+			if current_room.room_world_to_map(current_room.to_global(local_item_pos)) == current_room.room_world_to_map(item.position):
 				occupied = true
 		# check is the hero is standing in that spot
-		if current_room.get_ground_cellv(current_room.to_global(local_item_pos)) == current_room.get_ground_cellv(hero.position):
+		if current_room.room_world_to_map(current_room.to_global(local_item_pos)) == current_room.room_world_to_map(hero.position):
 			occupied = true
 		return !occupied
 	else:
