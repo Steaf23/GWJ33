@@ -2,6 +2,9 @@ extends Node2D
 
 const SLOT_TYPES = ["head", "weapon", "weapon", "potion", "necklace", "body", "boots"]
 
+var starter_bonus = 10
+var bonus_falloff = 2
+
 onready var slots
 
 func _ready():
@@ -11,7 +14,7 @@ func _ready():
 	slots[3].connect("use_potion", get_parent(), "on_use_potion")
 
 func evaluate_equipment(enemy_id="default"):
-	var total = 0
+	var total = starter_bonus - min(bonus_falloff * Score.room_score, 0)
 	for slot in slots:
 		total += ItemLookup.get_success_rate(slot.item_id, enemy_id)
 	print("SCORE: %d" % total)

@@ -1,22 +1,16 @@
-CK- Reality Restructuring Event: restructure game state handling (sequence of events)
-
-- create new camera (for what though? xD)
-
-add difficulty buffer (start with better items) (depends on roomcount) starts at 10, drops with 2 for every subsequent room
-
-fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
-
 -------------------------------------------------------------------------------
 SATURDAY NIGHT CRUNCHIN'
 -------------------------------------------------------------------------------
 
-timer is weirdly ordered (items can still dissapear right after they generation between room transitions)
-
 add start room
+
+make dialogue system more dynamic
 
 make intro sequence
 
 add multiple warning signs to each rooms
+
+state set wrongly upon talking with hero
 
 implement sounds + music
 
@@ -34,12 +28,15 @@ add wildcards physically in the game
 STRETCH GOALS
 --------------------------------------------------------------------------------
 
-add score signs in addition to warning signs , so the player can see their progress without the need of a direct GUI
+head bobs on the hover boards
+
+add score signs in addition to warning signs, so the player can see their progress without the need of a direct GUI
 
 smooth camera limits
 
 add fancy bag opening fade and zoom (cam setting , offset = -20) ((FIX ZOOMING)) 
-add gaussian blur to bag zoom background a.k.a. NESTING VIEWPORTS OMG WTF >:(
+add gaussian blur to bag zoom background a.k.a. NESTING VIEWPORTS OMG WTF >:( 
+QUICK HACKS AND FACTS >https://docs.godotengine.org/en/stable/tutorials/viewports/viewports.html#cameras-2d-3d<
 
 shuffle room playlist (no repeat, until every room has appeared)
 
@@ -51,14 +48,10 @@ when items drop, make them drop in a nice arc (or at least with an animation)
 
 make door an object instead of a tile?
 
+fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
+
 remove rooms when you're past them
 
 --------------------------------------------------------------------------------
 MEETING
 --------------------------------------------------------------------------------
-
-give me stuff as soon as its sorta done, you can always update it later if you want
-
-font for dialogue? / other things like a box?
-
-item rarity is relative to other items (item w r:1 is 13x as rare compared to item r:13)

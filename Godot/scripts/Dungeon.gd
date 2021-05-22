@@ -5,10 +5,9 @@ const UNIQUE_ROOM_COUNT = 2
 const ROOM_DISTANCE = 0
 
 signal request_item_pickup(item)
-signal new_room()
+signal start_battle()
 
 var time_up = false
-var room_counter = 0
 
 onready var player = $YSort/Player
 onready var hero = $YSort/Hero
@@ -20,7 +19,7 @@ onready var current_room
 func _ready():
 	player.connect("request_pickup", self, "on_player_request_pickup")
 	fill_room_list()
-	setup_room(instance_random_room())
+	setup_start_room()
 	player.position = current_room.door_exit
 
 func _process(delta):
@@ -40,8 +39,8 @@ func instance_random_room():
 	return new_room
 
 func force_next_room():
+	hero.collision.disabled = true
 	emit_signal("request_item_pickup", null)
-
 	# prevent the same room to be generated twice in a row
 	var new_room = instance_random_room()
 	while new_room.id == current_room.id:
@@ -58,21 +57,28 @@ func force_next_room():
 	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
 	yield(tween, "tween_completed")
 	current_room.close_door()
-	emit_signal("new_room")
-	room_counter += 1
-	print("total rooms: %d" % room_counter)
-	pass
+	Score.room_score += 1
+	print("total rooms: %d" % Score.room_score)
+
+func setup_start_room():
+	var starting_room = load("res://scenes/rooms/RoomStart.tscn").instance()
+	objectList.add_child(starting_room)
+	starting_room.position = Vector2(0, 0)
+	starting_room.set_room_extents()
+	
+	hero.position = starting_room.door_entrance + Vector2(0, 32)
+	current_room = starting_room
+	
+	return starting_room
 
 func setup_room(new_room):
 	objectList.add_child(new_room)
-	if current_room == null:
-		new_room.position = Vector2(0,0)
-	else:
-		new_room.position = current_room.door_entrance - new_room.door_exit - Vector2(0, 32)
-		new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
+	
+	new_room.position = current_room.door_entrance - new_room.door_exit - Vector2(0, 32)
+	new_room.position.y = new_room.position.y - 32 - ROOM_DISTANCE
 #		current_room.queue_free()
 	new_room.set_room_extents()
-#	player.camera.set_new_limits(new_room.limits)
+	player.camera.set_new_limits(new_room.limits)
 	hero.position = new_room.door_entrance + Vector2(0, 32)
 	hero.collision.disabled = false
 	current_room = new_room
@@ -95,8 +101,7 @@ func on_player_request_pickup():
 		return
 
 	if hero.get_player() != null:
-		hero.collision.disabled = true
-		force_next_room()
+		emit_signal("start_battle")
 		
 func generate_items(percentage):
 	if percentage >= 100:
@@ -179,4 +184,3 @@ func on_item_despawn(item):
 func on_room_add_item(item):
 	item.connect("despawn", self, "on_item_despawn")
 	objectList.add_child(item)
-

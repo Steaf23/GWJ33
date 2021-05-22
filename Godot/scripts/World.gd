@@ -8,6 +8,8 @@ var previous_state
 var current_state = State.BATTLE setget set_state
 var show_bag = false
 
+var first_time = true
+
 onready var dungeon = $Dungeon
 onready var player = $Dungeon/YSort/Player
 onready var bag = $Bag
@@ -18,20 +20,20 @@ func _enter_tree():
 	
 func _ready():
 	bag.connect("hero_died", self, "on_hero_died")
-	dungeon.connect("new_room", self, "start_loot")
+	dungeon.connect("start_battle", self, "on_dungeon_start_battle")
 	bag.hide_equipment()
-#	set_state(State.DIALOGUE)
-#	var test_text = textBox.instance()
-#	add_child(test_text)
-	start_loot()
+	yield(start_dialogue("title"), "completed")
+	first_time = true
 
 func _process(delta):
 	match current_state:
 		State.LOOT:
 			pass
+			pass
 		State.BAG:
 			pass
 		State.PREPARE:
+			pass
 			pass
 		State.HERO:
 			pass
@@ -44,10 +46,6 @@ func _process(delta):
 	
 	if lootTimer.time_left < 2:
 		dungeon.blink_items()
-
-func start_loot():
-	set_state(State.LOOT)
-	lootTimer.start()
 #
 #func _unhandled_input(event):
 #	if event.is_action_pressed("open_bag"):
@@ -79,6 +77,9 @@ func _unhandled_input(event):
 				close_bag()
 				set_state(State.EVAL)
 				get_tree().set_input_as_handled()
+	
+	if event.is_action_pressed("ui_accept"):
+		print("Current State: %s" % [State.keys()[current_state]])
 
 func open_bag(show_hero=false):
 	if show_hero:
@@ -122,8 +123,33 @@ func on_hero_died():
 	print("THE HERO DIED, AND SO DID YOU >:D")
 	get_tree().reload_current_scene()
 
+func on_dungeon_start_battle():
+	if first_time:
+		first_time = false
+		yield(start_dialogue("start"), "completed")
+		dungeon.force_next_room()
+		start_loot()
+		return
+	if lootTimer.time_left > 0:
+		# confirmation dialogue since time isnt up yet yield answer from player?
+		return
+	lootTimer.stop()
+	dungeon.force_next_room()
+	start_loot()
+
+func start_loot():
+	set_state(State.LOOT)
+	lootTimer.start()
+
+func start_dialogue(dialogue_name):
+	set_state(State.DIALOGUE)
+	player.freeze = true
+	var test_text = textBox.instance()
+	test_text.dialogue = "res://resources/dialogue_" + dialogue_name + ".json"
+	add_child(test_text)
+	yield(test_text, "dialogue_completed")
+	player.freeze = false
+	
 func set_state(new_state):
 	previous_state = current_state
 	current_state = new_state
-	print("SET STATE, NEW: %s, OLD: %s" % 
-		[State.keys()[current_state], State.keys()[previous_state]])

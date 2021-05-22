@@ -13,6 +13,7 @@ var automoving = false
 var old_movedir = Vector2.ZERO
 var velocity = Vector2.ZERO
 var show_bag = false
+var freeze = false
 var on_stair = 0
 var stair_multiplier = .75
 
@@ -20,7 +21,7 @@ func _ready():
 	animationTree.active = true
 
 func _process(delta):
-	if !automoving && !show_bag:
+	if !automoving && !show_bag && !freeze:
 		var new_movedir = Vector2.ZERO
 		if Input.is_action_pressed("ui_left"):
 			new_movedir += Vector2.LEFT
