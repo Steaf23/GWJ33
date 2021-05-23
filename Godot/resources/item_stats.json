@@ -6,9 +6,9 @@
 			"default": 20,
 			"vampire": 30,
 			"elemental": 15,
-			"spirit": 20,
-			"demon": 10,
-			"ogre": 0,
+			"ghost": 20,
+			"imp": 10,
+			"robot": 0,
 			"ent": 0
 		}
 	},
@@ -19,9 +19,9 @@
 			"default": 30,
 			"vampire": 5,
 			"elemental": 20,
-			"spirit": 10,
-			"demon": 30,
-			"ogre": 2,
+			"ghost": 10,
+			"imp": 30,
+			"robot": 2,
 			"ent": 40
 		}
 	},
@@ -32,11 +32,158 @@
 			"default": 10
 		}
 	},
+	"Bow": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"Hammer": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"Halberd": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"SmallShield": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"FullShield": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"Masamune": {
+		"type":"weapon",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
 	"LifePotion": {
 		"type":"potion",
 		"rarity":1,
 		"success": {
 			"default": 0
 		}
-	}
+	},
+	"LeatherHelmet": {
+		"type":"head",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"LeatherChest": {
+		"type":"body",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"LeatherBoots": {
+		"type":"boots",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"ChainHelmet": {
+		"type":"head",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"ChainChest": {
+		"type":"body",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"ChainBoots": {
+		"type":"boots",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"PlateHelmet": {
+		"type":"head",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"PlateChest": {
+		"type":"body",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"PlateBoots": {
+		"type":"boots",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceBone": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceChain": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceCross": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceGarlic": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceGold": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
+	"NecklaceRuby": {
+		"type":"necklace",
+		"rarity":10,
+		"success": {
+			"default": 0
+		}
+	},
 }

@@ -19,7 +19,7 @@ func _ready():
 	player.connect("request_pickup", self, "on_player_request_pickup")
 	fill_room_list()
 	setup_start_room()
-	player.position = current_room.door_exit
+	player.position = current_room.door_exit + Vector2(16, 0)
 
 func _process(delta):
 	current_room.apply_slope_transform(player)
@@ -39,10 +39,11 @@ func instance_random_room():
 
 func force_next_room():
 	hero.collision.disabled = true
-	emit_signal("request_item_pickup", null)
+	if Score.room_score != 0:
+		emit_signal("request_item_pickup", null)
 	# prevent the same room to be generated twice in a row
 	
-	var tween = player.move_to(Vector2(current_room.door_entrance.x, player.position.y), .5)
+	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
 	yield(tween, "tween_completed")
 	# duration should be 10 for battle sequence
 	tween = player.move_to(player.position, 2)
@@ -69,7 +70,7 @@ func setup_start_room():
 	starting_room.set_room_extents()
 	
 	player.camera.set_new_limits(starting_room.limits)
-	hero.position = starting_room.door_entrance + Vector2(0, 32)
+	hero.position = starting_room.door_entrance + Vector2(16, 0)
 	current_room = starting_room
 	return starting_room
 
@@ -85,7 +86,7 @@ func setup_room(new_room):
 	hero.position = new_room.door_entrance + Vector2(0, 32)
 	hero.collision.disabled = false
 	current_room = new_room
-#	generate_items(10)
+	generate_items(10)
 	return new_room
 
 func get_colliding_items():
@@ -109,8 +110,8 @@ func on_player_request_pickup():
 func generate_items(percentage):
 	if percentage >= 100:
 		percentage = 99
-	var amount = current_room.get_max_amount_items(FLOOR_TILES, percentage)
-	var ground_tiles = current_room.get_all_room_tiles_by_id(FLOOR_TILES)
+	var amount = current_room.get_max_amount_items(percentage)
+	var ground_tiles = current_room.specialLayer.get_item_tiles()
 	
 	for tile in ground_tiles:
 		if current_room.to_global(tile) == current_room.room_world_to_map(hero.position):
@@ -137,12 +138,12 @@ func drop_item_from_player(ground_item):
 	var pos = player.position + Vector2(0, radius)
 	# get valid item position
 	var i = 0
-	while !is_valid_item_position(current_room.to_local(pos)):
-		angle = deg2rad(randi() % 360)
-		pos = get_random_circle_point(radius, player.position)
-		i +=  1
-		if i >= 360:
-			radius += 10
+#	while !is_valid_item_position(current_room.to_local(pos)):
+#		angle = deg2rad(randi() % 360)
+#		pos = get_random_circle_point(radius, player.position)
+#		i +=  1
+#		if i >= 360:
+#			radius += 10
 
 	ground_item.position = pos
 	ground_item.connect("despawn", self, "on_item_despawn")
@@ -150,7 +151,7 @@ func drop_item_from_player(ground_item):
 
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
-	var cell = current_room.get_first_tile_at(local_item_pos)
+	var cell = current_room.is_item_tile(local_item_pos)
 	if FLOOR_TILES.find(cell) != -1:
 		var occupied = false
 		# check if there already is an item at that spot

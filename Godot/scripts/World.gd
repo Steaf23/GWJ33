@@ -30,11 +30,9 @@ func _process(delta):
 	match current_state:
 		State.LOOT:
 			pass
-			pass
 		State.BAG:
 			pass
 		State.PREPARE:
-			pass
 			pass
 		State.HERO:
 			pass

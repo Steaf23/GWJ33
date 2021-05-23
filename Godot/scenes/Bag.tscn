@@ -1,11 +1,10 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://assets/sprites/tileset/Tile.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/BagInside.png" type="Texture" id=2]
 [ext_resource path="res://scripts/Bag.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/Bag_Outside.png" type="Texture" id=4]
 [ext_resource path="res://scenes/HeroEquipment.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/bag_items/SwordBagItem.tscn" type="PackedScene" id=7]
 
 [sub_resource type="TileSet" id=1]
 0/name = "Tile.png 0"
@@ -67,6 +66,3 @@ position = Vector2( 384, 160 )
 position = Vector2( 64, 160 )
 
 [node name="HeroEquipment" parent="." instance=ExtResource( 5 )]
-
-[node name="SwordBagItem" parent="." instance=ExtResource( 7 )]
-position = Vector2( 224, 224 )

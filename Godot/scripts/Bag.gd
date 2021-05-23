@@ -18,7 +18,7 @@ func _process(delta):
 func _input(event):
 	if event is InputEventMouseMotion:
 		if held_item != null:
-			var new_pos = (get_global_mouse_position() - held_item.mouse_offset).snapped(Vector2(GRID_SIZE, GRID_SIZE))
+			var new_pos = (get_local_mouse_position() - held_item.mouse_offset).snapped(Vector2(GRID_SIZE, GRID_SIZE))
 			held_item.update_position(new_pos)
 	if event is InputEventMouseButton:
 		if event.button_index == 1:

@@ -48,8 +48,8 @@ func room_world_to_map(pos):
 func set_room_extents():
 	limits.set_room_extents(layers)
 
-func get_max_amount_items(spawning_tile_id, percentage):
-	var tiles = get_all_room_tiles_by_id(spawning_tile_id)
+func get_max_amount_items(percentage):
+	var tiles = specialLayer.get_item_tiles()
 	return tiles.size() * percentage / 100
 
 func get_all_room_tiles_by_id(tile_id):
@@ -71,4 +71,8 @@ func get_limits():
 	return limits.get_limits()
 	
 func find_doors():
-	return 
+	door_entrance.position = specialLayer.get_door_tiles()[0]
+	door_exit.position = specialLayer.get_door_tiles()[1]
+
+func is_item_tile(local_item_pos):
+	return specialLayer.is_item_tile(room_world_to_map(local_item_pos))

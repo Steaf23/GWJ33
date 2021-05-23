@@ -1,0 +1,20 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=1]
+[ext_resource path="res://resources/RedOverlay.shader" type="Shader" id=2]
+[ext_resource path="res://assets/sprites/bag_items/BagPlateHelmet.png" type="Texture" id=3]
+
+[sub_resource type="ShaderMaterial" id=1]
+resource_local_to_scene = true
+shader = ExtResource( 2 )
+shader_param/enabled = false
+
+[node name="PlateHelmetBagItem" instance=ExtResource( 1 )]
+id = "PlateHelmet"
+
+[node name="Collision" parent="." index="0"]
+polygon = PoolVector2Array( -47, -47, 15, -47, 15, 15, -47, 15 )
+
+[node name="Sprite" parent="." index="1"]
+material = SubResource( 1 )
+texture = ExtResource( 3 )

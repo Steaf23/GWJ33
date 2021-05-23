@@ -17,5 +17,6 @@ polygon = PoolVector2Array( -15, -47, 15, -47, 15, 15, -15, 15 )
 
 [node name="Sprite" parent="." index="1"]
 material = SubResource( 1 )
+position = Vector2( 16, 16 )
 texture = ExtResource( 2 )
 offset = Vector2( 0, -16 )

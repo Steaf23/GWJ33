@@ -35,7 +35,7 @@ func blink():
 	animationPlayer.play("Blink")
 	
 func get_texture():
-	return load("res://assets/sprites/Ground" + id + ".png")
+	return load("res://assets/sprites/ground_items/Ground" + id + ".png")
 
 func _on_despawnTimer_timeout():
 	emit_signal("despawn", self)

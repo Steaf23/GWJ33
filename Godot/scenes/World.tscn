@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://scenes/Dungeon.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/Bag.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/World.gd" type="Script" id=3]
+[ext_resource path="res://scenes/MixingDeskMusic.tscn" type="PackedScene" id=4]
 
 [node name="World" type="Node"]
 pause_mode = 2
@@ -19,7 +20,7 @@ visible = false
 z_index = 1000
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 60.0
+wait_time = 5.0
 one_shot = true
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
@@ -36,6 +37,8 @@ size = Vector2( 960, 640 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
+
+[node name="MixingDeskMusic" parent="." instance=ExtResource( 4 )]
 
 [connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]
 [connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]
