@@ -43,9 +43,18 @@ cell_tile_origin = 1
 format = 1
 script = ExtResource( 3 )
 
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 480.0
+margin_bottom = 320.0
+mouse_filter = 2
+input_pass_on_modal_close_click = false
+color = Color( 0, 0, 0, 0.411765 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
 [node name="Sprite" type="AnimatedSprite" parent="."]
 position = Vector2( 240, 208 )
-z_index = -2
 frames = SubResource( 2 )
 
 [node name="Border" type="Area2D" parent="."]

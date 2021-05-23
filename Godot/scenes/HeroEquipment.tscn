@@ -1,35 +1,70 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=11 format=2]
 
+[ext_resource path="res://assets/sprites/bag_items/ItemIconWeapon.png" type="Texture" id=1]
 [ext_resource path="res://scripts/HeroEquipment.gd" type="Script" id=2]
 [ext_resource path="res://scenes/EquipmentSlot.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/sprites/bag_items/ItemIconNecklace.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/bag_items/ItemIconHelmet.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/bag_items/ItemIconArmor.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/bag_items/HeartBox.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/bag_items/ItemIconBoots.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/bag_items/Heart.png" type="Texture" id=9]
+[ext_resource path="res://resources/Font01.tres" type="DynamicFont" id=10]
 
 [node name="HeroEquipment" type="Node2D"]
 script = ExtResource( 2 )
 
 [node name="Head" parent="." instance=ExtResource( 3 )]
-position = Vector2( 96, 32 )
+position = Vector2( 160, 0 )
 type = "head"
+default_texture = ExtResource( 5 )
 
 [node name="Weapon" parent="." instance=ExtResource( 3 )]
-position = Vector2( 160, 0 )
+position = Vector2( 96, 32 )
 type = "weapon"
+default_texture = ExtResource( 1 )
 
 [node name="Weapon2" parent="." instance=ExtResource( 3 )]
-position = Vector2( 160, 64 )
+position = Vector2( 352, 32 )
 type = "weapon"
+default_texture = ExtResource( 1 )
 
 [node name="Necklace" parent="." instance=ExtResource( 3 )]
-position = Vector2( 288, 64 )
+position = Vector2( 288, 0 )
 type = "necklace"
+default_texture = ExtResource( 4 )
 
 [node name="Body" parent="." instance=ExtResource( 3 )]
-position = Vector2( 288, 0 )
+position = Vector2( 160, 64 )
 type = "body"
+default_texture = ExtResource( 6 )
 
 [node name="Boots" parent="." instance=ExtResource( 3 )]
-position = Vector2( 352, 32 )
+position = Vector2( 288, 64 )
 type = "boots"
+default_texture = ExtResource( 8 )
 
 [node name="Potion" parent="." instance=ExtResource( 3 )]
 position = Vector2( 224, 32 )
 type = "potion"
+
+[node name="Border" parent="Potion" index="0"]
+texture = ExtResource( 7 )
+
+[node name="AnimatedSprite" type="Sprite" parent="Potion"]
+position = Vector2( 16, 16 )
+texture = ExtResource( 9 )
+hframes = 4
+
+[node name="Score" type="Label" parent="."]
+margin_left = 8.0
+margin_top = 73.0
+margin_right = 140.0
+margin_bottom = 97.0
+custom_fonts/font = ExtResource( 10 )
+text = "Success: 0%"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[editable path="Potion"]

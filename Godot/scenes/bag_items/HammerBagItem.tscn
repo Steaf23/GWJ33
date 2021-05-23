@@ -1,8 +1,9 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://resources/RedOverlay.shader" type="Shader" id=1]
 [ext_resource path="res://scenes/bag_items/BagItem.tscn" type="PackedScene" id=2]
 [ext_resource path="res://assets/sprites/bag_items/BagHammer.png" type="Texture" id=3]
+[ext_resource path="res://assets/sounds/SFX/WAV/New SFX (WAV) - Hammer.wav" type="AudioStream" id=4]
 
 [sub_resource type="ShaderMaterial" id=1]
 resource_local_to_scene = true
@@ -11,6 +12,7 @@ shader_param/enabled = false
 
 [node name="HammerBagItem" instance=ExtResource( 2 )]
 id = "Hammer"
+pickup_sound = ExtResource( 4 )
 
 [node name="Collision" parent="." index="0"]
 polygon = PoolVector2Array( -15, -15, -15, -47, 47, -47, 47, -17, 15, -17, 15, 15, -47, 15, -47, -15 )

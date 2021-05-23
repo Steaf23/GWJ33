@@ -6,6 +6,7 @@ const ROOM_DISTANCE = 0
 
 signal request_item_pickup(item)
 signal start_battle()
+signal start_battle_song()
 
 var time_up = false
 
@@ -42,12 +43,13 @@ func force_next_room():
 	if Score.room_score != 0:
 		emit_signal("request_item_pickup", null)
 	# prevent the same room to be generated twice in a row
-	
 	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
 	yield(tween, "tween_completed")
+	hero.visible = false
 	# duration should be 10 for battle sequence
-	tween = player.move_to(player.position, 2)
+	tween = player.move_to(player.position, 10)
 	# ADD BATTLE MUSIC STUFF HERE
+	emit_signal("start_battle_song")
 	yield(tween, "tween_completed")
 	
 	current_room.open_door()
@@ -55,6 +57,7 @@ func force_next_room():
 	while new_room.id == current_room.id:
 		new_room = instance_random_room()
 	setup_room(new_room)
+	hero.visible = true
 	current_room.open_door()
 	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
 	yield(tween, "tween_completed")
@@ -83,10 +86,10 @@ func setup_room(new_room):
 	new_room.set_room_extents()
 	
 	player.camera.set_new_limits(new_room.limits)
-	hero.position = new_room.door_entrance + Vector2(0, 32)
+	hero.position = new_room.door_entrance + Vector2(16, 0)
 	hero.collision.disabled = false
 	current_room = new_room
-	generate_items(10)
+	generate_items(100)
 	return new_room
 
 func get_colliding_items():

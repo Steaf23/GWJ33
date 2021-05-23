@@ -2,10 +2,6 @@
 SATURDAY NIGHT CRUNCHIN'
 -------------------------------------------------------------------------------
 
-you cant drag items in the startroom?
-
-implement sounds + music
-
 add multiple warning signs to each rooms
 
 PARALELL:
@@ -15,6 +11,18 @@ PARALELL:
 	- make rooms
 
 add wildcards physically in the game
+
+HOMESTRETCH
+
+scoring system (balance later) (est 30 min)
+
+export game (est 45 mins)
+
+implementing music phases (est 30 min)
+
+implement battle music (est 30 min)
+
+implement warning signs
 
 --------------------------------------------------------------------------------
 STRETCH GOALS

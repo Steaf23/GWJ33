@@ -2,7 +2,7 @@ extends TileMap
 
 const GRID_SIZE = 32
 const MAX_HP = 3
-var current_hp = 1
+var current_hp = 3
 
 var held_item
 
@@ -10,7 +10,11 @@ signal hero_died()
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
 onready var heroEquipment = $HeroEquipment
+onready var frames = $HeroEquipment/Potion/AnimatedSprite
 
+func _ready():
+	frames.frame = current_hp
+	
 func _process(delta):
 	if current_hp <= 0:
 		emit_signal("hero_died")
@@ -67,7 +71,11 @@ func on_use_potion(potion):
 		current_hp += 1
 	else:
 		spawn(ItemConverter.to_bag(potion))
+	frames.frame = current_hp
 	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
+
+func on_equip_evaluate(total):
+	print(total)
 
 func show_equipment():
 	heroEquipment.visible = true

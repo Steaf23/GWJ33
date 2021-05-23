@@ -1,6 +1,7 @@
 extends Node2D
 
 export(String) var type = ""
+export(Texture) var default_texture 
 
 var item_id: String = ""
 var has_mouse = false
@@ -11,6 +12,9 @@ signal use_potion(potion)
 onready var icon = $Icon
 onready var collision = $Collision
 
+func _ready():
+	icon.texture = default_texture 
+
 # 3 states, equip successful, equip successful + remainder, equip unsuccessful
 func equip(item):
 	if ItemLookup.item_data[item.id]['type'] == type:
@@ -19,12 +23,14 @@ func equip(item):
 			return ""
 		var old_item = item_id
 		item_id = item.id
+		icon.offset = Vector2(0, -8)
 		icon.texture = item.get_texture()
 		return old_item
 	return "fail"
 	
 func unequip():
-	icon.texture = null
+	icon.offset = Vector2(0, 0)
+	icon.texture = default_texture
 	var bag_item = ItemConverter.create_bag_item(item_id)
 	item_id = ""
 	return bag_item

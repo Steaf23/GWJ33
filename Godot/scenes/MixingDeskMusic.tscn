@@ -3,14 +3,15 @@
 [ext_resource path="res://addons/mixing-desk/music/mixing_desk_music.gd" type="Script" id=1]
 [ext_resource path="res://addons/mixing-desk/music/song.gd" type="Script" id=2]
 [ext_resource path="res://addons/mixing-desk/music/containers/core_cont.gd" type="Script" id=3]
-[ext_resource path="res://assets/sounds/Music/WAV/Looting A (60 Seconds) (WAV).wav" type="AudioStream" id=4]
+[ext_resource path="res://assets/sounds/Music/OGG/Looting A (60 Seconds) (OGG).ogg" type="AudioStream" id=4]
 
 [node name="MixingDeskMusic" type="Node"]
 script = ExtResource( 1 )
+autoplay = true
 
 [node name="Song" type="Node" parent="."]
 script = ExtResource( 2 )
-tempo = 100
+tempo = 110
 bars = 4
 beats_in_bar = 4
 

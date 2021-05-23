@@ -15,6 +15,12 @@ onready var player = $Dungeon/YSort/Player
 onready var bag = $BagLayer/Bag
 onready var lootTimer = $LootTimer
 onready var dialogueLayer = $DialogueLayer
+onready var battle_sounds = $MultiSoundContainer
+
+onready var A = $LootingA
+onready var B = $LootingB
+onready var Al = $LullA
+onready var Bl = $LullB
 
 func _enter_tree():
 	randomize()
@@ -22,7 +28,9 @@ func _enter_tree():
 func _ready():
 	bag.connect("hero_died", self, "on_hero_died")
 	dungeon.connect("start_battle", self, "on_dungeon_start_battle")
+	dungeon.connect("start_battle_song", self, "on_start_battle_song")
 	bag.hide_equipment()
+	Bl.play()
 	yield(start_dialogue("title"), "completed")
 	first_time = true
 
@@ -133,6 +141,10 @@ func on_dungeon_start_battle():
 func start_loot():
 	set_state(State.LOOT)
 	lootTimer.start()
+	if randi() % 2 == 0:
+		A.play()
+	else:
+		B.play()
 
 func start_dialogue(dialogue_name):
 	set_state(State.DIALOGUE)
@@ -147,3 +159,17 @@ func start_dialogue(dialogue_name):
 func set_state(new_state):
 	previous_state = current_state
 	current_state = new_state
+
+func on_start_battle_song():
+	Al.stop()
+	Bl.stop()
+	print("PLAY")
+	battle_sounds.play()
+
+func _on_LootTimer_timeout():
+	A.stop()
+	B.stop()
+	if randi() % 2 == 0:
+		Al.play()
+	else:
+		Bl.play()
