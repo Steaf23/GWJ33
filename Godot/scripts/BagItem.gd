@@ -1,7 +1,7 @@
 extends Area2D
 
 export var id = ""
-export(AudioStreamSample) var pickup_sound
+export(AudioStreamSample) var pickup_sound = load("res://assets/sounds/SFX/WAV/New SFX (WAV) - Item Pick-Up.wav")
 
 var picked_up
 var mouse_offset = Vector2.ZERO
