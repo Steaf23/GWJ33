@@ -1,53 +1,41 @@
 extends Node2D
 
-enum {BRICKS=0, CLOSED_DOOR=7, OPEN_DOOR=8, STAIR_LEFT=3, STAIR_RIGHT=4, STAIR_TOP=5}
-
 var id = -1
 
 onready var limits = $Limits setget ,get_limits
 onready var door_entrance = $Door/New setget ,get_global_entrance
 onready var door_exit = $Door/Old setget ,get_global_exit
-onready var layers = []
+onready var specialLayer = $SpecialLayer
 
+onready var layers = []
 onready var warning
 
 func _ready():
 	for child in get_children():
 		if child is TileMap:
 			layers.append(child)
+	layers.invert()
 	find_doors()
 
-func find_doors():
-	for layer in layers:
-		for cell in layer.get_used_cells():
-			if layer.get_cellv(cell) == CLOSED_DOOR:
-				door_entrance.position = layer.map_to_world(cell)
-			elif layer.get_cellv(cell) == OPEN_DOOR:
-				door_exit.position = layer.map_to_world(cell)
-
 func close_door():
-	for layer in layers:
-		for cell in layer.get_used_cells_by_id(OPEN_DOOR):
-			layer.set_cellv(cell, CLOSED_DOOR)
+	pass
+#	for layer in layers:
+#		var cells = []
+#		for cell in layer.get_used_cells_by_id('open_door'):
+#			cells.append(cell)
+#			layer.set_cellv(cell, tiles['closed_door'][0])
 
 func open_door():
-	for layer in layers:
-		for cell in layer.get_used_cells_by_id(CLOSED_DOOR):
-			layer.set_cellv(cell, OPEN_DOOR)
+	pass
+#	for layer in layers:
+#		for cell in layer.get_used_cells_by_id('closed_door'):
+#			layer.set_cellv(cell, tiles['open_door'][0])
 
 func apply_slope_transform(player):
-	var player_pos = to_local(player.position)
-	match get_first_tile_at(player_pos):
-		STAIR_LEFT:
-			player.on_stair = 1
-		STAIR_RIGHT:
-			player.on_stair = 2
-		STAIR_TOP:
-			player.on_stair = 3
-		_:
-			player.on_stair = 0
+	player.on_stair = specialLayer.get_slope_transform(player.position)
 
-func get_first_tile_at(pos):
+
+func get_highest_tile_at(pos):
 	for layer in layers:
 		var tile = layer.get_cellv(room_world_to_map(pos))
 		if tile != -1:
@@ -71,13 +59,16 @@ func get_all_room_tiles_by_id(tile_id):
 	return tiles
 
 func get_global_entrance():
-	return to_global(door_entrance.position) + Vector2(16, 16)
+	return to_global(specialLayer.get_door_tiles()[0]) + Vector2(16, 16)
 
 func get_global_exit():
-	return to_global(door_exit.position) + Vector2(16, -16)
+	return to_global(specialLayer.get_door_tiles()[1]) + Vector2(16, -16)
 
 func room_map_to_world(cell):
 	return to_global(layers[0].map_to_world(cell))
 	
 func get_limits():
 	return limits.get_limits()
+	
+func find_doors():
+	return 

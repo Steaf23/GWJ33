@@ -1,6 +1,6 @@
 extends Node2D
 
-const FLOOR_TILE = 6
+const FLOOR_TILES = [0, 2, 3]
 const UNIQUE_ROOM_COUNT = 2
 const ROOM_DISTANCE = 0
 
@@ -109,8 +109,8 @@ func on_player_request_pickup():
 func generate_items(percentage):
 	if percentage >= 100:
 		percentage = 99
-	var amount = current_room.get_max_amount_items(FLOOR_TILE, percentage)
-	var ground_tiles = current_room.get_all_room_tiles_by_id(FLOOR_TILE)
+	var amount = current_room.get_max_amount_items(FLOOR_TILES, percentage)
+	var ground_tiles = current_room.get_all_room_tiles_by_id(FLOOR_TILES)
 	
 	for tile in ground_tiles:
 		if current_room.to_global(tile) == current_room.room_world_to_map(hero.position):
@@ -151,7 +151,7 @@ func drop_item_from_player(ground_item):
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
 	var cell = current_room.get_first_tile_at(local_item_pos)
-	if cell == FLOOR_TILE:
+	if FLOOR_TILES.find(cell) != -1:
 		var occupied = false
 		# check if there already is an item at that spot
 		for item in get_items():

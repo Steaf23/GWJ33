@@ -4,6 +4,10 @@ SATURDAY NIGHT CRUNCHIN'
 
 you cant drag items in the startroom?
 
+use invisible tiles (using tool to make them visible in editor)
+
+instead of the first tile, find the highest tile in get_room_tile for ground checks 
+
 implement sounds + music
 
 add multiple warning signs to each rooms
@@ -19,6 +23,8 @@ add wildcards physically in the game
 --------------------------------------------------------------------------------
 STRETCH GOALS
 --------------------------------------------------------------------------------
+
+add corpses to rooms
 
 head bobs on the hover boards
 
