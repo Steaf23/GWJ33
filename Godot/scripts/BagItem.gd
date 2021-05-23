@@ -1,6 +1,7 @@
 extends Area2D
 
 export var id = ""
+export(AudioStreamSample) var pickup_sound
 
 var picked_up
 var mouse_offset = Vector2.ZERO
@@ -13,10 +14,14 @@ signal equip(item, slot)
 
 onready var sprite = $Sprite
 onready var collision = $Collision
+onready var moveSound = $MoveSound
+onready var pickupSound = $PickupSound
 
 func _ready():
+	pickupSound.stream = pickup_sound
 	connect("clicked_on", get_parent(), "on_bagItem_clicked")
 	connect("equip", get_parent(), "on_item_equip")
+	pickupSound.play()
 
 func _physics_process(delta):
 	if revalidate_collision:
@@ -35,12 +40,14 @@ func _on_input_event(viewport, event, shape_idx):
 			if event.is_pressed():
 				mouse_offset = get_local_mouse_position()
 				picked_up = true
+				moveSound.play()
 				old_pos.position = position
 				old_pos.rotation_degrees = rot
 				sprite.get_material().set_shader_param("enabled", false)
 				emit_signal("clicked_on", self)
 
 func set_rot(degrees):
+	moveSound.play()
 	rot = degrees
 	sprite.rotation_degrees = rot
 	collision.rotation_degrees = rot

@@ -10,6 +10,9 @@ script = ExtResource( 1 )
 
 [node name="Song" type="Node" parent="."]
 script = ExtResource( 2 )
+tempo = 100
+bars = 4
+beats_in_bar = 4
 
 [node name="CoreContainer" type="Node" parent="Song"]
 script = ExtResource( 3 )

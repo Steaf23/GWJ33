@@ -20,7 +20,7 @@ visible = false
 z_index = 1000
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 5.0
+wait_time = 60.0
 one_shot = true
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
