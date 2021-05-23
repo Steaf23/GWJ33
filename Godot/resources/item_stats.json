@@ -14,7 +14,7 @@
 	},
 	"Axe": {
 		"type":"weapon",
-		"rarity":3,
+		"rarity":10,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -27,7 +27,7 @@
 	},
 	"Dagger": {
 		"type":"weapon",
-		"rarity":15,
+		"rarity":10,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -66,7 +66,7 @@
 	},
 	"Halberd": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":5,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -92,7 +92,7 @@
 	},
 	"FullShield": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":5,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -105,7 +105,7 @@
 	},
 	"Masamune": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":2,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -118,7 +118,7 @@
 	},
 	"LifePotion": {
 		"type":"potion",
-		"rarity":1,
+		"rarity":3,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -131,7 +131,7 @@
 	},
 	"LeatherHelmet": {
 		"type":"head",
-		"rarity":10,
+		"rarity":8,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -144,7 +144,7 @@
 	},
 	"LeatherChest": {
 		"type":"body",
-		"rarity":10,
+		"rarity":8,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -157,7 +157,7 @@
 	},
 	"LeatherBoots": {
 		"type":"boots",
-		"rarity":10,
+		"rarity":8,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -170,7 +170,7 @@
 	},
 	"ChainHelmet": {
 		"type":"head",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -183,7 +183,7 @@
 	},
 	"ChainChest": {
 		"type":"body",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -196,7 +196,7 @@
 	},
 	"ChainBoots": {
 		"type":"boots",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -209,7 +209,7 @@
 	},
 	"PlateHelmet": {
 		"type":"head",
-		"rarity":10,
+		"rarity":4,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -222,7 +222,7 @@
 	},
 	"PlateChest": {
 		"type":"body",
-		"rarity":10,
+		"rarity":4,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -235,7 +235,7 @@
 	},
 	"PlateBoots": {
 		"type":"boots",
-		"rarity":10,
+		"rarity":4,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -248,7 +248,7 @@
 	},
 	"NecklaceBone": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -261,7 +261,7 @@
 	},
 	"NecklaceChain": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -274,7 +274,7 @@
 	},
 	"NecklaceCross": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -287,7 +287,7 @@
 	},
 	"NecklaceGarlic": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -300,7 +300,7 @@
 	},
 	"NecklaceGold": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
@@ -313,7 +313,7 @@
 	},
 	"NecklaceRuby": {
 		"type":"necklace",
-		"rarity":10,
+		"rarity":6,
 		"success": {
 			"default": 30,
 			"vampire": 5,
