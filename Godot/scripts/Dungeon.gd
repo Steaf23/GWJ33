@@ -2,7 +2,7 @@ extends Node2D
 
 const FLOOR_TILES = [0, 2, 3]
 const UNIQUE_ROOM_COUNT = 2
-const ROOM_DISTANCE = 0
+const ROOM_DISTANCE = 64
 
 signal request_item_pickup(item)
 signal start_battle()
@@ -47,7 +47,7 @@ func force_next_room():
 	yield(tween, "tween_completed")
 	hero.visible = false
 	# duration should be 10 for battle sequence
-	tween = player.move_to(player.position, 10)
+	tween = player.move_to(player.position, 2)
 	# ADD BATTLE MUSIC STUFF HERE
 	emit_signal("start_battle_song")
 	yield(tween, "tween_completed")
@@ -89,7 +89,7 @@ func setup_room(new_room):
 	hero.position = new_room.door_entrance + Vector2(16, 0)
 	hero.collision.disabled = false
 	current_room = new_room
-	generate_items(100)
+	generate_items(10)
 	return new_room
 
 func get_colliding_items():

@@ -6,6 +6,7 @@ onready var limits = $Limits setget ,get_limits
 onready var door_entrance = $Door/New setget ,get_global_entrance
 onready var door_exit = $Door/Old setget ,get_global_exit
 onready var specialLayer = $SpecialLayer
+onready var warningSign = preload("res://scenes/Sign.tscn")
 
 onready var layers = []
 onready var warning
@@ -16,6 +17,14 @@ func _ready():
 			layers.append(child)
 	layers.invert()
 	find_doors()
+	create_warning_signs()
+
+func create_warning_signs():
+	for cell in specialLayer.get_sign_tiles():
+		var warning_sign = warningSign.instance()
+		add_child(warning_sign)
+		warning_sign.set_monster(warning)
+		warning_sign.position = specialLayer.map_to_world(cell) + Vector2(16, 8)
 
 func close_door():
 	pass

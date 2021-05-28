@@ -1,11 +1,9 @@
 extends Node
 
-const WARNING_TYPES = ["goblin", 
-					   "vampire", 
-					   "elemental", 
-					   "spirit", 
-					   "demon", 
-					   "ogre", 
+const WARNING_TYPES = ["vampire",  
+					   "ghost", 
+					   "imp", 
+					   "robot", 
 					   "ent"]
 
 onready var item_data

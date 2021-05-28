@@ -24,7 +24,7 @@ visible = false
 z_index = 1000
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 58.0
 one_shot = true
 
 [node name="DialogueLayer" type="CanvasLayer" parent="."]
@@ -46,15 +46,19 @@ render_target_update_mode = 3
 
 [node name="LootingA" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 6 )
+bus = "Music"
 
 [node name="LootingB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 4 )
+bus = "Music"
 
 [node name="LullA" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 7 )
+bus = "Music"
 
 [node name="LullB" type="AudioStreamPlayer" parent="."]
 stream = ExtResource( 8 )
+bus = "Music"
 
 [connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]
 [connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]

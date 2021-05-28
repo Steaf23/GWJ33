@@ -10,10 +10,10 @@ config_version=4
 
 [application]
 
-config/name="Godot"
+config/name="Squire_To_Me"
 run/main_scene="res://scenes/World.tscn"
 run/flush_stdout_on_print=true
-config/icon="res://assets/sprites/ground_items/GroundAxe.png"
+config/icon="res://assets/sprites/Bag_Outside.png"
 
 [autoload]
 

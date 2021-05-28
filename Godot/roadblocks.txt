@@ -1,33 +1,3 @@
--------------------------------------------------------------------------------
-SATURDAY NIGHT CRUNCHIN'
--------------------------------------------------------------------------------
-
-add multiple warning signs to each rooms
-
-PARALELL:
-	
-	- fill in item_stats.json
-
-	- make rooms
-
-add wildcards physically in the game
-
-HOMESTRETCH
-
-scoring system (balance later) (est 30 min)
-
-export game (est 45 mins)
-
-implementing music phases (est 30 min)
-
-implement battle music (est 30 min)
-
-implement warning signs
-
---------------------------------------------------------------------------------
-STRETCH GOALS
---------------------------------------------------------------------------------
-
 add corpses to rooms
 
 head bobs on the hover boards

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scripts/TextBox.gd" type="Script" id=1]
 [ext_resource path="res://resources/Font01.tres" type="DynamicFont" id=2]
-[ext_resource path="res://resources/novem___.ttf" type="DynamicFontData" id=3]
+[ext_resource path="res://resources/Mystery Font (3).ttf" type="DynamicFontData" id=3]
 
 [sub_resource type="DynamicFont" id=1]
 outline_size = 1
@@ -22,9 +22,9 @@ __meta__ = {
 }
 
 [node name="Name" type="Label" parent="."]
-margin_left = 17.0
+margin_left = 16.0
 margin_top = -99.0
-margin_right = 465.0
+margin_right = 464.0
 margin_bottom = -81.0
 size_flags_horizontal = 3
 size_flags_vertical = 3

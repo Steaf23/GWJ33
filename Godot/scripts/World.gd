@@ -53,16 +53,6 @@ func _process(delta):
 	
 	if lootTimer.time_left < 2:
 		dungeon.blink_items()
-#
-#func _unhandled_input(event):
-#	if event.is_action_pressed("open_bag"):
-#		show_bag = !show_bag
-#		toggle_bag(show_bag)
-#	if event.is_action_pressed("pickup_item"):
-#		if show_bag:
-#			show_bag = false
-#			toggle_bag(show_bag)
-#			get_tree().set_input_as_handled()
 	
 func _unhandled_input(event):
 	if event.is_action_pressed("open_bag"):
@@ -91,12 +81,14 @@ func _unhandled_input(event):
 func open_bag(show_hero=false):
 	if show_hero:
 		bag.show_equipment()
-	get_tree().paused = true
 	Physics2DServer.set_active(true)
 	
+	player.show_bag = true
+#	player.camera.set_new_limits([Vector2(-100000, -100000), Vector2(100000, 100000)])
+#	yield(player.camera.zoom_in(), "tween_completed")
 	bag.visible = true
 	
-	player.show_bag = true
+	get_tree().paused = true
 	set_state(State.BAG)
 	
 func close_bag():
@@ -107,6 +99,8 @@ func close_bag():
 	
 	player.show_bag = false
 	dungeon.drop_items_from_player(bag.close())
+#	yield(player.camera.zoom_out(), "tween_completed")
+#	player.camera.set_new_limits(player.camera.prev_limits)
 	set_state(previous_state)
 	
 func on_dungeon_request_item_pickup(item):
@@ -130,10 +124,10 @@ func on_dungeon_start_battle():
 	if first_time:
 		first_time = false
 		yield(start_dialogue("start"), "completed")
-	if lootTimer.time_left > 0:
-		# confirmation dialogue since time isnt up yet yield answer from player?
-		yield(start_dialogue("premature_exit"), "completed")
-		return
+#	if lootTimer.time_left > 0:
+#		# confirmation dialogue since time isnt up yet yield answer from player?
+#		yield(start_dialogue("premature_exit"), "completed")
+#		return
 	lootTimer.stop()
 	yield(dungeon.force_next_room(), "completed")
 	start_loot()

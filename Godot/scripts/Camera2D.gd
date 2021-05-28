@@ -6,7 +6,7 @@ var limit_smoothie = 1
 var target
 var prev_limits
 
-func zoom_in(player_pos):
+func zoom_in():
 	var tween = Tween.new()
 	tween.interpolate_property(self, "zoom",
 		Vector2(1, 1), Vector2(0.135, 0.135), zoom_duration,
@@ -20,7 +20,7 @@ func zoom_in(player_pos):
 		Tween.TRANS_LINEAR)
 	add_child(tween2)
 	tween2.start()
-	return tween
+	return tween2
 
 func zoom_out():
 	var tween = Tween.new()
@@ -35,11 +35,11 @@ func zoom_out():
 		Tween.TRANS_LINEAR)
 	add_child(tween2)
 	tween2.start()
-	return tween
+	return tween2
 
 func set_new_limits(limits):
 #	set_limits([Vector2(-1000, -1000), Vector2(1000, 1000)])
-#	prev_limits = get_limits()
+	prev_limits = get_limits()
 #	target = limits
 #	var tween = Tween.new()
 #	tween.interpolate_method(self, "smooth_limits",

@@ -1,7 +1,8 @@
-[gd_resource type="TileSet" load_steps=128 format=2]
+[gd_resource type="TileSet" load_steps=129 format=2]
 
 [ext_resource path="res://assets/sprites/tileset/TileSet.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/tileset/TileSet - Copy.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/SkullFace.png" type="Texture" id=3]
 
 [sub_resource type="ConvexPolygonShape2D" id=1]
 points = PoolVector2Array( 16, 32, 0, 32, 0, 0, 16, 0 )
@@ -1311,3 +1312,17 @@ points = PoolVector2Array( 32, 32, 0, 32, 0, 0, 32, 0 )
 "shape_transform": Transform2D( 1, 0, 0, 1, 0, 0 )
 } ]
 9/z_index = 0
+10/name = "SkullFace.png 10"
+10/texture = ExtResource( 3 )
+10/tex_offset = Vector2( 0, 0 )
+10/modulate = Color( 1, 1, 1, 1 )
+10/region = Rect2( 0, 0, 192, 96 )
+10/tile_mode = 0
+10/occluder_offset = Vector2( 0, 0 )
+10/navigation_offset = Vector2( 0, 0 )
+10/shape_offset = Vector2( 0, 0 )
+10/shape_transform = Transform2D( 1, 0, 0, 1, 0, 0 )
+10/shape_one_way = false
+10/shape_one_way_margin = 0.0
+10/shapes = [  ]
+10/z_index = 0
