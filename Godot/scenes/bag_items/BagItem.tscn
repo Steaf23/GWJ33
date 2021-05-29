@@ -10,7 +10,9 @@ resource_local_to_scene = true
 shader = ExtResource( 2 )
 shader_param/enabled = false
 
-[node name="BagItem" type="Area2D"]
+[node name="BagItem" type="Area2D" groups=[
+"bag_items",
+]]
 z_index = 900
 collision_layer = 2
 collision_mask = 2
@@ -29,4 +31,6 @@ stream = ExtResource( 4 )
 
 [node name="PickupSound" type="AudioStreamPlayer" parent="."]
 
+[connection signal="area_entered" from="." to="." method="_on_object_area_entered"]
+[connection signal="area_exited" from="." to="." method="_on_object_area_exited"]
 [connection signal="input_event" from="." to="." method="_on_input_event"]

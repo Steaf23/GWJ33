@@ -26,6 +26,7 @@ tile_data = PoolIntArray( -851950, 0, 458762, -786414, 0, 589834, -786412, 2, 0,
 tile_data = PoolIntArray( 196622, 0, 131081, 196623, 0, 131082, 196624, 0, 131082, 196625, 0, 131082, 196626, 0, 131082, 196627, 0, 131083, 196630, 0, 131083 )
 
 [node name="SpecialLayer" parent="." index="3"]
+visible = false
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 32, 32 )
 format = 1

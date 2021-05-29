@@ -43,15 +43,16 @@ func force_next_room():
 	if Score.room_score != 0:
 		emit_signal("request_item_pickup", null)
 	# prevent the same room to be generated twice in a row
-	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
-	yield(tween, "tween_completed")
+#	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
+#	yield(tween, "tween_completed")
 	hero.visible = false
-	# duration should be 10 for battle sequence
-	tween = player.move_to(player.position, 2)
-	# ADD BATTLE MUSIC STUFF HERE
-	emit_signal("start_battle_song")
-	yield(tween, "tween_completed")
 	
+#	# duration should be 10 for battle sequence
+#	tween = player.move_to(player.position, 2)
+#	# ADD BATTLE MUSIC STUFF HERE
+#	emit_signal("start_battle_song")
+#	yield(tween, "tween_completed")
+
 	current_room.open_door()
 	var new_room = instance_random_room()
 	while new_room.id == current_room.id:
@@ -59,8 +60,9 @@ func force_next_room():
 	setup_room(new_room)
 	hero.visible = true
 	current_room.open_door()
-	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
-	yield(tween, "tween_completed")
+#	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
+#	yield(tween, "tween_completed")
+	player.position = current_room.door_exit + Vector2(16, 0)
 	current_room.close_door()
 	Score.room_score += 1
 	print("total rooms: %d" % Score.room_score)
@@ -168,10 +170,6 @@ func is_valid_item_position(local_item_pos):
 	else:
 		return false
 
-func get_random_circle_point(radius, origin):
-	var angle = deg2rad(randi() % 360)
-	return Vector2(radius*sin(angle), radius*cos(angle)) + origin
-
 func _on_loot_timeout():
 	time_up = true
 	for item in get_items():
@@ -191,3 +189,7 @@ func on_item_despawn(item):
 func on_room_add_item(item):
 	item.connect("despawn", self, "on_item_despawn")
 	objectList.add_child(item)
+
+static func get_random_circle_point(radius, origin):
+	var angle = deg2rad(randi() % 360)
+	return Vector2(radius*sin(angle), radius*cos(angle)) + origin

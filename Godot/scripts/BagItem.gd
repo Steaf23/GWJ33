@@ -7,7 +7,6 @@ var picked_up
 var mouse_offset = Vector2.ZERO
 var rot : int
 var old_pos = Position2D.new()
-var revalidate_collision = false
 
 signal clicked_on(item)
 signal equip(item, slot)
@@ -17,6 +16,9 @@ onready var collision = $Collision
 onready var moveSound = $MoveSound
 onready var pickupSound = $PickupSound
 
+onready var overlapping_areas = []
+onready var should_drop = false
+
 func _ready():
 	pickupSound.stream = pickup_sound
 	connect("clicked_on", get_parent(), "on_bagItem_clicked")
@@ -24,9 +26,8 @@ func _ready():
 	pickupSound.play()
 
 func _physics_process(delta):
-	if revalidate_collision:
-		revalidate_collision = false
-	is_valid_position()
+	print(overlapping_areas)
+	get_overlapping_area()
 
 func _on_pickup():
 	picked_up = true
@@ -43,7 +44,6 @@ func _on_input_event(viewport, event, shape_idx):
 				moveSound.play()
 				old_pos.position = position
 				old_pos.rotation_degrees = rot
-				sprite.get_material().set_shader_param("enabled", false)
 				emit_signal("clicked_on", self)
 
 func set_rot(degrees):
@@ -56,30 +56,48 @@ func rotateCW():
 	set_rot(rot + 90 % 360)
 
 func drop():
-	var areas = self.get_overlapping_areas()
-	if areas.size() > 0:
-		if areas.size() == 1:
-			if areas[0].name == "Border":
-				return
-		elif areas.size() > 1:
-			for area in areas:
-				if area.get_parent().name == "HeroEquipment":
-					if area.has_mouse:
-						emit_signal("equip", self, area)
-						
-		position = old_pos.position
-		set_rot(old_pos.rotation_degrees)
-		revalidate_collision = true
-
-func update_position(new_pos):
-	position = new_pos
-	revalidate_collision = true
-
-func is_valid_position():
-	if self.get_overlapping_areas().size() > 0:
-		sprite.get_material().set_shader_param("enabled", true)
-		return true
-	else:
-		sprite.get_material().set_shader_param("enabled", false)
-		return false
+	var area = get_overlapping_area()
+	if area != null:
+		# Area == equipment slot
+		if area.get_parent().name == "HeroEquipment":
+			emit_signal("equip", self, area)
+			return
+		# Area == Other Item
+		elif area.is_in_group("bag_items"):
+			position = old_pos.position
+			set_rot(old_pos.rotation_degrees)
+			return
+		# Area == border	
+		elif area.name == "Border":
+			return
 		
+func get_overlapping_area():
+	if overlapping_areas.size() <= 0:
+		sprite.get_material().set_shader_param("enabled", false)
+		should_drop = false
+		return null
+	else:
+		for area in overlapping_areas:
+			# Area == equipment slot
+			if area.get_parent().name == "HeroEquipment":
+				sprite.get_material().set_shader_param("enabled", true)
+				return area
+			# Area == Other Item
+			elif area.is_in_group("bag_items"):
+				sprite.get_material().set_shader_param("enabled", true)
+				should_drop = true
+				return area
+			# Area == border	
+			elif area.name == "Border":
+				sprite.get_material().set_shader_param("enabled", true)
+				should_drop = true
+				return area
+			else:
+				should_drop = false
+	return null
+
+func _on_object_area_entered(area):
+	overlapping_areas.append(area)
+
+func _on_object_area_exited(area):
+	overlapping_areas.erase(area)

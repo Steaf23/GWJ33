@@ -16,8 +16,7 @@ func set_room_extents(layers):
 	
 	var total = [Vector2(0, 0), Vector2(0, 0)]
 	for extent in extents:
-		total = [Vector2(min(extent[0].x, total[0].x), min(extent[0].y, total[0].y)), 
-				 Vector2(max(extent[1].x, total[1].x), max(extent[1].y, total[1].y))]
+		total = [get_smallest_vector(extent[0], total[0]), get_biggest_vector(extent[1], total[1])] 
 	topLeft.position = total[0]
 	bottomRight.position = total[1] + Vector2(32, 32)
 	
@@ -44,3 +43,10 @@ func get_layer_extents(layer):
 			bottom_right.y = int(pos.y)
 	return [layer.to_global(layer.map_to_world(top_left)), 
 			layer.to_global(layer.map_to_world(bottom_right))]
+			
+static func get_smallest_vector(v1, v2):
+	return Vector2(min(v1.x, v2.x), min(v1.y, v2.y))
+
+static func get_biggest_vector(v1, v2):
+	return Vector2(max(v1.x, v2.x), max(v1.y, v2.y))
+	

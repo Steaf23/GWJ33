@@ -20,7 +20,6 @@ pause_mode = 1
 pause_mode = 2
 
 [node name="Bag" parent="BagLayer" instance=ExtResource( 2 )]
-visible = false
 z_index = 1000
 
 [node name="LootTimer" type="Timer" parent="."]
@@ -37,7 +36,7 @@ __meta__ = {
 }
 
 [node name="Viewport" type="Viewport" parent="ViewportContainer"]
-size = Vector2( 960, 640 )
+size = Vector2( 480, 320 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
@@ -61,5 +60,5 @@ stream = ExtResource( 8 )
 bus = "Music"
 
 [connection signal="request_item_pickup" from="Dungeon" to="." method="on_dungeon_request_item_pickup"]
-[connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]
 [connection signal="timeout" from="LootTimer" to="." method="_on_LootTimer_timeout"]
+[connection signal="timeout" from="LootTimer" to="Dungeon" method="_on_loot_timeout"]

@@ -58,12 +58,11 @@ position = Vector2( 240, 208 )
 frames = SubResource( 2 )
 
 [node name="Border" type="Area2D" parent="."]
-visible = false
 collision_layer = 2
 collision_mask = 2
 
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Border"]
-polygon = PoolVector2Array( 320, 128, 320, 1024, 1280, 1024, 1280, -512, -768, -512, -768, 1024, 320, 1024, 320, 288, 160, 288, 160, 128 )
+[node name="Collision" type="CollisionPolygon2D" parent="Border"]
+polygon = PoolVector2Array( 320, 288, 320, 128, 1024, -512, 1024, 768, -512, 768, -512, -512, 1024, -512, 320, 128, 160, 128, 160, 288 )
 
 [node name="Top" type="Position2D" parent="."]
 position = Vector2( 224, 64 )

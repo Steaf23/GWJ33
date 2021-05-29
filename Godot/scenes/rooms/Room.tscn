@@ -1,10 +1,11 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scripts/SpecialLayer.gd" type="Script" id=1]
 [ext_resource path="res://scripts/Room.gd" type="Script" id=2]
 [ext_resource path="res://scripts/Limits.gd" type="Script" id=3]
 [ext_resource path="res://resources/Dungeon_final.tres" type="TileSet" id=4]
 [ext_resource path="res://resources/Special_set.tres" type="TileSet" id=5]
+[ext_resource path="res://resources/Font_small.tres" type="DynamicFont" id=6]
 
 [node name="Room" type="Node2D"]
 script = ExtResource( 2 )
@@ -37,6 +38,7 @@ script = ExtResource( 3 )
 [node name="Label" type="Label" parent="Limits/BottomRight"]
 margin_right = 40.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -46,6 +48,7 @@ __meta__ = {
 [node name="Label" type="Label" parent="Limits/TopLeft"]
 margin_right = 40.0
 margin_bottom = 14.0
+custom_fonts/font = ExtResource( 6 )
 __meta__ = {
 "_edit_use_anchors_": false
 }

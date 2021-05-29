@@ -41,7 +41,7 @@ func open_door():
 #			layer.set_cellv(cell, tiles['open_door'][0])
 
 func apply_slope_transform(player):
-	player.on_stair = specialLayer.get_slope_transform(player.position)
+	player.on_stair = specialLayer.get_slope_transform(to_local(player.position))
 
 
 func get_highest_tile_at(pos):

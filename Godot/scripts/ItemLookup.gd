@@ -10,15 +10,6 @@ onready var item_data
 
 func _ready():
 	item_data = load_items()
-
-func load_items(file_name="res://resources/item_stats.json"):
-	var file = File.new()
-	if file.file_exists(file_name):
-		file.open(file_name, File.READ)
-		var content = parse_json(file.get_as_text())
-		file.close()
-		return content
-	return {}
 	
 func get_success_rate(item_id="", enemy_id="default"):
 	if item_id == "":
@@ -41,5 +32,12 @@ func get_random_item_name():
 			pool.append(i)
 	pool.shuffle()
 	return get_item_by_index(pool[0])
-#	var chance = randi() % get_rarity("sword") 
-#	return item_data.keys()[randi() % item_data.keys().size()]
+
+static func load_items(file_name="res://resources/item_stats.json"):
+	var file = File.new()
+	if file.file_exists(file_name):
+		file.open(file_name, File.READ)
+		var content = parse_json(file.get_as_text())
+		file.close()
+		return content
+	return {}
