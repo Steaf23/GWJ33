@@ -21,12 +21,9 @@ onready var should_drop = false
 
 func _ready():
 	pickupSound.stream = pickup_sound
-	connect("clicked_on", get_parent(), "on_bagItem_clicked")
-	connect("equip", get_parent(), "on_item_equip")
 	pickupSound.play()
 
 func _physics_process(delta):
-	print(overlapping_areas)
 	get_overlapping_area()
 
 func _on_pickup():
@@ -56,6 +53,7 @@ func rotateCW():
 	set_rot(rot + 90 % 360)
 
 func drop():
+	print(overlapping_areas)
 	var area = get_overlapping_area()
 	if area != null:
 		# Area == equipment slot
@@ -71,6 +69,7 @@ func drop():
 		elif area.name == "Border":
 			return
 		
+# gets overlapping area based on priority equipmentslot - item - border
 func get_overlapping_area():
 	if overlapping_areas.size() <= 0:
 		sprite.get_material().set_shader_param("enabled", false)
@@ -82,18 +81,20 @@ func get_overlapping_area():
 			if area.get_parent().name == "HeroEquipment":
 				sprite.get_material().set_shader_param("enabled", true)
 				return area
+				
+		for area in overlapping_areas:
 			# Area == Other Item
-			elif area.is_in_group("bag_items"):
+			if area.is_in_group("bag_items"):
 				sprite.get_material().set_shader_param("enabled", true)
 				should_drop = true
 				return area
-			# Area == border	
-			elif area.name == "Border":
+				
+		for area in overlapping_areas:
+			# Area == Other Item
+			if area.name == "Border":
 				sprite.get_material().set_shader_param("enabled", true)
 				should_drop = true
 				return area
-			else:
-				should_drop = false
 	return null
 
 func _on_object_area_entered(area):

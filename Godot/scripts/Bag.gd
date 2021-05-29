@@ -44,6 +44,8 @@ func on_bagItem_clicked(item):
 func add(bag_item):
 	bag_item.position = get_random_spawnpoint()
 	add_child(bag_item)
+	bag_item.connect("clicked_on", self, "on_bagItem_clicked")
+	bag_item.connect("equip", self, "on_item_equip")
 
 func get_random_spawnpoint():
 	return spawns[0]
@@ -57,24 +59,24 @@ func get_drop_items():
 				item.queue_free()
 	return item_list
 
-#func on_item_equip(bag_item, slot):
-#	var remainder = heroEquipment.equip(bag_item, slot)
-#	if remainder != null:
-#		spawn(remainder)
-#
-#func on_unequip_item(item):
-#	spawn(item)
-#
-#func on_use_potion(potion):
-#	if current_hp < MAX_HP:
-#		current_hp += 1
-#	else:
-#		spawn(ItemConverter.to_bag(potion))
-#	frames.frame = current_hp
-#	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
-#
-#func on_equip_evaluate(total):
-#	print(total)
+func on_item_equip(bag_item, slot):
+	var remainder = heroEquipment.equip(bag_item, slot)
+	if remainder != null:
+		add(remainder)
+
+func on_unequip_item(item):
+	add(item)
+
+func on_use_potion(potion):
+	if current_hp < MAX_HP:
+		current_hp += 1
+	else:
+		add(ItemConverter.to_bag(potion))
+	frames.frame = current_hp
+	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
+
+func on_equip_evaluate(total):
+	print(total)
 
 func show_equipment():
 	if heroEquipment.get_parent() == null:
