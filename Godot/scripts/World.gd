@@ -65,6 +65,7 @@ func _unhandled_input(event):
 		print("Current State: %s" % [State.keys()[current_state]])
 
 func open_bag(show_hero=false):
+	print("Opening bag..")
 	bagLayer.add_child(bag)
 	if show_hero:
 		bag.show_equipment()
@@ -79,6 +80,7 @@ func open_bag(show_hero=false):
 	get_tree().paused = true
 	
 func close_bag():
+	print("Closing bag..")
 	if bag.get_parent() == null:
 		print("BAG IS DEAD")
 	bag.hide_equipment()
@@ -145,7 +147,7 @@ func start_dialogue(dialogue_name):
 func set_state(new_state):
 	previous_state = current_state
 	current_state = new_state
-	print("Current: %s, Prev: %s " % [State.keys()[current_state], State.keys()[previous_state]])
+#	print("Current: %s, Prev: %s " % [State.keys()[current_state], State.keys()[previous_state]])
 
 func on_start_battle_song():
 	lullSongA.stop()

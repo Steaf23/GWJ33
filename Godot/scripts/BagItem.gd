@@ -53,7 +53,6 @@ func rotateCW():
 	set_rot(rot + 90 % 360)
 
 func drop():
-	print(overlapping_areas)
 	var area = get_overlapping_area()
 	if area != null:
 		# Area == equipment slot
