@@ -65,7 +65,7 @@ func _unhandled_input(event):
 		print("Current State: %s" % [State.keys()[current_state]])
 
 func open_bag(show_hero=false):
-	print("Opening bag..")
+#	print("Opening bag..")
 	bagLayer.add_child(bag)
 	if show_hero:
 		bag.show_equipment()
@@ -81,8 +81,8 @@ func open_bag(show_hero=false):
 	
 func close_bag():
 	print("Closing bag..")
-	if bag.get_parent() == null:
-		print("BAG IS DEAD")
+#	if bag.get_parent() == null:
+#		print("BAG IS DEAD")
 	bag.hide_equipment()
 	get_tree().paused = false
 	
