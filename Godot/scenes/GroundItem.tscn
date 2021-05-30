@@ -34,6 +34,7 @@ tracks/0/keys = {
 [node name="GroundItem" type="Area2D" groups=[
 "items",
 ]]
+z_index = 80
 script = ExtResource( 1 )
 
 [node name="Collision" type="CollisionShape2D" parent="."]

@@ -15,6 +15,7 @@ onready var hero = $YSort/Hero
 onready var objectList = $YSort
 onready var preload_rooms = []
 onready var current_room
+onready var current_corpse = ""
 
 func _ready():
 	fill_room_list()
@@ -49,7 +50,9 @@ func force_next_room():
 	# ADD BATTLE MUSIC STUFF HERE
 	emit_signal("start_battle_song")
 	yield(tween, "tween_completed")
-
+	
+	current_corpse = current_room.warning
+	
 	current_room.open_door()
 	var new_room = instance_random_room()
 	while new_room.id == current_room.id:
@@ -70,6 +73,7 @@ func setup_start_room():
 	
 	starting_room.position = Vector2(0, 0)
 	starting_room.set_room_extents()
+	starting_room.warning = "imp"
 	
 	player.camera.set_new_limits(starting_room.limits)
 	hero.position = starting_room.door_entrance + Vector2(16, 0)
@@ -88,6 +92,7 @@ func setup_room(new_room):
 	hero.position = new_room.door_entrance + Vector2(16, 0)
 	hero.collision.disabled = false
 	current_room = new_room
+	place_corpses()
 	generate_items(10)
 	return new_room
 
@@ -118,7 +123,20 @@ func generate_items(percentage):
 		
 		item.position = current_room.room_map_to_world(tile) + offset
 		objectList.add_child(item)
-
+		
+func place_corpses():
+	randomize()
+	var tiles = current_room.specialLayer.get_corpse_tiles()
+	tiles.shuffle()
+	tiles = tiles.slice(0, max(tiles.size() - (randi() % 6), 1))
+	for tile in tiles:
+		var c = Sprite.new()
+		objectList.add_child(c)
+		c.position = current_room.room_map_to_world(tile) + Vector2(16, 16)
+		c.texture = load("res://assets/sprites/corpse_" + current_corpse + ".png")
+		c.z_as_relative = false
+		c.z_index = 70
+		
 func drop_items_from_player(items: Array):
 	for item in items:
 		drop_item_from_player(item)		

@@ -10,7 +10,6 @@ static func to_ground(bag_item):
 static func create_ground_item(item_id):
 	var item = load("res://scenes/GroundItem.tscn").instance()
 	item.id = item_id
-	item.z_index = 50
 	return item
 
 static func create_bag_item(item_id):

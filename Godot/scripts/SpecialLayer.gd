@@ -1,12 +1,15 @@
 extends TileMap
 
-enum {ITEM=0, 
-	  DOOR_EXIT=1, 
-	  DOOR_ENTER=2, 
-	  STAIR_RIGHT=3, 
-	  STAIR_LEFT=4, 
-	  STAIR_TOP=5
-	  SIGN=6}
+enum {
+	ITEM=0, 
+	DOOR_EXIT=1, 
+	DOOR_ENTER=2, 
+	STAIR_RIGHT=3, 
+	STAIR_LEFT=4, 
+	STAIR_TOP=5,
+	SIGN=6,
+	CORPSE=7
+}
 
 func get_door_tiles():
 	var doors = [Vector2.ZERO, Vector2.ZERO]
@@ -22,6 +25,9 @@ func get_item_tiles():
 	
 func get_sign_tiles():
 	return get_used_cells_by_id(SIGN)
+
+func get_corpse_tiles():
+	return get_used_cells_by_id(CORPSE)
 	
 func is_item_tile(cell):
 	return get_item_tiles().find(cell) != -1

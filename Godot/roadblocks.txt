@@ -1,9 +1,7 @@
-add corpses to rooms
+make the door open when going through it
+	(make door an object instead of a tile?)
 
 head bobs on the hover boards
-
-add score signs in addition to warning signs, 
-so the player can see their progress without the need of a direct GUI
 
 smooth camera limits
 
@@ -11,13 +9,9 @@ shuffle room playlist (no repeat, until every room has appeared)
 
 add coin slot to inventory
 
-when items drop, make them drop in a nice arc (or at least with an animation)
+fix weird player movement (teleport?) (probably weird infinite velocity or div_by_0)
 
-make door an object instead of a tile?
-
-fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
-
-remove rooms when you're past them
+remove and clean up rooms when you're past them
 
 Rewrite bag's input method, breaks when you keep holding the mouse when switching inventory
 

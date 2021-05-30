@@ -7,10 +7,12 @@ onready var score = $Score
 onready var show_timer = true
 onready var toggled = false
 
+func _ready():
+	score.visible = false
+
 func set_monster(warning):
 	var texture = load("res://assets/sprites/warning_" + warning + ".png")
 	monster.texture = texture
-	score.visible = false
 
 func _process(delta):
 	timer.text = str(Score.room_time).pad_zeros(2)

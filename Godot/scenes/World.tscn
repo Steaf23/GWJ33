@@ -28,7 +28,7 @@ layer = 2
 layer = 3
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 10.0
+wait_time = 20.0
 one_shot = true
 
 [node name="MultiSoundContainer" parent="." instance=ExtResource( 5 )]
@@ -50,3 +50,4 @@ stream = ExtResource( 8 )
 bus = "Music"
 
 [connection signal="timeout" from="LootTimer" to="." method="_on_LootTimer_timeout"]
+[connection signal="timeout" from="LootTimer" to="DungeonLayer/Dungeon" method="_on_loot_timeout"]
