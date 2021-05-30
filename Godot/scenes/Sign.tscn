@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://resources/pixel_font_minimal.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://assets/sprites/ScorePanelColored.png" type="Texture" id=2]
@@ -13,18 +13,46 @@ font_data = ExtResource( 1 )
 outline_color = Color( 0.87451, 0.94902, 0.996078, 1 )
 font_data = ExtResource( 1 )
 
+[sub_resource type="Animation" id=3]
+resource_name = "Idle"
+length = 3.0
+loop = true
+tracks/0/type = "bezier"
+tracks/0/path = NodePath("Graphics:position:x")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = false
+tracks/0/keys = {
+"points": PoolRealArray( 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0, 0, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5, 3 )
+}
+tracks/1/type = "bezier"
+tracks/1/path = NodePath("Graphics:position:y")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/keys = {
+"points": PoolRealArray( 2, -0.25, 0, 0.25, 0, 6, -0.25, 0, 0.25, 0, 2, -0.25, 0, 0.25, 0 ),
+"times": PoolRealArray( 0, 1.5, 3 )
+}
+
 [node name="Sign" type="Node2D"]
 z_index = 10
 script = ExtResource( 3 )
 
-[node name="Background" type="Sprite" parent="."]
+[node name="Graphics" type="Node2D" parent="."]
+position = Vector2( 0, 5.61128 )
+
+[node name="Background" type="Sprite" parent="Graphics"]
 texture = ExtResource( 2 )
 
-[node name="Monster" type="Sprite" parent="."]
+[node name="Monster" type="Sprite" parent="Graphics"]
 position = Vector2( -442, -105 )
 offset = Vector2( 442, 105 )
 
-[node name="Timer" type="Label" parent="."]
+[node name="Timer" type="Label" parent="Graphics"]
 margin_top = -14.0
 margin_right = 40.0
 margin_bottom = 18.0
@@ -35,7 +63,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Score" type="Label" parent="."]
+[node name="Score" type="Label" parent="Graphics"]
 margin_left = -37.0
 margin_top = -15.0
 margin_right = 43.0
@@ -46,3 +74,7 @@ valign = 1
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+autoplay = "Idle"
+anims/Idle = SubResource( 3 )

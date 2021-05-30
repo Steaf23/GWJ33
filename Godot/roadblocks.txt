@@ -1,15 +1,6 @@
-make the door open when going through it
-	(make door an object instead of a tile?)
-
-head bobs on the hover boards
-
-smooth camera limits
-
-shuffle room playlist (no repeat, until every room has appeared)
+improve game intro w/ better tutorial
 
 add coin slot to inventory
-
-fix weird player movement (teleport?) (probably weird infinite velocity or div_by_0)
 
 remove and clean up rooms when you're past them
 
@@ -17,3 +8,5 @@ Rewrite bag's input method, breaks when you keep holding the mouse when switchin
 
 Bag sounds get cut off when closing the bags (only if the items will drop) 
 	-fix with audio autoload script
+	
+balance the game's items etc

@@ -1,8 +1,8 @@
 extends Node2D
 
-onready var monster = $Monster
-onready var timer = $Timer
-onready var score = $Score
+onready var monster = $Graphics/Monster
+onready var timer = $Graphics/Timer
+onready var score = $Graphics/Score 
 
 onready var show_timer = true
 onready var toggled = false

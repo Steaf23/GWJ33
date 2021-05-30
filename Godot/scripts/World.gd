@@ -8,6 +8,7 @@ var previous_state
 var current_state = State.LOOT setget set_state
 
 var first_time = true
+var zooming = false
 
 onready var dungeon = $DungeonLayer/Dungeon
 onready var player = $DungeonLayer/Dungeon/YSort/Player
@@ -41,22 +42,22 @@ func _process(delta):
 		dungeon.blink_items()
 	
 func _unhandled_input(event):
-	if event.is_action_pressed("open_bag"):
-		match current_state:
-			State.LOOT:
-				open_bag()
-				get_tree().set_input_as_handled()
+	if !zooming:
+		if event.is_action_pressed("open_bag"):
+			match current_state:
+				State.LOOT:
+					open_bag()
+					get_tree().set_input_as_handled()
 
-	if event.is_action_pressed("pickup_item"):
-		match current_state:
-			State.LOOT:
-				if dungeon.hero.get_player() != null:
-					start_battle()
-				else:
-					check_for_item()
+		if event.is_action_pressed("pickup_item"):
+			match current_state:
+				State.LOOT:
+					if !check_for_item():
+						if dungeon.hero.get_player() != null:
+							start_battle()
 	
-	if event.is_action_pressed("ui_accept"):
-		print("Current State: %s" % [State.keys()[current_state]])
+		if event.is_action_pressed("ui_accept"):
+			print("Current State: %s" % [State.keys()[current_state]])
 
 func check_for_item():
 	var items = dungeon.get_colliding_items()
@@ -65,9 +66,11 @@ func check_for_item():
 		var item_id = items[0].id
 		items[0].queue_free()
 		open_bag(false, item_id)
+		return true
+	else:
+		return false
 
 func open_bag(show_hero=false, item_id: String = ""):
-#	bagLayer.add_child(bag)
 	if show_hero:
 		bag.show_equipment()
 	get_tree().paused = true
@@ -77,8 +80,12 @@ func open_bag(show_hero=false, item_id: String = ""):
 		bag.add(item_id)
 
 	player.show_bag = true
+	
+#	zooming = true
 #	player.camera.set_new_limits([Vector2(-100000, -100000), Vector2(100000, 100000)])
 #	yield(player.camera.zoom_in(), "tween_completed")
+#	zooming = false
+	
 	bag.visible = true
 	set_state(State.BAG)
 	bag.is_open = true
@@ -90,9 +97,12 @@ func on_bag_closed(items=[]):
 	bag.visible = false
 	dungeon.drop_items_from_player(items)
 	player.show_bag = false
+	
+#	zooming = true
 #	yield(player.camera.zoom_out(), "tween_completed")
-#	player.camera.set_new_limits(player.camera.prev_limits)
-#	bagLayer.remove_child(bag)
+#	player.camera.set_new_limits(dungeon.current_room.get_limits())
+#	zooming = false
+	
 	set_state(State.LOOT)
 	
 func on_dungeon_request_item_pickup(item):
@@ -122,6 +132,7 @@ func start_battle():
 		open_bag(true)
 		yield(bag, "close")
 	lootTimer.stop()
+	dungeon.blink = false
 	yield(dungeon.force_next_room(), "completed")
 	start_loot()
 
@@ -129,6 +140,7 @@ func start_loot():
 	battle_sounds.stop()
 	set_state(State.LOOT)
 	lootTimer.start()
+	dungeon.blink = true
 	if randi() % 2 == 0:
 		lootingSongA.play()
 	else:
@@ -136,12 +148,12 @@ func start_loot():
 
 func start_dialogue(dialogue_name):
 	set_state(State.OTHER)
-#	player.freeze = true
+	player.freeze = true
 	var test_text = textBox.instance()
 	test_text.dialogue = "res://resources/dialogue_" + dialogue_name + ".json"
 	dialogueLayer.add_child(test_text)
 	yield(test_text, "dialogue_completed")
-#	player.freeze = false
+	player.freeze = false
 	set_state(previous_state)
 	
 func set_state(new_state):

@@ -3,10 +3,12 @@ extends Node2D
 var id = -1
 
 onready var limits = $Limits setget ,get_limits
-onready var door_entrance = $Door/New setget ,get_global_entrance
-onready var door_exit = $Door/Old setget ,get_global_exit
+onready var door_entrance = $DoorPos/New setget ,get_global_entrance
+onready var door_exit = $DoorPos/Old setget ,get_global_exit
 onready var specialLayer = $SpecialLayer
 onready var warningSign = preload("res://scenes/Sign.tscn")
+
+onready var door = $Door
 
 onready var layers = []
 onready var warning
@@ -27,7 +29,7 @@ func create_warning_signs():
 		warning_sign.position = specialLayer.map_to_world(cell) + Vector2(16, 8)
 
 func close_door():
-	pass
+	door.close_door()
 #	for layer in layers:
 #		var cells = []
 #		for cell in layer.get_used_cells_by_id('open_door'):
@@ -35,7 +37,7 @@ func close_door():
 #			layer.set_cellv(cell, tiles['closed_door'][0])
 
 func open_door():
-	pass
+	door.open_door()
 #	for layer in layers:
 #		for cell in layer.get_used_cells_by_id('closed_door'):
 #			layer.set_cellv(cell, tiles['open_door'][0])

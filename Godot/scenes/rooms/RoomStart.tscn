@@ -96,7 +96,10 @@
 [node name="Sign" parent="." index="0" instance=ExtResource( 6 )]
 position = Vector2( 175, -294 )
 
-[node name="Monster" parent="Sign" index="1"]
+[node name="Graphics" parent="Sign" index="0"]
+position = Vector2( 0, 2 )
+
+[node name="Monster" parent="Sign/Graphics" index="1"]
 texture = ExtResource( 7 )
 
 [node name="Ground" parent="." index="1"]
@@ -109,10 +112,14 @@ tile_data = PoolIntArray( -655356, 0, 720908, -655354, 0, 720908, -655353, 2, 0,
 tile_data = PoolIntArray( -589820, 8, 0, -589813, 8, 0, -458749, 8, 0, -458740, 8, 0, -393214, 8, 0, -393203, 8, 0, -327680, 8, 0, -327665, 8, 0, -131067, 10, 0, 3, 8, 0, 5, 8, 0, 10, 8, 0, 12, 8, 0, 262149, 8, 0, 262154, 8, 0, 393221, 8, 0, 393226, 8, 0, 458752, 0, 131077, 458753, 0, 131077, 458754, 0, 131077, 458765, 0, 131077, 458766, 0, 131077, 458767, 0, 131077, 524293, 8, 0, 524298, 8, 0, 655363, 0, 131077, 655364, 0, 131077, 655365, 0, 131077, 655370, 0, 131077, 655371, 0, 131077, 655372, 0, 131077, 720902, 0, 131075, 720903, 0, 131075, 720904, 0, 131075, 720905, 0, 131075 )
 
 [node name="Doorway" parent="." index="4"]
-tile_data = PoolIntArray( -720890, 0, 458763, -720889, 0, 458763, -720888, 0, 458763, -720887, 0, 458763, -655353, 0, 3, -655352, 0, 4 )
+tile_data = PoolIntArray( -720890, 0, 458763, -720889, 0, 458763, -720888, 0, 458763, -720887, 0, 458763 )
 
 [node name="SpecialLayer" parent="." index="5"]
 tile_set = SubResource( 1 )
 tile_data = PoolIntArray( -524281, 2, 0, 65536, 5, 0, 65537, 5, 0, 65538, 5, 0, 65549, 5, 0, 65550, 5, 0, 65551, 5, 0, 131075, 4, 0, 131084, 3, 0, 196611, 4, 0, 196620, 3, 0, 262147, 4, 0, 262156, 3, 0, 720903, 1, 0 )
 
+[node name="Door" parent="." index="8"]
+position = Vector2( 256, -280 )
+
 [editable path="Sign"]
+[editable path="Door"]

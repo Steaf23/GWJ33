@@ -1,14 +1,16 @@
 extends Node2D
 
 const FLOOR_TILES = [0, 2, 3]
-const UNIQUE_ROOM_COUNT = 2
+const UNIQUE_ROOM_COUNT = 4
 const ROOM_DISTANCE = 64
 
 #signal request_item_pickup(item)
 #signal start_battle()
 signal start_battle_song()
 
+var room_count = 0
 var time_up = false
+var blink = false
 
 onready var player = $YSort/Player
 onready var hero = $YSort/Hero
@@ -21,6 +23,7 @@ func _ready():
 	fill_room_list()
 	setup_start_room()
 	player.position = current_room.door_exit + Vector2(16, 0)
+	preload_rooms.shuffle()
 
 func _process(delta):
 	current_room.apply_slope_transform(player)
@@ -29,12 +32,17 @@ func fill_room_list():
 	for i in range(UNIQUE_ROOM_COUNT):
 		preload_rooms.append(load("res://scenes/rooms/Room" + str(i) + ".tscn"))
 
-func instance_random_room():
-	var room_id = randi() % UNIQUE_ROOM_COUNT
-	var warning = ItemLookup.WARNING_TYPES[randi() % ItemLookup.WARNING_TYPES.size()]
-	print("Picking Room %d as next room, with as warning %s" % [room_id, warning])
-	var new_room = preload_rooms[room_id].instance()
-	new_room.id = room_id
+func instance_new_room():
+	if room_count >= UNIQUE_ROOM_COUNT:
+		preload_rooms.shuffle()
+		room_count = 0
+	
+	var warning = ""
+	while warning == "" || warning == current_room.warning:
+		warning = ItemLookup.WARNING_TYPES[randi() % ItemLookup.WARNING_TYPES.size()]
+	var new_room = preload_rooms[room_count].instance()
+	room_count += 1
+	new_room.id = room_count
 	new_room.warning = warning
 	return new_room
 
@@ -43,27 +51,29 @@ func force_next_room():
 	# prevent the same room to be generated twice in a row
 	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
 	yield(tween, "tween_completed")
+	
+	current_room.open_door()
+	yield(get_tree().create_timer(.5), "timeout")
 	hero.visible = false
-
+	yield(get_tree().create_timer(.5), "timeout")
+	current_room.close_door()
+	
 	# duration should be 10 for battle sequence
 	tween = player.move_to(player.position, 2)
 	# ADD BATTLE MUSIC STUFF HERE
 	emit_signal("start_battle_song")
 	yield(tween, "tween_completed")
 	
-	current_corpse = current_room.warning
-	
 	current_room.open_door()
-	var new_room = instance_random_room()
-	while new_room.id == current_room.id:
-		new_room = instance_random_room()
+	
+	current_corpse = current_room.warning
+	var new_room = instance_new_room()
 	setup_room(new_room)
 	hero.visible = true
-	current_room.open_door()
 	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
 	yield(tween, "tween_completed")
+	player.camera.set_new_limits(new_room.limits)
 	player.position = current_room.door_exit + Vector2(16, 0)
-	current_room.close_door()
 	Score.room_score += 1
 	print("total rooms: %d" % Score.room_score)
 
@@ -88,7 +98,6 @@ func setup_room(new_room):
 #		current_room.queue_free()
 	new_room.set_room_extents()
 	
-	player.camera.set_new_limits(new_room.limits)
 	hero.position = new_room.door_entrance + Vector2(16, 0)
 	hero.collision.disabled = false
 	current_room = new_room
@@ -182,8 +191,9 @@ func _on_loot_timeout():
 		item.queue_free()
 
 func blink_items():
-	for item in get_items():
-		item.blink()
+	if blink:
+		for item in get_items():
+			item.blink()
 
 func get_items():
 	return get_tree().get_nodes_in_group("items")

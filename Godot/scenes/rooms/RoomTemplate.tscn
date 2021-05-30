@@ -13,5 +13,5 @@ tile_data = PoolIntArray(  )
 [node name="Decoration" parent="." index="2"]
 tile_data = PoolIntArray(  )
 
-[node name="SpecialLayer" parent="." index="3"]
+[node name="SpecialLayer" parent="." index="4"]
 tile_data = PoolIntArray(  )

@@ -40,15 +40,13 @@ func _process(delta):
 			set_animation(old_movedir, "Idle")
 		
 		match on_stair:
-			0:
-				velocity = new_movedir * speed * delta
 			1:
 				new_movedir = Vector2(new_movedir.x, new_movedir.y + (new_movedir.x * stair_multiplier)) * .5
 			2:
 				new_movedir = Vector2(new_movedir.x, new_movedir.y - (new_movedir.x * stair_multiplier)) * .5
 			3:
 				new_movedir.y = new_movedir.y * .5
-				velocity = new_movedir * speed * delta
+
 		velocity = new_movedir * speed * delta
 		velocity = move_and_slide(velocity)
 	elif show_bag:

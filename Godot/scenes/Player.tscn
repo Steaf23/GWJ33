@@ -431,7 +431,6 @@ start_node = "Idle"
 
 [node name="Player" type="KinematicBody2D"]
 script = ExtResource( 1 )
-speed = 30000
 
 [node name="Sprite" type="Sprite" parent="."]
 position = Vector2( 0, -23 )
