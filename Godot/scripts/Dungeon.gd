@@ -4,8 +4,8 @@ const FLOOR_TILES = [0, 2, 3]
 const UNIQUE_ROOM_COUNT = 2
 const ROOM_DISTANCE = 64
 
-signal request_item_pickup(item)
-signal start_battle()
+#signal request_item_pickup(item)
+#signal start_battle()
 signal start_battle_song()
 
 var time_up = false
@@ -17,7 +17,6 @@ onready var preload_rooms = []
 onready var current_room
 
 func _ready():
-	player.connect("request_pickup", self, "on_player_request_pickup")
 	fill_room_list()
 	setup_start_room()
 	player.position = current_room.door_exit + Vector2(16, 0)
@@ -40,18 +39,16 @@ func instance_random_room():
 
 func force_next_room():
 	hero.collision.disabled = true
-	if Score.room_score != 0:
-		emit_signal("request_item_pickup", null)
 	# prevent the same room to be generated twice in a row
-#	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
-#	yield(tween, "tween_completed")
+	var tween = player.move_to(Vector2(current_room.door_entrance.x + 16, player.position.y), .5)
+	yield(tween, "tween_completed")
 	hero.visible = false
-	
-#	# duration should be 10 for battle sequence
-#	tween = player.move_to(player.position, 2)
-#	# ADD BATTLE MUSIC STUFF HERE
-#	emit_signal("start_battle_song")
-#	yield(tween, "tween_completed")
+
+	# duration should be 10 for battle sequence
+	tween = player.move_to(player.position, 2)
+	# ADD BATTLE MUSIC STUFF HERE
+	emit_signal("start_battle_song")
+	yield(tween, "tween_completed")
 
 	current_room.open_door()
 	var new_room = instance_random_room()
@@ -60,8 +57,8 @@ func force_next_room():
 	setup_room(new_room)
 	hero.visible = true
 	current_room.open_door()
-#	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
-#	yield(tween, "tween_completed")
+	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
+	yield(tween, "tween_completed")
 	player.position = current_room.door_exit + Vector2(16, 0)
 	current_room.close_door()
 	Score.room_score += 1
@@ -100,17 +97,6 @@ func get_colliding_items():
 		if item.get_player() != null:
 			colliding_items.append(item)
 	return colliding_items
-
-func on_player_request_pickup():
-	var items = get_colliding_items()
-	if items.size() > 0:
-		var item = get_colliding_items()[0] #pass by value
-		player.show_bag = true
-		emit_signal("request_item_pickup", item) # pass by value, which might be deleted at that point (if zooming is enabled)
-		return
-
-	if hero.get_player() != null:
-		emit_signal("start_battle")
 		
 func generate_items(percentage):
 	if percentage >= 100:
@@ -133,16 +119,18 @@ func generate_items(percentage):
 		item.position = current_room.room_map_to_world(tile) + offset
 		objectList.add_child(item)
 
-func drop_items_from_player(items):
+func drop_items_from_player(items: Array):
 	for item in items:
 		drop_item_from_player(item)		
 
-func drop_item_from_player(ground_item):
+func drop_item_from_player(item_id):
+	var ground_item = ItemConverter.create_ground_item(item_id)
+		
 	var radius = 20
 	var angle
 	var pos = player.position + Vector2(0, radius)
 	# get valid item position
-	var i = 0
+#	var i = 0
 #	while !is_valid_item_position(current_room.to_local(pos)):
 #		angle = deg2rad(randi() % 360)
 #		pos = get_random_circle_point(radius, player.position)

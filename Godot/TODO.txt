@@ -1,5 +1,0 @@
-Fix item rollback position
-
-bag not in tree sometimes (error !is_inside_tree())??
-
-The great static revolution

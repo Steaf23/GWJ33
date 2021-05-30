@@ -5,12 +5,15 @@ const MAX_HP = 3
 var current_hp = 3
 
 var held_item
+var is_open = false
 
-signal hero_died()
+#signal hero_died()
+signal close(items)
 
 onready var spawns = [$Left.position, $Right.position, $Top.position]
 onready var heroEquipment = $HeroEquipment
 onready var frames = $HeroEquipment/Potion/AnimatedSprite
+onready var items = $Items
 
 #func _ready():
 #	frames.frame = current_hp
@@ -37,13 +40,22 @@ func _input(event):
 			if !event.is_pressed():
 				if held_item != null:
 					held_item.rotateCW()
+	
+	if event is InputEventKey:
+		# close & cleanup bag
+		if (event.is_action_pressed("open_bag") || event.is_action_pressed("pickup_item")) && is_open:
+			get_tree().set_input_as_handled()
+			var drop_items = get_drop_items()
+#			print("Dropping %s" % [	drop_items])
+			emit_signal("close", drop_items)
 
 func on_bagItem_clicked(item):
 	held_item = item
 
-func add(bag_item):
+func add(item_id):
+	var bag_item = ItemConverter.create_bag_item(item_id)
 	bag_item.position = get_random_spawnpoint()
-	add_child(bag_item)
+	items.add_child(bag_item)
 	bag_item.connect("clicked_on", self, "on_bagItem_clicked")
 	bag_item.connect("equip", self, "on_item_equip")
 
@@ -52,20 +64,20 @@ func get_random_spawnpoint():
 
 func get_drop_items():
 	var item_list = []
-	for item in get_children():
+	for item in get_items():
 		if item is Area2D && item.name != "Border":
 			if item.should_drop:
-				item_list.append(ItemConverter.to_ground(item))
+				item_list.append(item.id)
 				item.queue_free()
 	return item_list
 
 func on_item_equip(bag_item, slot):
 	var remainder = heroEquipment.equip(bag_item, slot)
 	if remainder != null:
-		add(remainder)
+		add(remainder.id)
 
 func on_unequip_item(item):
-	add(item)
+	add(item.id)
 
 func on_use_potion(potion):
 	if current_hp < MAX_HP:
@@ -85,3 +97,6 @@ func show_equipment():
 func hide_equipment():
 	if heroEquipment.get_parent() != null:
 		remove_child(heroEquipment)
+
+func get_items():
+	return items.get_children()

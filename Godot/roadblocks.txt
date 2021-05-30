@@ -2,13 +2,12 @@ add corpses to rooms
 
 head bobs on the hover boards
 
-add score signs in addition to warning signs, so the player can see their progress without the need of a direct GUI
+add score signs in addition to warning signs, 
+so the player can see their progress without the need of a direct GUI
 
 smooth camera limits
 
 shuffle room playlist (no repeat, until every room has appeared)
-
-add thanos snap animations to ground_items when timer runs out 
 
 add coin slot to inventory
 
@@ -20,6 +19,7 @@ fix weird player movement (teleport?) (probably weird infinite velocity or x/0)
 
 remove rooms when you're past them
 
---------------------------------------------------------------------------------
-MEETING
---------------------------------------------------------------------------------
+Rewrite bag's input method, breaks when you keep holding the mouse when switching inventory
+
+Bag sounds get cut off when closing the bags (only if the items will drop) 
+	-fix with audio autoload script

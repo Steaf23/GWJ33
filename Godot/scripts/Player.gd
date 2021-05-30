@@ -2,8 +2,6 @@ extends KinematicBody2D
 
 export var speed = 10000
 
-signal request_pickup()
-
 onready var animationTree = $AnimationTree
 onready var animationState = animationTree.get("parameters/playback")
 onready var camera = $Camera
@@ -55,11 +53,6 @@ func _process(delta):
 		velocity = move_and_slide(velocity)
 	elif show_bag:
 		set_animation(Vector2.UP, "Idle")			
-
-func _unhandled_key_input(event):
-	if event.is_action_pressed("pickup_item"):
-		emit_signal("request_pickup")
-		
 
 func set_animation(facing: Vector2, animation: String):
 	animationTree.set("parameters/" + animation + "/blend_position", facing)
