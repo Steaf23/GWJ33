@@ -55,6 +55,7 @@ texture = ExtResource( 7 )
 position = Vector2( 16, 16 )
 texture = ExtResource( 9 )
 hframes = 4
+frame = 3
 
 [node name="Score" type="Label" parent="."]
 margin_left = 8.0

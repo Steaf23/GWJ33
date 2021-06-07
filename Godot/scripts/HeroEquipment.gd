@@ -1,9 +1,11 @@
 extends Node2D
 
 const SLOT_TYPES = ["head", "weapon", "weapon", "potion", "necklace", "body", "boots"]
+const MAX_SCORE = 7 * 6
 
-var starter_bonus = 10
-var bonus_falloff = 2
+var starter_bonus = 5
+var bonus_falloff = 1
+var eval_success = true
 
 signal evaluate(score)
 
@@ -16,13 +18,16 @@ func _ready():
 		slot.connect("unequip_item", get_parent(), "on_unequip_item")
 	slots[3].connect("use_potion", get_parent(), "on_use_potion")
 	connect("evaluate", get_parent(), "on_equip_evaluate")
+	score.text = ""
 
 func evaluate_equipment(enemy_id="default"):
-	var total = starter_bonus - min(bonus_falloff * Score.room_score, 0)
+	var total = starter_bonus - min(bonus_falloff * Score.room_score, starter_bonus)
 	for slot in slots:
 		total += ItemLookup.get_success_rate(slot.item_id, enemy_id)
-	emit_signal("evaluate", total)
-	score.text = "Success: " + str(total) + "%" 
+	var percentage = total * 100 / MAX_SCORE
+	
+	emit_signal("evaluate", percentage)
+	score.text = "Success: %d%%" % int(percentage) if eval_success else ""
 	return total
 
 func equip(bag_item, slot):
@@ -32,14 +37,14 @@ func equip(bag_item, slot):
 		# if successful without remainder
 		"":
 			bag_item.queue_free()
-			evaluate_equipment()
+			evaluate_equipment(Score.warning)
 		# if not sucessful
 		"fail":
 			pass	
 		_:
 			remainder = ItemConverter.create_bag_item(remainder)
 			bag_item.queue_free()
-			evaluate_equipment()
+			evaluate_equipment(Score.warning)
 	
 	if !(remainder is String):
 		return remainder

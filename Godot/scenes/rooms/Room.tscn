@@ -43,6 +43,7 @@ script = ExtResource( 3 )
 [node name="BottomRight" type="Position2D" parent="Limits"]
 
 [node name="Label" type="Label" parent="Limits/BottomRight"]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 6 )
@@ -53,6 +54,7 @@ __meta__ = {
 [node name="TopLeft" type="Position2D" parent="Limits"]
 
 [node name="Label" type="Label" parent="Limits/TopLeft"]
+visible = false
 margin_right = 40.0
 margin_bottom = 14.0
 custom_fonts/font = ExtResource( 6 )

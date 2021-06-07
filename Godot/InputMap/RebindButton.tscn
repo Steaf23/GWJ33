@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://InputMap/RebindButton.gd" type="Script" id=1]
+[ext_resource path="res://resources/Font_small.tres" type="DynamicFont" id=2]
+
+[node name="Rebindbutton" type="Button"]
+margin_right = 254.0
+margin_bottom = 20.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="." to="." method="_on_pressed"]

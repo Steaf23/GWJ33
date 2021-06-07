@@ -28,19 +28,14 @@ func create_warning_signs():
 		warning_sign.set_monster(warning)
 		warning_sign.position = specialLayer.map_to_world(cell) + Vector2(16, 8)
 
+func remove():
+	queue_free()
+
 func close_door():
 	door.close_door()
-#	for layer in layers:
-#		var cells = []
-#		for cell in layer.get_used_cells_by_id('open_door'):
-#			cells.append(cell)
-#			layer.set_cellv(cell, tiles['closed_door'][0])
 
 func open_door():
 	door.open_door()
-#	for layer in layers:
-#		for cell in layer.get_used_cells_by_id('closed_door'):
-#			layer.set_cellv(cell, tiles['open_door'][0])
 
 func apply_slope_transform(player):
 	player.on_stair = specialLayer.get_slope_transform(to_local(player.position))

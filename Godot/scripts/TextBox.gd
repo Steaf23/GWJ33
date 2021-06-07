@@ -29,7 +29,7 @@ func load_json(path):
 	return content
 
 func _input(event):
-	if event.is_action_pressed("pickup_item") || event.is_action_pressed("open_bag") || event.is_action_pressed("mouse_select"):
+	if event.is_action_pressed("Interact") || event.is_action_pressed("Open bag") || event.is_action_pressed("mouse_select"):
 		name_field.text = ""
 		text_field.text = ""
 		cont = true

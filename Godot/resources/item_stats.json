@@ -1,327 +1,327 @@
 {
 	"Sword": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":5,
 		"success": {
-			"default": 20,
-			"vampire": 30,
-			"elemental": 15,
-			"ghost": 20,
-			"imp": 10,
-			"robot": 0,
-			"ent": 0
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 6,
+			"robot": 4,
+			"ent": 3
 		}
 	},
 	"Axe": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 3,
+			"elemental": 4,
+			"ghost": 4,
+			"imp": 1,
 			"robot": 2,
-			"ent": 40
+			"ent": 6
 		}
 	},
 	"Dagger": {
 		"type":"weapon",
 		"rarity":10,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 6,
+			"elemental": 1,
+			"ghost": 2,
+			"imp": 1,
 			"robot": 2,
-			"ent": 40
+			"ent": 3
 		}
 	},
 	"Bow": {
 		"type":"weapon",
 		"rarity":10,
 		"success": {
-			"default": 30,
+			"default": 0,
 			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"elemental": 1,
+			"ghost": 1,
+			"imp": 2,
+			"robot": 3,
+			"ent": 4
 		}
 	},
 	"Hammer": {
 		"type":"weapon",
 		"rarity":10,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 3,
+			"elemental": 2,
+			"ghost": 1,
+			"imp": 5,
+			"robot": 6,
+			"ent": 3
 		}
 	},
 	"Halberd": {
 		"type":"weapon",
 		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 4,
+			"elemental": 3,
+			"ghost": 5,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"SmallShield": {
 		"type":"weapon",
-		"rarity":10,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 1,
+			"elemental": 5,
+			"ghost": 4,
+			"imp": 2,
+			"robot": 0,
+			"ent": 0
 		}
 	},
 	"FullShield": {
 		"type":"weapon",
-		"rarity":5,
+		"rarity":3,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 1,
+			"elemental": 6,
+			"ghost": 5,
+			"imp": 4,
 			"robot": 2,
-			"ent": 40
+			"ent": 1
 		}
 	},
 	"Masamune": {
 		"type":"weapon",
-		"rarity":2,
+		"rarity":1,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 4,
+			"vampire": 4,
+			"elemental": 4,
+			"ghost": 4,
+			"imp": 4,
+			"robot": 4,
+			"ent": 4
 		}
 	},
 	"LifePotion": {
 		"type":"potion",
 		"rarity":3,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 0,
+			"elemental": 0,
+			"ghost": 0,
+			"imp": 0,
+			"robot": 0,
+			"ent": 0
 		}
 	},
 	"LeatherHelmet": {
 		"type":"head",
 		"rarity":8,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"LeatherChest": {
 		"type":"body",
 		"rarity":8,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"LeatherBoots": {
 		"type":"boots",
 		"rarity":8,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"ChainHelmet": {
 		"type":"head",
-		"rarity":6,
+		"rarity":3,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 4,
+			"elemental": 4,
+			"ghost": 4,
+			"imp": 4,
+			"robot": 4,
+			"ent": 4
 		}
 	},
 	"ChainChest": {
 		"type":"body",
-		"rarity":6,
+		"rarity":3,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 4,
+			"elemental": 4,
+			"ghost": 4,
+			"imp": 4,
+			"robot": 4,
+			"ent": 4
 		}
 	},
 	"ChainBoots": {
 		"type":"boots",
-		"rarity":6,
+		"rarity":3,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 4,
+			"elemental": 4,
+			"ghost": 4,
+			"imp": 4,
+			"robot": 4,
+			"ent": 4
 		}
 	},
 	"PlateHelmet": {
 		"type":"head",
-		"rarity":4,
+		"rarity":1,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 6,
+			"elemental": 6,
+			"ghost": 6,
+			"imp": 6,
+			"robot": 6,
+			"ent": 6
 		}
 	},
 	"PlateChest": {
 		"type":"body",
-		"rarity":4,
+		"rarity":1,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 6,
+			"elemental": 6,
+			"ghost": 6,
+			"imp": 6,
+			"robot": 6,
+			"ent": 6
 		}
 	},
 	"PlateBoots": {
 		"type":"boots",
-		"rarity":4,
+		"rarity":1,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 6,
+			"elemental": 6,
+			"ghost": 6,
+			"imp": 6,
+			"robot": 6,
+			"ent": 6
 		}
 	},
 	"NecklaceBone": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 6,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"NecklaceChain": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
-			"robot": 2,
-			"ent": 40
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
+			"robot": 6,
+			"ent": 2
 		}
 	},
 	"NecklaceCross": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 6,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"NecklaceGarlic": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 6,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	},
 	"NecklaceGold": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 2,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 6
 		}
 	},
 	"NecklaceRuby": {
 		"type":"necklace",
-		"rarity":6,
+		"rarity":5,
 		"success": {
-			"default": 30,
-			"vampire": 5,
-			"elemental": 20,
-			"ghost": 10,
-			"imp": 30,
+			"default": 0,
+			"vampire": 2,
+			"elemental": 6,
+			"ghost": 2,
+			"imp": 2,
 			"robot": 2,
-			"ent": 40
+			"ent": 2
 		}
 	}
 }

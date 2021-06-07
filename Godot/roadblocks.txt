@@ -1,12 +1,3 @@
-improve game intro w/ better tutorial
-
 add coin slot to inventory
 
-remove and clean up rooms when you're past them
-
-Rewrite bag's input method, breaks when you keep holding the mouse when switching inventory
-
-Bag sounds get cut off when closing the bags (only if the items will drop) 
-	-fix with audio autoload script
-	
-balance the game's items etc
+balance the game a bit more

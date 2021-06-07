@@ -1,15 +1,15 @@
 [
 	[
 	"Knight:",
-	"Time to be a hero! Do I have everything I need?"
+	"Time to be a hero! Did you get everything?"
 	],
 	[
 	"Squire:",
-	"Yes sir! By the looks of this sign, there's a group of Imps ahead."
+	"Yes sir! By the looks of this sign, there's a small group of Imps ahead."
 	],
 	[
 	"Squire:",
-	"Your claymore is great for taking out groups of enemies."
+	"But I think these items will suffice."
 	],
 	[
 	"Squire:",
@@ -17,31 +17,6 @@
 	],
 	[
 	"Knight:",
-	"-But my hair, how is my hair?",
-	2
-	],
-	[
-	"Squire:",
-	"..your hair is great sir.",
-	3
-	],
-	[
-	"Knight:",
-	"Excellent! Time to slay some-...",
-	2
-	],
-	[
-	"Squire:",
-	"...Imps, sir. It's Imps.",
-	3
-	],
-	[
-	"Knight:",
-	"Right, Imps...!",
-	2
-	],
-	[
-	"Knight:",
-	"CHAAAAAAAAAARGEEEE!!!!!!!!!!!!!!!!!!!!"
+	"That's great, be sure to equip them on me before I go in!"
 	]
 ]

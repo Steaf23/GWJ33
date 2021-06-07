@@ -1,0 +1,38 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://resources/Font01.tres" type="DynamicFont" id=1]
+[ext_resource path="res://scenes/VolumeSlider.tscn" type="PackedScene" id=2]
+
+[node name="VolumeSettings" type="VBoxContainer"]
+margin_right = 205.0
+margin_bottom = 74.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_right = 205.0
+margin_bottom = 24.0
+custom_fonts/font = ExtResource( 1 )
+text = "Volume"
+align = 1
+
+[node name="Master" parent="." instance=ExtResource( 2 )]
+margin_top = 28.0
+margin_bottom = 44.0
+bus = "Master"
+
+[node name="Music" parent="." instance=ExtResource( 2 )]
+margin_top = 48.0
+margin_bottom = 64.0
+bus = "Music"
+
+[node name="Slider" parent="Music" index="1"]
+value = 30.0
+
+[node name="SFX" parent="." instance=ExtResource( 2 )]
+margin_top = 68.0
+margin_bottom = 84.0
+bus = "SFX"
+
+[editable path="Music"]

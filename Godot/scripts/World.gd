@@ -18,8 +18,7 @@ onready var lootTimer = $LootTimer
 onready var dialogueLayer = $DialogueLayer
 onready var battle_sounds = $MultiSoundContainer
 
-onready var lootingSongA = $LootingA
-onready var lootingSongB = $LootingB
+onready var lootingMusic = $LootingMusicPlayer
 onready var lullSongA = $LullA
 onready var lullSongB = $LullB
 
@@ -30,7 +29,7 @@ func _ready():
 #	bag.connect("hero_died", self, "on_hero_died")
 	bag.connect("close", self, "on_bag_closed")
 #	dungeon.connect("start_battle", self, "on_dungeon_start_battle")
-#	dungeon.connect("start_battle_song", self, "on_start_battle_song")
+	dungeon.connect("start_battle_song", self, "on_start_battle_song")
 	on_bag_closed()
 	lullSongB.play()
 	yield(start_dialogue("title"), "completed")
@@ -43,13 +42,13 @@ func _process(delta):
 	
 func _unhandled_input(event):
 	if !zooming:
-		if event.is_action_pressed("open_bag"):
+		if event.is_action_pressed("Open bag"):
 			match current_state:
 				State.LOOT:
 					open_bag()
 					get_tree().set_input_as_handled()
 
-		if event.is_action_pressed("pickup_item"):
+		if event.is_action_pressed("Interact"):
 			match current_state:
 				State.LOOT:
 					if !check_for_item():
@@ -65,16 +64,14 @@ func check_for_item():
 		set_state(State.BAG)
 		var item_id = items[0].id
 		items[0].queue_free()
-		open_bag(false, item_id)
+		open_bag(false, true, item_id)
 		return true
 	else:
 		return false
 
-func open_bag(show_hero=false, item_id: String = ""):
+func open_bag(show_hero=false, show_success=true, item_id: String = ""):
 	if show_hero:
-		bag.show_equipment()
-	get_tree().paused = true
-	Physics2DServer.set_active(true)
+		bag.show_equipment(show_success)
 	
 	if item_id != "":
 		bag.add(item_id)
@@ -93,7 +90,6 @@ func open_bag(show_hero=false, item_id: String = ""):
 func on_bag_closed(items=[]):
 	bag.is_open = false
 	bag.hide_equipment()
-	get_tree().paused = false
 	bag.visible = false
 	dungeon.drop_items_from_player(items)
 	player.show_bag = false
@@ -124,6 +120,9 @@ func start_battle():
 	if first_time:
 		first_time = false
 		yield(start_dialogue("start"), "completed")
+		open_bag(true, false)
+		yield(bag, "close")
+		yield(start_dialogue("start2"), "completed")
 	else:
 #		if lootTimer.time_left > 0:
 #			# confirmation dialogue since time isnt up yet yield answer from player?
@@ -131,6 +130,13 @@ func start_battle():
 #			return
 		open_bag(true)
 		yield(bag, "close")
+	if randi() % 100 <= bag.heroEquipment.evaluate_equipment():
+		pass
+	else:
+		bag.set_hp(bag.current_hp - 1)
+		if bag.current_hp <= 0:
+			game_over()
+			
 	lootTimer.stop()
 	dungeon.blink = false
 	yield(dungeon.force_next_room(), "completed")
@@ -141,10 +147,7 @@ func start_loot():
 	set_state(State.LOOT)
 	lootTimer.start()
 	dungeon.blink = true
-	if randi() % 2 == 0:
-		lootingSongA.play()
-	else:
-		lootingSongB.play()
+	lootingMusic.play()
 
 func start_dialogue(dialogue_name):
 	set_state(State.OTHER)
@@ -162,14 +165,17 @@ func set_state(new_state):
 #	print("Current: %s, Prev: %s " % [State.keys()[current_state], State.keys()[previous_state]])
 
 func on_start_battle_song():
+	lootingMusic.stop()
 	lullSongA.stop()
 	lullSongB.stop()
 	battle_sounds.play()
 
 func _on_LootTimer_timeout():
-	lootingSongA.stop()
-	lootingSongB.stop()
+	lootingMusic.stop()
 	if randi() % 2 == 0:
 		lullSongA.play()
 	else:
 		lullSongB.play()
+
+func game_over():
+	print("Game Over, Score: %d rooms" % Score.room_score)

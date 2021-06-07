@@ -1,6 +1,5 @@
 extends Node2D
 
-const FLOOR_TILES = [0, 2, 3]
 const UNIQUE_ROOM_COUNT = 4
 const ROOM_DISTANCE = 64
 
@@ -44,6 +43,7 @@ func instance_new_room():
 	room_count += 1
 	new_room.id = room_count
 	new_room.warning = warning
+	Score.warning = warning
 	return new_room
 
 func force_next_room():
@@ -68,12 +68,13 @@ func force_next_room():
 	
 	current_corpse = current_room.warning
 	var new_room = instance_new_room()
-	setup_room(new_room)
+	var old_room = setup_room(new_room)
 	hero.visible = true
 	tween = player.move_to(Vector2(player.position.x, current_room.door_exit.y), 1)
 	yield(tween, "tween_completed")
 	player.camera.set_new_limits(new_room.limits)
 	player.position = current_room.door_exit + Vector2(16, 0)
+	old_room.queue_free()
 	Score.room_score += 1
 	print("total rooms: %d" % Score.room_score)
 
@@ -84,11 +85,17 @@ func setup_start_room():
 	starting_room.position = Vector2(0, 0)
 	starting_room.set_room_extents()
 	starting_room.warning = "imp"
+	Score.warning = "imp"
 	
 	player.camera.set_new_limits(starting_room.limits)
 	hero.position = starting_room.door_entrance + Vector2(16, 0)
+	var old_room = current_room
 	current_room = starting_room
-	return starting_room
+	var dagger = ItemConverter.create_ground_item("Dagger")
+	var shield = ItemConverter.create_ground_item("SmallShield")
+	place_item(dagger, current_room.room_map_to_world(Vector2(7, 3)))
+	place_item(shield, current_room.room_map_to_world(Vector2(9, 3)))
+	return old_room
 
 func setup_room(new_room):
 	objectList.add_child(new_room)
@@ -100,10 +107,11 @@ func setup_room(new_room):
 	
 	hero.position = new_room.door_entrance + Vector2(16, 0)
 	hero.collision.disabled = false
+	var old_room = current_room
 	current_room = new_room
 	place_corpses()
-	generate_items(10)
-	return new_room
+	generate_items(7)
+	return old_room
 
 func get_colliding_items():
 	var colliding_items = []
@@ -125,13 +133,13 @@ func generate_items(percentage):
 	ground_tiles.shuffle()
 	var selected_tiles = ground_tiles.slice(0, amount)
 	
-	print("Generating %d items" % selected_tiles.size())
+#	print("Generating %d items" % selected_tiles.size())
 	for tile in selected_tiles:
 		var item = ItemConverter.create_ground_item(ItemLookup.get_random_item_name())
 		var offset = Vector2(randi() % 16 + 8, randi() % 16  + 8)
 		
-		item.position = current_room.room_map_to_world(tile) + offset
-		objectList.add_child(item)
+		var pos = current_room.room_map_to_world(tile) + offset
+		place_item(item, pos)
 		
 func place_corpses():
 	randomize()
@@ -140,7 +148,7 @@ func place_corpses():
 	tiles = tiles.slice(0, max(tiles.size() - (randi() % 6), 1))
 	for tile in tiles:
 		var c = Sprite.new()
-		objectList.add_child(c)
+		current_room.add_child(c)
 		c.position = current_room.room_map_to_world(tile) + Vector2(16, 16)
 		c.texture = load("res://assets/sprites/corpse_" + current_corpse + ".png")
 		c.z_as_relative = false
@@ -157,34 +165,35 @@ func drop_item_from_player(item_id):
 	var angle
 	var pos = player.position + Vector2(0, radius)
 	# get valid item position
-#	var i = 0
-#	while !is_valid_item_position(current_room.to_local(pos)):
-#		angle = deg2rad(randi() % 360)
-#		pos = get_random_circle_point(radius, player.position)
-#		i +=  1
-#		if i >= 360:
-#			radius += 10
+	var i = 0
+	while !is_valid_item_position(current_room.to_local(pos)):
+		angle = deg2rad(randi() % 360)
+		pos = get_random_circle_point(radius, player.position)
+		i +=  1
+		if i >= 360:
+			radius += 10
 
-	ground_item.position = pos
 	ground_item.connect("despawn", self, "on_item_despawn")
-	objectList.add_child(ground_item)
+	place_item(ground_item, pos)
 
 # check if there is a wall at the position
 func is_valid_item_position(local_item_pos):
-	var cell = current_room.is_item_tile(local_item_pos)
-	if FLOOR_TILES.find(cell) != -1:
+	
+	if current_room.is_item_tile(local_item_pos):
 		var occupied = false
 		# check if there already is an item at that spot
 		for item in get_items():
 			if current_room.room_world_to_map(current_room.to_global(local_item_pos)) == current_room.room_world_to_map(item.position):
 				occupied = true
-		# check is the hero is standing in that spot
-		if current_room.room_world_to_map(current_room.to_global(local_item_pos)) == current_room.room_world_to_map(hero.position):
-			occupied = true
 		return !occupied
 	else:
 		return false
-
+		
+func place_item(item: Area2D, pos: Vector2) -> void:
+	item.position = pos
+	objectList.add_child(item)
+	
+	
 func _on_loot_timeout():
 	time_up = true
 	for item in get_items():

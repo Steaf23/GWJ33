@@ -3,6 +3,7 @@ extends TileMap
 const GRID_SIZE = 32
 const MAX_HP = 3
 var current_hp = 3
+var losing = false
 
 var held_item
 var is_open = false
@@ -25,7 +26,7 @@ onready var items = $Items
 func _input(event):
 	if event is InputEventMouseMotion:
 		if held_item != null:
-			var new_pos = (get_global_mouse_position() - held_item.mouse_offset).snapped(Vector2(GRID_SIZE, GRID_SIZE))
+			var new_pos =  (get_global_mouse_position() - held_item.mouse_offset).snapped(Vector2(GRID_SIZE, GRID_SIZE))
 			held_item.position = new_pos
 	if event is InputEventMouseButton:
 		if event.button_index == 1:
@@ -40,13 +41,14 @@ func _input(event):
 			if !event.is_pressed():
 				if held_item != null:
 					held_item.rotateCW()
-	
+
 	if event is InputEventKey:
 		# close & cleanup bag
-		if (event.is_action_pressed("open_bag") || event.is_action_pressed("pickup_item")) && is_open:
+		if (event.is_action_pressed("Open bag") || event.is_action_pressed("Interact")) && is_open:
 			get_tree().set_input_as_handled()
 			var drop_items = get_drop_items()
-#			print("Dropping %s" % [	drop_items])
+			if held_item != null:
+				held_item = null
 			emit_signal("close", drop_items)
 
 func on_bagItem_clicked(item):
@@ -78,21 +80,39 @@ func on_item_equip(bag_item, slot):
 
 func on_unequip_item(item):
 	add(item.id)
+	heroEquipment.evaluate_equipment(Score.warning)
 
-func on_use_potion(potion):
-	if current_hp < MAX_HP:
-		current_hp += 1
-	else:
-		add(ItemConverter.to_bag(potion))
+func set_hp(hp):
+	match hp:
+		-1:
+			hp = 0
+		4:
+			hp = 3
+	current_hp = hp
 	frames.frame = current_hp
 	print("CURRENT HP: %d/%d"% [current_hp, MAX_HP])
 
-func on_equip_evaluate(total):
-	print(total)
+func on_use_potion(potion):
+	if current_hp < MAX_HP:
+		$PotionSound.play()
+		set_hp(current_hp + 1)
+	else:
+		add(potion.id)
 
-func show_equipment():
+func on_equip_evaluate(total):
+	if randi() % 100 <= total:
+		print("WIN")
+		losing = false
+	else:
+		print("LOSE")
+		losing = true
+	print(int(total))
+
+func show_equipment(show_success):
 	if heroEquipment.get_parent() == null:
 		add_child(heroEquipment)
+		heroEquipment.eval_success = show_success
+		heroEquipment.evaluate_equipment()
 
 func hide_equipment():
 	if heroEquipment.get_parent() != null:

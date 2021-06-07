@@ -1,0 +1,45 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scripts/VolumeSlider.gd" type="Script" id=1]
+[ext_resource path="res://resources/Font_small.tres" type="DynamicFont" id=2]
+[ext_resource path="res://assets/sounds/SFX/WAV/New SFX (WAV) - Item Pick-Up.wav" type="AudioStream" id=3]
+
+[node name="VolumeSlider" type="HBoxContainer"]
+margin_right = 205.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( -81.8114, -15.2318 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="."]
+margin_top = 4.0
+margin_right = 100.0
+margin_bottom = 12.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 2 )
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Slider" type="HSlider" parent="."]
+margin_left = 104.0
+margin_right = 205.0
+margin_bottom = 16.0
+rect_pivot_offset = Vector2( -245.089, -87.9358 )
+size_flags_horizontal = 3
+size_flags_vertical = 1
+step = 10.0
+value = 100.0
+tick_count = 10
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="TestSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 3 )
+volume_db = 1.0
+
+[connection signal="value_changed" from="Slider" to="." method="_on_value_changed"]

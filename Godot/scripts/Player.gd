@@ -20,13 +20,13 @@ func _ready():
 func _process(delta):
 	if !automoving && !show_bag && !freeze:
 		var new_movedir = Vector2.ZERO
-		if Input.is_action_pressed("ui_left"):
+		if Input.is_action_pressed("Move left"):
 			new_movedir += Vector2.LEFT
-		if Input.is_action_pressed("ui_right"):
+		if Input.is_action_pressed("Move right"):
 			new_movedir += Vector2.RIGHT
-		if Input.is_action_pressed("ui_up"):
+		if Input.is_action_pressed("Move up"):
 			new_movedir += Vector2.UP
-		if Input.is_action_pressed("ui_down"):
+		if Input.is_action_pressed("Move down"):
 			new_movedir += Vector2.DOWN
 			
 		animationTree.set("parameters/Idle/blend_position", new_movedir)
