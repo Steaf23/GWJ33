@@ -4,7 +4,7 @@
 [ext_resource path="res://scenes/Bag.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scripts/World.gd" type="Script" id=3]
 [ext_resource path="res://assets/sounds/Music/WAV/Looting B1 (30 Seconds) (WAV).wav" type="AudioStream" id=4]
-[ext_resource path="res://scenes/MultiSoundContainer.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/BattleMusic.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/sounds/Music/WAV/Looting A1 (30 Seconds) (WAV).wav" type="AudioStream" id=6]
 [ext_resource path="res://assets/sounds/Music/WAV/Lull A (WAV).wav" type="AudioStream" id=7]
 [ext_resource path="res://assets/sounds/Music/WAV/Lull B (WAV).wav" type="AudioStream" id=8]
@@ -31,16 +31,17 @@ position = Vector2( 0, 8 )
 layer = 3
 
 [node name="LootTimer" type="Timer" parent="."]
-wait_time = 30.0
+wait_time = 29.0
 one_shot = true
 
-[node name="MultiSoundContainer" parent="." instance=ExtResource( 5 )]
+[node name="BattleMusic" parent="." instance=ExtResource( 5 )]
 
 [node name="LootingMusicPlayer" type="Node" parent="."]
 script = ExtResource( 12 )
 
 [node name="LootingA1" type="AudioStreamPlayer" parent="LootingMusicPlayer"]
 stream = ExtResource( 6 )
+bus = "Music"
 
 [node name="LootingA2" type="AudioStreamPlayer" parent="LootingMusicPlayer"]
 stream = ExtResource( 10 )
@@ -65,5 +66,5 @@ bus = "Music"
 [node name="PauseLayer" parent="." instance=ExtResource( 9 )]
 layer = 4
 
-[connection signal="timeout" from="LootTimer" to="DungeonLayer/Dungeon" method="_on_loot_timeout"]
 [connection signal="timeout" from="LootTimer" to="." method="_on_LootTimer_timeout"]
+[connection signal="timeout" from="LootTimer" to="DungeonLayer/Dungeon" method="_on_loot_timeout"]

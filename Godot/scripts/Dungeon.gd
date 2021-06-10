@@ -59,7 +59,7 @@ func force_next_room():
 	current_room.close_door()
 	
 	# duration should be 10 for battle sequence
-	tween = player.move_to(player.position, 2)
+	tween = player.move_to(player.position, 13)
 	# ADD BATTLE MUSIC STUFF HERE
 	emit_signal("start_battle_song")
 	yield(tween, "tween_completed")
@@ -215,6 +215,6 @@ func on_room_add_item(item):
 	item.connect("despawn", self, "on_item_despawn")
 	objectList.add_child(item)
 
-static func get_random_circle_point(radius, origin):
-	var angle = deg2rad(randi() % 360)
+static func get_random_circle_point(radius: float, origin: Vector2):
+	var angle: float = deg2rad(randi() % 360)
 	return Vector2(radius*sin(angle), radius*cos(angle)) + origin

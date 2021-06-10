@@ -17,7 +17,7 @@ config/icon="res://assets/sprites/Bag_Outside.png"
 
 [audio]
 
-default_bus_layout=""
+default_bus_layout="res://resources/bus_layout.tres"
 
 [autoload]
 

@@ -7,8 +7,6 @@ var starter_bonus = 5
 var bonus_falloff = 1
 var eval_success = true
 
-signal evaluate(score)
-
 onready var slots
 onready var score = $Score
 
@@ -17,7 +15,6 @@ func _ready():
 	for slot in slots:
 		slot.connect("unequip_item", get_parent(), "on_unequip_item")
 	slots[3].connect("use_potion", get_parent(), "on_use_potion")
-	connect("evaluate", get_parent(), "on_equip_evaluate")
 	score.text = ""
 
 func evaluate_equipment(enemy_id="default"):
@@ -26,7 +23,6 @@ func evaluate_equipment(enemy_id="default"):
 		total += ItemLookup.get_success_rate(slot.item_id, enemy_id)
 	var percentage = total * 100 / MAX_SCORE
 	
-	emit_signal("evaluate", percentage)
 	score.text = "Success: %d%%" % int(percentage) if eval_success else ""
 	return total
 

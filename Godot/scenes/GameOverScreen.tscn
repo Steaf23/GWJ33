@@ -1,11 +1,14 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://resources/Font01.tres" type="DynamicFont" id=1]
 [ext_resource path="res://assets/sprites/Bag_Outside.png" type="Texture" id=2]
+[ext_resource path="res://scripts/GameOverScreen.gd" type="Script" id=3]
+[ext_resource path="res://assets/sounds/Music/WAV/Menu-Cutscene Loop (WAV).wav" type="AudioStream" id=4]
 
 [node name="GameOverScreen" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
+script = ExtResource( 3 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
@@ -25,6 +28,7 @@ anchor_bottom = 1.0
 margin_left = -112.0
 margin_right = 112.0
 __meta__ = {
+"_edit_lock_": true,
 "_edit_use_anchors_": false
 }
 
@@ -68,3 +72,21 @@ size_flags_vertical = 3
 __meta__ = {
 "_edit_use_anchors_": false
 }
+
+[node name="Score" type="Label" parent="."]
+margin_left = 177.0
+margin_top = 74.0
+margin_right = 258.0
+margin_bottom = 98.0
+custom_fonts/font = ExtResource( 1 )
+text = "Room:"
+align = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 4 )
+bus = "Music"
+
+[connection signal="pressed" from="VBoxContainer/Button" to="." method="_on_Button_pressed"]

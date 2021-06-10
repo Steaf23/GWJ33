@@ -7,7 +7,7 @@
 			"vampire": 2,
 			"elemental": 2,
 			"ghost": 2,
-			"imp": 6,
+			"imp": 7,
 			"robot": 4,
 			"ent": 3
 		}
@@ -22,7 +22,7 @@
 			"ghost": 4,
 			"imp": 1,
 			"robot": 2,
-			"ent": 6
+			"ent": 7
 		}
 	},
 	"Dagger": {
@@ -30,7 +30,7 @@
 		"rarity":10,
 		"success": {
 			"default": 0,
-			"vampire": 6,
+			"vampire": 7,
 			"elemental": 1,
 			"ghost": 2,
 			"imp": 1,
@@ -60,7 +60,7 @@
 			"elemental": 2,
 			"ghost": 1,
 			"imp": 5,
-			"robot": 6,
+			"robot": 7,
 			"ent": 3
 		}
 	},
@@ -96,7 +96,7 @@
 		"success": {
 			"default": 0,
 			"vampire": 1,
-			"elemental": 6,
+			"elemental": 7,
 			"ghost": 5,
 			"imp": 4,
 			"robot": 2,
@@ -254,7 +254,7 @@
 			"vampire": 2,
 			"elemental": 2,
 			"ghost": 2,
-			"imp": 6,
+			"imp": 7,
 			"robot": 2,
 			"ent": 2
 		}
@@ -268,7 +268,7 @@
 			"elemental": 2,
 			"ghost": 2,
 			"imp": 2,
-			"robot": 6,
+			"robot": 7,
 			"ent": 2
 		}
 	},
@@ -279,7 +279,7 @@
 			"default": 0,
 			"vampire": 2,
 			"elemental": 2,
-			"ghost": 6,
+			"ghost": 7,
 			"imp": 2,
 			"robot": 2,
 			"ent": 2
@@ -290,7 +290,7 @@
 		"rarity":5,
 		"success": {
 			"default": 0,
-			"vampire": 6,
+			"vampire": 7,
 			"elemental": 2,
 			"ghost": 2,
 			"imp": 2,
@@ -308,7 +308,7 @@
 			"ghost": 2,
 			"imp": 2,
 			"robot": 2,
-			"ent": 6
+			"ent": 7
 		}
 	},
 	"NecklaceRuby": {
@@ -317,7 +317,7 @@
 		"success": {
 			"default": 0,
 			"vampire": 2,
-			"elemental": 6,
+			"elemental": 7,
 			"ghost": 2,
 			"imp": 2,
 			"robot": 2,

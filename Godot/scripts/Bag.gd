@@ -99,15 +99,6 @@ func on_use_potion(potion):
 	else:
 		add(potion.id)
 
-func on_equip_evaluate(total):
-	if randi() % 100 <= total:
-		print("WIN")
-		losing = false
-	else:
-		print("LOSE")
-		losing = true
-	print(int(total))
-
 func show_equipment(show_success):
 	if heroEquipment.get_parent() == null:
 		add_child(heroEquipment)

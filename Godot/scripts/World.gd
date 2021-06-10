@@ -9,6 +9,7 @@ var current_state = State.LOOT setget set_state
 
 var first_time = true
 var zooming = false
+var victory = true
 
 onready var dungeon = $DungeonLayer/Dungeon
 onready var player = $DungeonLayer/Dungeon/YSort/Player
@@ -16,7 +17,7 @@ onready var bagLayer = $BagLayer
 onready var bag = $BagLayer/Bag
 onready var lootTimer = $LootTimer
 onready var dialogueLayer = $DialogueLayer
-onready var battle_sounds = $MultiSoundContainer
+onready var battle_sounds = $BattleMusic
 
 onready var lootingMusic = $LootingMusicPlayer
 onready var lullSongA = $LullA
@@ -26,6 +27,7 @@ func _enter_tree():
 	randomize()
 	
 func _ready():
+	Score.room_score = 0
 #	bag.connect("hero_died", self, "on_hero_died")
 	bag.connect("close", self, "on_bag_closed")
 #	dungeon.connect("start_battle", self, "on_dungeon_start_battle")
@@ -118,7 +120,6 @@ func on_hero_died():
 func start_battle():
 	set_state(State.OTHER)
 	if first_time:
-		first_time = false
 		yield(start_dialogue("start"), "completed")
 		open_bag(true, false)
 		yield(bag, "close")
@@ -130,16 +131,21 @@ func start_battle():
 #			return
 		open_bag(true)
 		yield(bag, "close")
-	if randi() % 100 <= bag.heroEquipment.evaluate_equipment():
+	if randi() % 100 <= bag.heroEquipment.evaluate_equipment() + 10 or first_time:
+		victory = true
 		pass
 	else:
 		bag.set_hp(bag.current_hp - 1)
-		if bag.current_hp <= 0:
-			game_over()
+		victory = false
 			
 	lootTimer.stop()
 	dungeon.blink = false
 	yield(dungeon.force_next_room(), "completed")
+	if bag.current_hp <= 0:
+			game_over()
+		
+	if first_time:
+		first_time = false
 	start_loot()
 
 func start_loot():
@@ -168,7 +174,7 @@ func on_start_battle_song():
 	lootingMusic.stop()
 	lullSongA.stop()
 	lullSongB.stop()
-	battle_sounds.play()
+	battle_sounds.play(victory)
 
 func _on_LootTimer_timeout():
 	lootingMusic.stop()
@@ -178,4 +184,4 @@ func _on_LootTimer_timeout():
 		lullSongB.play()
 
 func game_over():
-	print("Game Over, Score: %d rooms" % Score.room_score)
+	get_tree().change_scene("res://scenes/GameOverScreen.tscn")
